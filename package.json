@@ -1,0 +1,30 @@
+{
+  "name": "node-koa",
+  "version": "1.0.0",
+  "description": "api",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node --harmony index.js",
+    "dev": "nodemon --exec \"NODE_ENV=development node --harmony index.js\"",
+    "updatedb": "node ./node_modules/geoip-lite/scripts/updatedb.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkchao/node-koa.git"
+  },
+  "keywords": [
+    "node",
+    "koa"
+  ],
+  "author": "jkchao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkchao/node-koa/issues"
+  },
+  "homepage": "https://github.com/jkchao/node-koa#readme",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "mongoose": "^4.11.7",
+    "redis": "^2.8.0"
+  }
+}
