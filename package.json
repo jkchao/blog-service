@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/jkchao/node-koa#readme",
   "dependencies": {
+    "app-module-path": "^2.2.0",
     "koa": "^2.3.0",
     "mongoose": "^4.11.7",
     "redis": "^2.8.0"
