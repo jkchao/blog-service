@@ -25,7 +25,11 @@
   "dependencies": {
     "app-module-path": "^2.2.0",
     "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-helmet": "^3.2.0",
     "mongoose": "^4.11.7",
-    "redis": "^2.8.0"
+    "mongoose-paginate": "^5.0.3",
+    "redis": "^2.8.0",
+    "yargs": "^8.0.2"
   }
 }
