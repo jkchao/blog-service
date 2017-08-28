@@ -29,6 +29,8 @@ app.use(koaBody({
   textLimit: '10mb'
 }));
 
+routes(app)
+
 // start server
 http.createServer(app.callback()).listen(config.APP.PORT, () => {
 	console.log(`node-Koa Run！port at ${config.APP.PORT}`)

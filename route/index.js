@@ -3,6 +3,7 @@
 const config = require('../config');
 const controller = require('../controller');
 const authIsVerified = require('../utils/auth');
+const route = require('koa-route')
 const routes = app => {
 
 	// 拦截器
