@@ -6,7 +6,7 @@
 
 const mongoose = require('../mongodb').mongoose;
 const autoIncrement = require('mongoose-auto-increment');
-// const mongoosePaginate = require('mongoose-paginate');
+const mongoosePaginate = require('mongoose-paginate');
 
 // 自增ID初始化
 autoIncrement.initialize(mongoose.connection);
@@ -29,7 +29,7 @@ const tagSchema = new mongoose.Schema({
 });
 
 // 翻页 + 自增ID插件配置
-// tagSchema.plugin(mongoosePaginate)
+tagSchema.plugin(mongoosePaginate)
 tagSchema.plugin(autoIncrement.plugin, {
 	model: 'Tag',
 	field: 'id',

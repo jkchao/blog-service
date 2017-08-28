@@ -1,7 +1,7 @@
 const argv = require('yargs').argv;
 
 exports.MONGODB = {
-	uri: `mongodb://127.0.0.1:${argv.dbport || '27017'}/NodePress`,
+	uri: `mongodb://127.0.0.1:${argv.dbport || '27017'}/my_blog`,
 	username: argv.db_username || 'DB_username',
 	password: argv.db_password || 'DB_password'
 }
@@ -42,7 +42,7 @@ exports.APP = {
 }
 
 exports.INFO = {
-	name: 'NodePress',
+	name: 'by_blog',
 	version: '1.1.0',
 	author: 'Surmon',
 	site: 'https://surmon.me',

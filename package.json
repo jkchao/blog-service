@@ -24,6 +24,7 @@
   "homepage": "https://github.com/jkchao/node-koa#readme",
   "dependencies": {
     "app-module-path": "^2.2.0",
+    "jsonwebtoken": "^7.4.3",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-helmet": "^3.2.0",

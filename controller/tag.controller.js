@@ -5,14 +5,14 @@
 */
 
 const redis = require('../redis');
-const Tag = require('model/tag.model');
-const Article = require('np-model/article.model');
-const authIsVerified = require('np-utils/np-auth');
+const Tag = require('../model/tag.model');
+const Article = require('../model/article.model');
+const authIsVerified = require('../utils/auth');
 // const buildSiteMap = require('np-utils/np-sitemap');
 // const { baiduSeoPush, baiduSeoUpdate } = require('np-utils/np-baidu-seo-push');
-const { handleRequest, handleError, handleSuccess, handleThrottle } = require('utils/np-handle');
+const { handleRequest, handleError, handleSuccess, handleThrottle } = require('../utils/handle');
 const tagCtrl = { list: {}, item: {} };
-const config = require('config');
+const config = require('../config');
 
 let canGetTags = true;
 

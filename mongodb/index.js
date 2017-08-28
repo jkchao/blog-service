@@ -1,24 +1,26 @@
-'use strict';
-
-import mongoose from 'mongoose';
-import config from '../config';
-mongoose.connect(config.Mongo.url);
+// 数据库模块
+const mongoose = require('mongoose');
+const config	 = require('../config');
 mongoose.Promise = global.Promise;
 
-const db = mongoose.connection;
+exports.mongoose = mongoose;
 
-db.once('open' ,() => {
-	console.log('连接数据库成功')
-});
+// 数据库
+exports.connect = () => {
 
-db.on('error', function (error) {
-    console.error('Error in MongoDb connection: ' + error);
-    mongoose.disconnect();
-});
+	// 连接数据库
+	mongoose.connect(config.MONGODB.uri, { useMongoClient: true});
 
-db.on('close', function () {
-    console.log('数据库断开，重新连接数据库');
-    mongoose.connect(config.url, { server:{ auto_reconnect:true } });
-});
+	// 连接错误
+	mongoose.connection.on('error', error => {
+		console.log('数据库连接失败!', error);
+	})
 
-export default db;
+	// 连接成功
+	mongoose.connection.once('open', () => {
+		console.log('数据库连接成功!');
+	})
+
+	return mongoose;
+};
+
