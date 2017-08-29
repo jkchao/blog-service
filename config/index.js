@@ -46,5 +46,5 @@ exports.INFO = {
 	version: '1.1.0',
 	author: 'Surmon',
 	site: 'https://surmon.me',
-	powered: ['Vue2', 'Nuxt.js', 'React', 'Angular4', 'Bootstrap4', 'jQuery', 'Video.js', 'Node.js', 'MongoDB', 'Express', 'Nginx']
+	powered: ['Vue2', 'Nuxt.js', 'Node.js', 'MongoDB', 'koa', 'Nginx']
 }
