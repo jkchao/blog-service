@@ -65,8 +65,10 @@ router.get('/', (ctx, next) => {
 	ctx.response.body = config.INFO;
 });
 
+router.post('/', controller.login)
+
 // // Auth
-// app.all('/auth', controller.auth);
+// router.get('/auth', controller.auth);
 
 // // 七牛Token
 // app.all('/qiniu', controller.qiniu);

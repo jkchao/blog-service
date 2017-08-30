@@ -16,7 +16,7 @@ exports.QINIU = {
 
 exports.AUTH = {
 	data: argv.auth_data || { user: 'root' },
-	jwtTokenSecret: argv.auth_key || 'nodepress',
+	jwtTokenSecret: argv.auth_key || 'my_blog',
 	defaultPassword: argv.auth_default_password || 'root'
 }
 

@@ -4,7 +4,7 @@
 exports.tag = require('./tag.controller');
 exports.heros = require('./heros.controller')
 // exports.like = require('./like.controller');
-// exports.auth = require('./auth.controller');
+exports.auth = require('./auth.controller');
 // exports.music = require('./music.controller');
 // exports.qiniu = require('./qiniu.controller');
 // exports.option = require('./option.controller');
@@ -13,3 +13,5 @@ exports.heros = require('./heros.controller')
 exports.article = require('./article.controller');
 // exports.category = require('./category.controller');
 // exports.announcement = require('./announcement.controller');
+
+exports.login = require('./login.controller');
