@@ -1,6 +1,7 @@
 // 数据库模块
 const mongoose = require('mongoose');
 const config	 = require('../config');
+
 mongoose.Promise = global.Promise;
 
 exports.mongoose = mongoose;

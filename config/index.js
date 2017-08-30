@@ -17,6 +17,7 @@ exports.QINIU = {
 exports.AUTH = {
 	data: argv.auth_data || { user: 'root' },
 	jwtTokenSecret: argv.auth_key || 'my_blog',
+	defaultUsername: argv.auth_default_username || 'jkcao',
 	defaultPassword: argv.auth_default_password || 'root'
 }
 

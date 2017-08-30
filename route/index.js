@@ -36,7 +36,8 @@ router.all('*', async (ctx, next) => {
 		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
-			ctx.response.status(403).body = { code: 0, message: '来者何人！' }
+			ctx.status = 403
+			ctx.response.body = { code: 0, message: '来者何人！' }
 			return false;
 		};
 	};
@@ -52,7 +53,8 @@ router.all('*', async (ctx, next) => {
 
 	// 拦截所有非管路员的非get请求
 	if (!authIsVerified(ctx.request) && !Object.is(ctx.request.method, 'GET')) {
-		ctx.response.status(401).body = { code: 0, message: '来者何人！' }
+		ctx.status = 401
+		ctx.response.body = { code: 0, message: '来者何人！' }
 		return false;
 	};
 
@@ -65,7 +67,7 @@ router.get('/', (ctx, next) => {
 	ctx.response.body = config.INFO;
 });
 
-router.post('/', controller.login)
+router.all('/auth', controller.auth)
 
 // // Auth
 // router.get('/auth', controller.auth);

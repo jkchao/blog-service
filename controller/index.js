@@ -14,4 +14,4 @@ exports.article = require('./article.controller');
 // exports.category = require('./category.controller');
 // exports.announcement = require('./announcement.controller');
 
-exports.login = require('./login.controller');
+// exports.login = require('./login.controller');

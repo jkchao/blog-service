@@ -12,6 +12,11 @@ const authSchema = new mongoose.Schema({
 	// 名字
 	name: { type: String, default: '' },
 
+	username: {
+		type: String,
+		default: config.AUTH.defaultUsername
+	},
+
 	// 签名
 	slogan: { type: String, default: '' },
 
@@ -26,4 +31,5 @@ const authSchema = new mongoose.Schema({
 });
 
 const Auth = mongoose.model('Auth', authSchema);
+
 module.exports = Auth;
