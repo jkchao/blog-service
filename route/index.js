@@ -18,7 +18,7 @@ router.all('*', async (ctx, next) => {
 		ctx.response.set('Access-Control-Allow-Origin', origin);
 	};
 	ctx.response.set({
-		// 'Access-Control-Allow-Headers': 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
+		'Access-Control-Allow-Headers': 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
 		'Access-Control-Allow-Methods': 'PUT,PATCH,POST,GET,DELETE,OPTIONS',
 		'Access-Control-Max-Age': '1728000',
 		'Content-Type': 'application/json;charset=utf-8',
@@ -27,7 +27,7 @@ router.all('*', async (ctx, next) => {
 
 	// OPTIONS
 	if (ctx.request.method == 'OPTIONS') {
-		ctx.response.sendStatus(200);
+		ctx.response.status = 200;
 		return false;
 	};
 
@@ -61,7 +61,7 @@ router.all('*', async (ctx, next) => {
 		return false;
 	};
 
-	await next();
+	next();
 	// this.body = 'hello world'
 });
 

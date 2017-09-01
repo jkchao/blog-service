@@ -11,12 +11,13 @@ exports.handleRequest = ({ ctx, controller }) => {
 };
 
 exports.handleError = ({ ctx, message = '请求失败', err = null }) => {
+	console.log(ctx.resp)
 	ctx.body = { code: 0, message, debug: err };
 };
 
 exports.handleSuccess = ({ ctx, message = '请求成功', result = null }) => {
-	console.log(result)
-	ctx.body = { code: 1, message, result };
+	console.log(ctx.response)
+	ctx.response.body = { code: 1, message, result };
 };
 
 exports.handleThrottle = (method, delay) => {
