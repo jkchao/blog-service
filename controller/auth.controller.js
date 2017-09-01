@@ -13,10 +13,11 @@ const {
   handleSuccess,
   handleThrottle
 } = require("../utils/handle");
+
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-const loginCtrl = {};
+const authCtrl = { login: {}, user: {} };
 
 // md5 编码
 const md5Decode = pwd => {
@@ -26,27 +27,21 @@ const md5Decode = pwd => {
     .digest("hex");
 };
 
-loginCtrl.POST = async ctx => {
+authCtrl.login.POST = async ctx => {
   const { username, password } = ctx.request.body;
-  console.log({ username, password });
-  let user = await Auth.findOne({ username })
-    .exec()
-    .catch(err => handleError({ ctx, err, message: "服务器内部错误！" }));
-  console.log(user);
+  const user = await Auth.findOne({ username })
+  .catch(err => ctx.throw(500, '服务器内部错误'));
   if (user) {
-    const token = jwt.sign({
-      name: user.name,
-      password: user.password,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60
-    });
-    handleSuccess({ ctx, result: { token }, message: "登陆成功" });
-  } else handleError({ ctx, err, message: "来者何人!" });
+    if (user.password === md5Decode(password)) {
+      const token = jwt.sign({
+        name: user.name,
+        password: user.password,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60
+      }, config.AUTH.jwtTokenSecret);
+      handleSuccess({ ctx, result: { token }, message: "登陆成功" });
+    } else handleError({ ctx, message: "密码错误!" });
+  } else handleError({ ctx, message: "来者何人!" });
 };
 
-loginCtrl.GET = async ctx => {
-  ctx.response.body = "111";
-};
-
-module.exports = ctx => {
-  handleRequest({ ctx, controller: loginCtrl });
-};
+exports.login = ctx => handleRequest({ ctx, controller: authCtrl.login });
+exports.user = ctx => handleRequest({ ctx, controller: authCtrl.user });

@@ -24,6 +24,7 @@
   "homepage": "https://github.com/jkchao/node-koa#readme",
   "dependencies": {
     "app-module-path": "^2.2.0",
+    "bluebird": "^3.5.0",
     "crypto": "^1.0.1",
     "jsonwebtoken": "^7.4.3",
     "koa": "^2.3.0",

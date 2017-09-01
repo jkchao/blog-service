@@ -17,8 +17,8 @@ exports.QINIU = {
 exports.AUTH = {
 	data: argv.auth_data || { user: 'root' },
 	jwtTokenSecret: argv.auth_key || 'my_blog',
-	defaultUsername: argv.auth_default_username || 'jkcao',
-	defaultPassword: argv.auth_default_password || 'root'
+	defaultUsername: argv.auth_default_username || 'jkchao',
+	defaultPassword: argv.auth_default_password || '123456'
 }
 
 exports.BAIDU = {
@@ -37,7 +37,7 @@ exports.AKISMET = {
 }
 
 exports.APP = {
-	ROOT_PATH: __dirname,
+	ROOT_PATH: '/api',
 	LIMIT: 16,
 	PORT: 8000
 }

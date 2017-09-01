@@ -4,6 +4,7 @@ const config = require('../config');
 const controller = require('../controller');
 const authIsVerified = require('../utils/auth');
 const Router = require('koa-router');
+const { handleError } = require('../utils/handle');
 
 const router = new Router();
 
@@ -37,6 +38,7 @@ router.all('*', async (ctx, next) => {
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
 			ctx.status = 403
+			// handleError({ ctx, message: '来者何人' })
 			ctx.response.body = { code: 0, message: '来者何人！' }
 			return false;
 		};
@@ -45,8 +47,9 @@ router.all('*', async (ctx, next) => {
 	// 排除auth的post请求 && 评论的post请求 && like请求
 	const isLike = Object.is(ctx.request.url, '/like') && Object.is(ctx.request.method, 'POST');
 	const isPostAuth = Object.is(ctx.request.url, '/auth') && Object.is(ctx.request.method, 'POST');
+	const isLogin = Object.is(ctx.request.url, '/login') && Object.is(ctx.request.method, 'POST');
 	const isPostComment = Object.is(ctx.request.url, '/comment') && Object.is(ctx.request.method, 'POST');
-	if (isLike || isPostAuth || isPostComment) {
+	if (isLike || isPostAuth || isPostComment || isLogin) {
 		next();
 		return false;
 	};
@@ -63,11 +66,13 @@ router.all('*', async (ctx, next) => {
 });
 
 // Api
-router.get('/', (ctx, next) => {
-	ctx.response.body = config.INFO;
-});
+// router.get('/', (ctx, next) => {
+// 	ctx.response.body = config.INFO;
+// });
 
-router.all('/auth', controller.auth)
+router.post('/login', controller.auth.login)
+
+// router.get('/auth', UserController.auth)
 
 // // Auth
 // router.get('/auth', controller.auth);

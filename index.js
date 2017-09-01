@@ -7,6 +7,7 @@ const koaBody = require('koa-body'); // post body 解析
 const helmet = require('koa-helmet'); // 安全相关
 const mongoosePaginate = require('mongoose-paginate');
 const cors = require('koa-cors'); // 跨域
+const initAdmin = require('./middlewares/initAdmin')
 // require('app-module-path').addPath(__dirname + '/');
 
 const mongodb = require('./mongodb');
@@ -30,6 +31,8 @@ mongoosePaginate.paginate.options = {
 // }))
 
 // middleware
+app.use(initAdmin);
+
 app.use(helmet())
 app.use(koaBody({
   jsoinLimit: '10mb',
@@ -37,8 +40,9 @@ app.use(koaBody({
   textLimit: '10mb'
 }));
 
-// routes(app)
-app.use(router.routes())
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
 
 // start server
 http.createServer(app.callback()).listen(config.APP.PORT, () => {

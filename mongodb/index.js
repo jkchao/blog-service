@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const config	 = require('../config');
 
 mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise = require('bluebird')
 
 exports.mongoose = mongoose;
 
@@ -24,4 +25,3 @@ exports.connect = () => {
 
 	return mongoose;
 };
-
