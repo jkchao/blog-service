@@ -13,7 +13,6 @@ exports.handleError = ({ ctx, message = '请求失败', err = null }) => {
 
 exports.handleSuccess = ({ ctx, message = '请求成功', result = null }) => {
 	ctx.response.body = { code: 1, message, result };
-	console.log(ctx.response)
 };
 
 exports.handleThrottle = (method, delay) => {

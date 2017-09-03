@@ -24,8 +24,7 @@ module.exports = async (ctx, next) => {
     if(result.length === 0){
         let user = new Auth({
             username,
-            password,
-            createTime: new Date()
+            password
         });
         await user
             .save()

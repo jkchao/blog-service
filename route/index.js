@@ -14,7 +14,11 @@ router
 		.get('/', (ctx, next) => {
 			ctx.response.body = config.INFO;
 		})
+
+		.get('/auth', controller.auth.user) // 用户信息
 		.post('/login', controller.auth.login) // 登录
+
+		.get('/option', controller.option) // 网站信息
 
 
 

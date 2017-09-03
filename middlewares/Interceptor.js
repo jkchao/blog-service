@@ -35,10 +35,10 @@ module.exports = async (ctx, next) => {
 	};
 
 	// 排除auth的post请求 && 评论的post请求 && like请求
-	const isLike = Object.is(ctx.request.url, '/like') && Object.is(ctx.request.method, 'POST');
-	const isPostAuth = Object.is(ctx.request.url, '/auth') && Object.is(ctx.request.method, 'POST');
+	const isLike = Object.is(ctx.request.url, '/api/like') && Object.is(ctx.request.method, 'POST');
+	const isPostAuth = Object.is(ctx.request.url, '/api/auth') && Object.is(ctx.request.method, 'POST');
 	const isLogin = Object.is(ctx.request.url, '/api/login') && Object.is(ctx.request.method, 'POST');
-	const isPostComment = Object.is(ctx.request.url, '/comment') && Object.is(ctx.request.method, 'POST');
+	const isPostComment = Object.is(ctx.request.url, '/api/comment') && Object.is(ctx.request.method, 'POST');
 	if (isLike || isPostAuth || isPostComment || isLogin) {
 		await next();
 		return false;
@@ -47,7 +47,7 @@ module.exports = async (ctx, next) => {
 	// 拦截所有非管路员的非get请求
 	if (!authIsVerified(ctx.request) && !Object.is(ctx.request.method, 'GET')) {
 		ctx.status = 401
-		ctx.response.body = { code: 0, message: '来者何人！' }
+		ctx.response.body = { code: -2, message: '来者何人！' }
 		return false;
 	};
 
