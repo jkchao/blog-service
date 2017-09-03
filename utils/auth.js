@@ -23,7 +23,9 @@ const authIsVerified = req => {
 			if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
 				return true;
 			}
-		} catch (err) {}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 	return false;
 };

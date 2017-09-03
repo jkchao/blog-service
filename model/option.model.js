@@ -15,10 +15,10 @@ const optionSchema = new mongoose.Schema({
 	sub_title:	{ type: String, required: true },
 
 	// 关键字
-	keywords: [{ type: String }],
+	keyword: { type: String },
 
 	// 网站描述
-	des: String,
+	descript: String,
 
 	// 站点地址
 	url: { type: String, required: true },
@@ -30,7 +30,7 @@ const optionSchema = new mongoose.Schema({
 	icp: String,
 
 	// 搜索引擎ping
-	ping_sites: [{ type: String, validate: /\S+/ }],
+	// ping_sites: [{ type: String, validate: /\S+/ }],
 
 	// 其他元信息
 	meta: {

@@ -17,8 +17,10 @@ router
 
 		.get('/auth', controller.auth.user) // 用户信息
 		.post('/login', controller.auth.login) // 登录
+		.put('/auth', controller.auth.user) // 修改用户信息
 
 		.get('/option', controller.option) // 网站信息
+		.put('/option', controller.option) // 修改网站信息
 
 
 

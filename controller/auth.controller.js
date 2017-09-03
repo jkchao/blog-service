@@ -27,16 +27,18 @@ const md5Decode = pwd => {
     .digest("hex");
 };
 
+
+// 登录
 authCtrl.login.POST = async ctx => {
   const { username, password } = ctx.request.body;
-  const user = await Auth
+  const auth = await Auth
               .findOne({ username })
               .catch(err => ctx.throw(500, '服务器内部错误'));
-  if (user) {
-    if (user.password === md5Decode(password)) {
+  if (auth) {
+    if (auth.password === md5Decode(password)) {
       const token = jwt.sign({
-        name: user.name,
-        password: user.password,
+        name: auth.name,
+        password: auth.password,
         exp: Math.floor(Date.now() / 1000) + 60 * 60
       }, config.AUTH.jwtTokenSecret);
       handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + 60 * 60 }, message: "登陆成功" });
@@ -44,11 +46,28 @@ authCtrl.login.POST = async ctx => {
   } else handleError({ ctx, message: "来者何人!" });
 };
 
+// 获取用户信息
 authCtrl.user.GET = async ctx => {
-  const user = await Auth
+  const auth = await Auth
               .findOne({}, 'name username slogan gravatar')
               .catch(err => ctx.throw(500, '服务器内部错误'));
-  handleSuccess({ ctx, result: user, message: '获取用户资料成功'})
+  handleSuccess({ ctx, result: auth, message: '获取用户资料成功'})
+}
+
+// 修改用户信息
+authCtrl.user.PUT = async ctx => {
+  const { _id, name, username, slogan, gravatar, oldPassword, newPassword } = ctx.request.body
+  const _auth = await Auth
+                .findOne({}, '_id name slogan gravatar password')
+                .catch(err => ctx.throw(500, '服务器内部错误'))
+  if (_auth.password !== md5Decode(oldPassword)) handleError({ ctx, message: "密码错误!" })
+  else {
+    const password = newPassword === '' ? oldPassword : newPassword
+    let auth = await Auth
+              .findByIdAndUpdate(_id, { _id, name, username, slogan, gravatar, password: md5Decode(password) }, { new: true })
+              .catch(err => ctx.throw(500, '服务器内部错误'))
+    handleSuccess({ ctx, result: auth, message: '修改用户资料成功'})
+  }
 }
 
 exports.login = ctx => handleRequest({ ctx, controller: authCtrl.login });
