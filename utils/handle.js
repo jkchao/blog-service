@@ -3,21 +3,17 @@
 exports.handleRequest = ({ ctx, controller }) => {
 	const method = ctx.request.method;
 	const support = !!controller[method];
-	support && controller[method](ctx);
-	// support || res.status(405).jsonp({ code: 0, message: '不支持该请求类型！' })
-	// if (support || ctx.status === 405) {
-	// 	ctx.body = { code: 0, message: '不支持该请求类型！' }
-	// }
+	if (support) return controller[method](ctx)
+	else return ctx.body = { code: 0, message: '不支持请求类型' }
 };
 
 exports.handleError = ({ ctx, message = '请求失败', err = null }) => {
-	console.log(ctx.resp)
 	ctx.body = { code: 0, message, debug: err };
 };
 
 exports.handleSuccess = ({ ctx, message = '请求成功', result = null }) => {
-	console.log(ctx.response)
 	ctx.response.body = { code: 1, message, result };
+	console.log(ctx.response)
 };
 
 exports.handleThrottle = (method, delay) => {

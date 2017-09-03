@@ -7,7 +7,8 @@ const koaBody = require('koa-body'); // post body 解析
 const helmet = require('koa-helmet'); // 安全相关
 const mongoosePaginate = require('mongoose-paginate');
 const cors = require('koa-cors'); // 跨域
-const initAdmin = require('./middlewares/initAdmin')
+const initAdmin = require('./middlewares/initAdmin');
+const Interceptor = require('./middlewares/Interceptor')
 // require('app-module-path').addPath(__dirname + '/');
 
 const mongodb = require('./mongodb');
@@ -23,14 +24,16 @@ mongoosePaginate.paginate.options = {
 	limit: config.APP.LIMIT
 };
 
-// app.use(cors({
-//   maxAge: 1728000,
-//   // credentials: true,
-//   methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
-//   headers: 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With'
-// }))
-
 // middleware
+app.use(Interceptor)
+
+// 404
+app.use(async (ctx, next) => {
+  await next()
+  if (ctx.status === 404) ctx.body = { code: 0, message: '无效的api请求'}  
+})
+
+
 app.use(initAdmin);
 
 app.use(helmet())
