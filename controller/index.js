@@ -2,11 +2,11 @@
 // API分发至控制器
 
 exports.tag = require('./tag.controller');
-exports.heros = require('./heros.controller')
+exports.heros = require('./heros.controller');
 // exports.like = require('./like.controller');
 exports.auth = require('./auth.controller');
 // exports.music = require('./music.controller');
-// exports.qiniu = require('./qiniu.controller');
+exports.qiniu = require('./qiniu.controller');
 exports.option = require('./option.controller');
 // exports.sitemap = require('./sitemap.controller');
 // exports.comment = require('./comment.controller');

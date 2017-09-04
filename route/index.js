@@ -9,6 +9,8 @@ const { handleError } = require('../utils/handle');
 const router = new Router({
 	prefix: config.APP.ROOT_PATH
 });
+
+
 // Api
 router
 		.get('/', (ctx, next) => {
@@ -22,18 +24,8 @@ router
 		.get('/option', controller.option) // 网站信息
 		.put('/option', controller.option) // 修改网站信息
 
+		.get('/qiniu', controller.qiniu) // 七牛 upToken
 
-
-// router.get('/auth', UserController.auth)
-
-// // Auth
-// router.get('/auth', controller.auth);
-
-// // 七牛Token
-// app.all('/qiniu', controller.qiniu);
-
-// 全局option
-// router.all('/option', controller.option);
 
 // // sitemap
 // app.get('/sitemap.xml', controller.sitemap);
