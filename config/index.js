@@ -27,13 +27,13 @@ exports.BAIDU = {
 }
 
 exports.EMAIL = {
-	account: argv.email_account || 'your email address like : admin@surmon.me',
+	account: argv.email_account || '',
 	password: argv.email_password || 'your email password'
 }
 
 exports.AKISMET = {
 	key: argv.akismet_key || 'your akismet Key',
-	blog: argv.akismet_blog || 'your akismet blog site, like: https://surmon.me'
+	blog: argv.akismet_blog || 'your akismet blog site, like'
 }
 
 exports.APP = {
@@ -46,6 +46,6 @@ exports.INFO = {
 	name: 'by_blog',
 	version: '1.1.0',
 	author: 'Surmon',
-	site: 'https://surmon.me',
+	site: '',
 	powered: ['Vue2', 'Nuxt.js', 'Node.js', 'MongoDB', 'koa', 'Nginx']
 }
