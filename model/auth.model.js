@@ -34,13 +34,6 @@ const authSchema = new mongoose.Schema({
 	}
 });
 
-// authSchema.plugin(autoIncrement.plugin, {
-// 	model: 'Tag',
-// 	field: 'id',
-// 	startAt: 1,
-// 	incrementBy: 1
-// });
-
 const Auth = mongoose.model('Auth', authSchema);
 
 module.exports = Auth;
