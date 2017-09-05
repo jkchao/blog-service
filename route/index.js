@@ -26,6 +26,8 @@ router
 
 		.get('/qiniu', controller.qiniu) // 七牛 upToken
 
+		.get('/heros', controller.heros.list) // 英雄榜列表
+
 
 // // sitemap
 // app.get('/sitemap.xml', controller.sitemap);

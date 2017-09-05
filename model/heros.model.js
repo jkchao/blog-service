@@ -26,17 +26,31 @@ const herosSchema = new mongoose.Schema({
   // blog
   blog: String,
 
-  // 状态 1 待审核，2 审核通过， 3 审核不通过
-  state: { type: Number, default: 1 },
+  // 状态  0 全部 1 待审核，2 审核通过， 3 审核不通过
+	state: { type: Number, default: 0 },
+	
+	// ip
+	ip: { type: String },
 
+	// range
+	range: { type: String },
+
+	// ip 物理地址
+	city: { type: String },
+	range: { type: String },
+	country: { type: String },
+
+	// 用户ua
+	agent: { type: String, validate: /\S+/ },
+	
 	// 发布日期
 	create_at: { type: Date, default: Date.now }
 
 });
 
 // 翻页 + 自增ID插件配置
-tagSchema.plugin(mongoosePaginate)
-heros.plugin(autoIncrement.plugin, {
+herosSchema.plugin(mongoosePaginate)
+herosSchema.plugin(autoIncrement.plugin, {
 	model: 'Heros',
 	field: 'id',
 	startAt: 1,
