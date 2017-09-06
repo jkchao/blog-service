@@ -26,7 +26,7 @@ const herosSchema = new mongoose.Schema({
   // blog
   blog: String,
 
-  // 状态  0 全部 1 待审核，2 审核通过， 3 审核不通过
+  // 状态  0 待审核，1 审核通过， 2 审核不通过
 	state: { type: Number, default: 0 },
 	
 	// ip
@@ -44,7 +44,7 @@ const herosSchema = new mongoose.Schema({
 	agent: { type: String, validate: /\S+/ },
 	
 	// 发布日期
-	create_at: { type: Date, default: Date.now }
+	create_Time: { type: Date, default: Date.now }
 
 });
 

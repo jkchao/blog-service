@@ -45,9 +45,9 @@ heroCtrl.list.GET = async ctx => {
         total_page: result.pages,
         per_page: result.limit
       },
-      data: result.docs
+      list: result.docs
     },
-    message: '获取数据成功'
+    message: '列表数据获取成功'
   })
 }
 
