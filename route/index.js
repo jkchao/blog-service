@@ -17,19 +17,15 @@ router
 			ctx.response.body = config.INFO;
 		})
 
-		.get('/auth', controller.auth.user) // 用户信息
+		.all('/auth', controller.auth.user) // 用户信息
 		.post('/login', controller.auth.login) // 登录
-		.put('/auth', controller.auth.user) // 修改用户信息
 
-		.get('/option', controller.option) // 网站信息
-		.put('/option', controller.option) // 修改网站信息
+		.all('/option', controller.option) // 网站信息
 
 		.get('/qiniu', controller.qiniu) // 七牛 upToken
 
-		.get('/heros', controller.heros.list) // 英雄榜列表
-		.put('/hero', controller.heros.item) // 增加英雄版
-		.post('/hero', controller.heros.item) // 修改状态
-		.delete('/hero', controller.heros.item) // 删除
+		.all('/hero', controller.heros.list) // 英雄榜
+		.all('/hero/:id', controller.heros.item) // 英雄榜
 
 
 // // sitemap

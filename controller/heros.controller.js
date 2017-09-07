@@ -8,11 +8,12 @@ const { handleRequest, handleError, handleSuccess } = require('../utils/handle')
 const Heros = require('../model/heros.model')
 const geoip = require('geoip-lite')
 
-const heroCtrl = { list: {}, item: {} }
+const heroCtrl = { list:{}, item: {} }
 
+// 获取列表
 heroCtrl.list.GET = async ctx => {
 
-  let { current_page = 1, page_size = 10, keyword = '', state = '' } = ctx.request.body
+  let { current_page = 1, page_size = 10, keyword = '', state = '' } = ctx.query
 
   // 过滤条件
   const options = {
@@ -28,15 +29,15 @@ heroCtrl.list.GET = async ctx => {
 
   // 审核状态查询
   if (['0', '1', '2'].includes(state)) {
-    querys.state = state
+    querys.state = Number(state)
   }
 
-  console.log(querys)
+  // 前台请求
+
   // 查询
   const result = await Heros
                   .paginate(querys, options)
-                  .catch(err => ctx.throw(500, '服务器内部错误'))
-  console.log(result)
+                  .catch(err => handleError({ ctx, message: '获取数据失败!' }))
   handleSuccess({
     ctx,
     result: {
@@ -48,8 +49,40 @@ heroCtrl.list.GET = async ctx => {
       },
       list: result.docs
     },
-    message: '列表数据获取成功'
+    message: '列表数据获取成功!'
   })
+}
+
+// 修改状态
+heroCtrl.list.PATCH = async ctx => {
+  const { state, _id } = ctx.request.body
+
+  if (!state) {
+    handleError({ ctx, message: '无效参数!' })
+    return false
+  }
+
+  let res = Heros
+            .update({ _id }, { state })
+            .catch(err => handleError({ ctx, message: '修改状态失败!' }))
+
+  handleSuccess({ ctx, message: '修改状态成功!' })
+
+}
+
+// 删除
+heroCtrl.item.DELETE = async ctx => {
+  const _id = ctx.params.id
+
+  if (!_id) {
+    handleError({ ctx, message: '无效参数!' })
+  }
+
+  let res = Heros
+            .findByIdAndRemove({ _id })
+            .catch(() => handleError({ ctx, message: '修改状态失败!' }))
+
+  handleSuccess({ ctx, message: '删除成功' })
 }
 
 

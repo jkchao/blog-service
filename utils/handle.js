@@ -3,7 +3,7 @@
 exports.handleRequest = ({ ctx, controller }) => {
 	const method = ctx.request.method;
 	const support = !!controller[method];
-	if (support) return controller[method](ctx)
+	if (support) return controller[method](ctx);
 	else return ctx.body = { code: 0, message: '不支持请求类型' }
 };
 

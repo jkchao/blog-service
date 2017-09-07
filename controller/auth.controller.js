@@ -33,24 +33,23 @@ authCtrl.login.POST = async ctx => {
   const { username, password } = ctx.request.body;
   const auth = await Auth
               .findOne({ username })
-              .catch(err => ctx.throw(500, '服务器内部错误'));
-  if (auth) {
-    if (auth.password === md5Decode(password)) {
-      const token = jwt.sign({
-        name: auth.name,
-        password: auth.password,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60
-      }, config.AUTH.jwtTokenSecret);
-      handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + 60 * 60 }, message: "登陆成功" });
-    } else handleError({ ctx, message: "密码错误!" });
-  } else handleError({ ctx, message: "来者何人!" });
+              .catch(err => handleError({ ctx, message: '登录失败！' }));
+  if (auth.password === md5Decode(password)) {
+    const token = jwt.sign({
+      name: auth.name,
+      password: auth.password,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60
+    }, config.AUTH.jwtTokenSecret);
+    handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + 60 * 60 }, message: "登陆成功" });
+  } else handleError({ ctx, message: "密码错误!" });
+
 };
 
 // 获取用户信息
 authCtrl.user.GET = async ctx => {
   const auth = await Auth
               .findOne({}, 'name username slogan gravatar')
-              .catch(err => ctx.throw(500, '服务器内部错误'));
+              .catch(err => handleError({ ctx, message: '获取用户信息失败' }));
   handleSuccess({ ctx, result: auth, message: '获取用户资料成功'})
 }
 
@@ -59,13 +58,13 @@ authCtrl.user.PUT = async ctx => {
   const { _id, name, username, slogan, gravatar, oldPassword, newPassword } = ctx.request.body
   const _auth = await Auth
                 .findOne({}, '_id name slogan gravatar password')
-                .catch(err => ctx.throw(500, '服务器内部错误'))
+                .catch(err => handleError({ ctx, message: '修改用户信息失败！' }))
   if (_auth.password !== md5Decode(oldPassword)) handleError({ ctx, message: "密码错误!" })
   else {
     const password = newPassword === '' ? oldPassword : newPassword
     let auth = await Auth
               .findByIdAndUpdate(_id, { _id, name, username, slogan, gravatar, password: md5Decode(password) }, { new: true })
-              .catch(err => ctx.throw(500, '服务器内部错误'))
+              .catch(err => handleError({ ctx, message: '修改用户信息失败！' }))
     handleSuccess({ ctx, result: auth, message: '修改用户资料成功'})
   }
 }
