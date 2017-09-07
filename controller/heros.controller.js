@@ -12,13 +12,13 @@ const heroCtrl = { list: {}, item: {} }
 
 heroCtrl.list.GET = async ctx => {
 
-  let { page = 1, curr_page = 10, keyword = '', state } = ctx.request.body
+  let { current_page = 1, page_size = 10, keyword = '', state = '' } = ctx.request.body
 
   // 过滤条件
   const options = {
     sort: { _id: -1 },
-    page: Number(page),
-    limit: Number(curr_page)
+    page: Number(current_page),
+    limit: Number(page_size)
   }
 
   // 查询参数
@@ -27,10 +27,11 @@ heroCtrl.list.GET = async ctx => {
   }
 
   // 审核状态查询
-  if (['0', '1', '2', '3'].includes(state)) {
+  if (['0', '1', '2'].includes(state)) {
     querys.state = state
   }
 
+  console.log(querys)
   // 查询
   const result = await Heros
                   .paginate(querys, options)
@@ -43,7 +44,7 @@ heroCtrl.list.GET = async ctx => {
         total: result.total,
         current_page: result.page,
         total_page: result.pages,
-        per_page: result.limit
+        page_size: result.limit
       },
       list: result.docs
     },

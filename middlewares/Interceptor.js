@@ -34,12 +34,13 @@ module.exports = async (ctx, next) => {
 		};
 	};
 
-	// 排除auth的post请求 && 评论的post请求 && like请求
+	// 排除auth的post请求 && 评论的post请求 && like请求 && hero post
 	const isLike = Object.is(ctx.request.url, '/api/like') && Object.is(ctx.request.method, 'POST');
 	const isPostAuth = Object.is(ctx.request.url, '/api/auth') && Object.is(ctx.request.method, 'POST');
 	const isLogin = Object.is(ctx.request.url, '/api/login') && Object.is(ctx.request.method, 'POST');
+	const isHero = Object.is(ctx.request.url, '/api/hero') && Object.is(ctx.request.method, 'POST');
 	const isPostComment = Object.is(ctx.request.url, '/api/comment') && Object.is(ctx.request.method, 'POST');
-	if (isLike || isPostAuth || isPostComment || isLogin) {
+	if (isLike || isPostAuth || isPostComment || isLogin || isHero) {
 		await next();
 		return false;
 	};

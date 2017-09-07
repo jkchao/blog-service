@@ -27,6 +27,9 @@ router
 		.get('/qiniu', controller.qiniu) // 七牛 upToken
 
 		.get('/heros', controller.heros.list) // 英雄榜列表
+		.put('/hero', controller.heros.item) // 增加英雄版
+		.post('/hero', controller.heros.item) // 修改状态
+		.delete('/hero', controller.heros.item) // 删除
 
 
 // // sitemap

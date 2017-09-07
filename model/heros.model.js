@@ -44,7 +44,7 @@ const herosSchema = new mongoose.Schema({
 	agent: { type: String, validate: /\S+/ },
 	
 	// 发布日期
-	create_Time: { type: Date, default: Date.now }
+	create_time: { type: Date, default: Date.now }
 
 });
 
