@@ -25,7 +25,7 @@ router
 		.get('/qiniu', controller.qiniu) // 七牛 upToken
 
 		.all('/hero', controller.heros.list) // 英雄榜
-		.all('/hero/:id', controller.heros.item) // 英雄榜
+		.all('/hero/:id', controller.heros.item)
 
 
 // // sitemap

@@ -32,8 +32,10 @@ heroCtrl.list.GET = async ctx => {
     querys.state = Number(state)
   }
 
-  // 前台请求
-
+  // 前台请求， 重置状态
+  if (!authIsVerified(ctx.request)) {
+    querys.state = 1
+  }
   // 查询
   const result = await Heros
                   .paginate(querys, options)
