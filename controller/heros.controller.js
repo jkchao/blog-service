@@ -7,6 +7,7 @@
 const { handleRequest, handleError, handleSuccess } = require('../utils/handle')
 const Heros = require('../model/heros.model')
 const geoip = require('geoip-lite')
+const authIsVerified = require('../utils/auth')
 
 const heroCtrl = { list:{}, item: {} }
 

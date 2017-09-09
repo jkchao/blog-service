@@ -7,15 +7,14 @@ exports.MONGODB = {
 }
 
 exports.QINIU = {
-	accessKey: argv.qn_accessKey || '',
-	secretKey: argv.qn_secretKey || '',
+	accessKey: argv.qn_accessKey || 'uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf',
+	secretKey: argv.qn_secretKey || '_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph',
 	bucket: argv.qn_bucket || 'blog',
 	origin: argv.qn_origin || 'http://blog.u.qiniudn.com',
 	uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
 }
 
 exports.AUTH = {
-	data: argv.auth_data || { user: 'root' },
 	jwtTokenSecret: argv.auth_key || 'my_blog',
 	defaultUsername: argv.auth_default_username || 'jkchao',
 	defaultPassword: argv.auth_default_password || '123456'
