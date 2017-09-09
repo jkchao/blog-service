@@ -1,18 +1,18 @@
 /* auth验证方法 */
 
-const config = require('../config');
-const jwt = require('jsonwebtoken');
+const config = require('../config')
+const jwt = require('jsonwebtoken')
 
 // 验证Auth
 const authToken = req => {
 	if (req.headers && req.headers.authorization) {
-		const parts = req.headers.authorization.split(' ');
+		const parts = req.headers.authorization.split(' ')
 		if (Object.is(parts.length, 2) && Object.is(parts[0], 'Bearer')) {
-			return parts[1];
+			return parts[1]
 		}
 	}
-	return false;
-};
+	return false
+}
 
 // 验证权限
 const authIsVerified = req => {
@@ -21,13 +21,13 @@ const authIsVerified = req => {
 		try {
 			const decodedToken = jwt.verify(token, config.AUTH.jwtTokenSecret);
 			if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
-				return true;
+				return true
 			}
 		} catch (err) {
 			console.log(err)
 		}
 	}
-	return false;
-};
+	return false
+}
 
-module.exports = authIsVerified;
+module.exports = authIsVerified

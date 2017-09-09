@@ -4,12 +4,12 @@
 *
 */
 
-const mongoose = require('../mongodb').mongoose;
-const autoIncrement = require('mongoose-auto-increment');
-const mongoosePaginate = require('mongoose-paginate');
+const mongoose = require('../mongodb').mongoose
+const autoIncrement = require('mongoose-auto-increment')
+const mongoosePaginate = require('mongoose-paginate')
 
 // 自增ID初始化
-autoIncrement.initialize(mongoose.connection);
+autoIncrement.initialize(mongoose.connection)
 
 // 标签模型
 const tagSchema = new mongoose.Schema({
@@ -35,16 +35,16 @@ tagSchema.plugin(autoIncrement.plugin, {
 	field: 'id',
 	startAt: 1,
 	incrementBy: 1
-});
+})
 
 // 时间更新
 tagSchema.pre('findOneAndUpdate', function(next) {
-	this.findOneAndUpdate({}, { update_at: Date.now() });
-	next();
-});
+	this.findOneAndUpdate({}, { update_at: Date.now() })
+	next()
+})
 
 // 标签模型
-const Tag = mongoose.model('Tag', tagSchema);
+const Tag = mongoose.model('Tag', tagSchema)
 
 // export
-module.exports = Tag;
+module.exports = Tag

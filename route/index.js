@@ -1,20 +1,19 @@
 // 路由管理
 
-const config = require('../config');
-const controller = require('../controller');
-const authIsVerified = require('../utils/auth');
-const Router = require('koa-router');
-const { handleError } = require('../utils/handle');
+const config = require('../config')
+const controller = require('../controller')
+const authIsVerified = require('../utils/auth')
+const Router = require('koa-router')
 
 const router = new Router({
 	prefix: config.APP.ROOT_PATH
-});
+})
 
 
 // Api
 router
 		.get('/', (ctx, next) => {
-			ctx.response.body = config.INFO;
+			ctx.response.body = config.INFO
 		})
 
 		.all('/auth', controller.auth.user) // 用户信息

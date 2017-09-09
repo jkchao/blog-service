@@ -1,10 +1,10 @@
 // Redis
-const redis = require('redis');
-let redisClientAvailable = false;
-let redisClient = null;
-const memoryClient = {};
+const redis = require('redis')
+let redisClientAvailable = false
+let redisClient = null
+const memoryClient = {}
 
-exports.redis = null;
+exports.redis = null
 
 exports.set = (key, value, callback) => {
 	if (redisClientAvailable) {
@@ -21,7 +21,7 @@ exports.set = (key, value, callback) => {
 		// console.log('into memory')
 		memoryClient[key] = value 
 	}
-};
+}
 
 exports.get = (key, callback) => {
 	if (redisClientAvailable) {
@@ -37,26 +37,26 @@ exports.get = (key, callback) => {
 		callback(null, memoryClient[key])
 		return memoryClient[key]
 	}
-};
+}
 
 exports.connect = () => {
 
 	exports.redis = redisClient = redis.createClient({ detect_buffers: true });
 
 	redisClient.on('error', err => {
-		redisClientAvailable = false;
-		console.log('Redis连接失败！' + err);
-	});
+		redisClientAvailable = false
+		console.log('Redis连接失败！' + err)
+	})
 
 	redisClient.on('ready', err => {
-		console.log('Redis已准备好！');
-		redisClientAvailable = true;
-	});
+		console.log('Redis已准备好！')
+		redisClientAvailable = true
+	})
 
 	redisClient.on('reconnecting', err => {
-		console.log('Redis正在重连！');
-	});
+		console.log('Redis正在重连！')
+	})
 
 	return redisClient;
-};
+}
 
