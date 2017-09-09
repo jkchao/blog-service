@@ -4,12 +4,12 @@
 *
 */
 
-const mongoose = require('../mongodb').mongoose;
-const autoIncrement = require('mongoose-auto-increment');
-const mongoosePaginate = require('mongoose-paginate');
+const mongoose = require('../mongodb').mongoose
+const autoIncrement = require('mongoose-auto-increment')
+const mongoosePaginate = require('mongoose-paginate')
 
 // 自增ID初始化
-autoIncrement.initialize(mongoose.connection);
+autoIncrement.initialize(mongoose.connection)
 
 // 标签模型
 const herosSchema = new mongoose.Schema({
@@ -46,7 +46,7 @@ const herosSchema = new mongoose.Schema({
 	// 发布日期
 	create_time: { type: Date, default: Date.now }
 
-});
+})
 
 // 翻页 + 自增ID插件配置
 herosSchema.plugin(mongoosePaginate)
@@ -55,11 +55,11 @@ herosSchema.plugin(autoIncrement.plugin, {
 	field: 'id',
 	startAt: 1,
 	incrementBy: 1
-});
+})
 
 
 // 标签模型
-const Heros = mongoose.model('Heros', herosSchema);
+const Heros = mongoose.model('Heros', herosSchema)
 
 // export
-module.exports = Heros;
+module.exports = Heros

@@ -28,8 +28,7 @@ module.exports = async (ctx, next) => {
 		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
-			ctx.status = 403
-			ctx.body = { code: 0, message: '来者何人！' }
+			ctx.thorw(403, { code: 0, message: '来者何人！' })
 			return false;
 		};
 	};
@@ -47,8 +46,7 @@ module.exports = async (ctx, next) => {
 
 	// 拦截所有非管路员的非get请求
 	if (!authIsVerified(ctx.request) && !Object.is(ctx.request.method, 'GET')) {
-		ctx.status = 401
-		ctx.response.body = { code: -2, message: '来者何人！' }
+		ctx.throw(401, { code: -2, message: '来者何人！' })
 		return false;
 	};
 

@@ -4,9 +4,9 @@
 *
 */
 
-const crypto = require('crypto');
-const config = require('../config');
-const mongoose = require('../mongodb').mongoose;
+const crypto = require('crypto')
+const config = require('../config')
+const mongoose = require('../mongodb').mongoose
 // const autoIncrement = require('mongoose-auto-increment');
 
 // autoIncrement.initialize(mongoose.connection);
@@ -32,8 +32,8 @@ const authSchema = new mongoose.Schema({
 		type: String,
 		default: crypto.createHash('md5').update(config.AUTH.defaultPassword).digest('hex')
 	}
-});
+})
 
-const Auth = mongoose.model('Auth', authSchema);
+const Auth = mongoose.model('Auth', authSchema)
 
-module.exports = Auth;
+module.exports = Auth

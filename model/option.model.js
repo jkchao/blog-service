@@ -4,7 +4,7 @@
 *
 */
 
-const mongoose = require('../mongodb').mongoose;
+const mongoose = require('../mongodb').mongoose
 
 const optionSchema = new mongoose.Schema({
 
@@ -40,6 +40,6 @@ const optionSchema = new mongoose.Schema({
 	}
 });
 
-const Option = mongoose.model('Option', optionSchema);
+const Option = mongoose.model('Option', optionSchema)
 
-module.exports = Option;
+module.exports = Option

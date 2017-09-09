@@ -4,14 +4,13 @@
 *
 */
 
-const Tag = require('../model/tag.model');
+const Tag = require('../model/tag.model')
 
 const {
   handleRequest,
-  handleError,
   handleSuccess,
   handleThrottle
-} = require("../utils/handle");
+} = require("../utils/handle")
 
 const tagCtrl = { list: {}, item: {} }
 

@@ -4,7 +4,7 @@
 *
 */
 
-const { handleRequest, handleError, handleSuccess } = require('../utils/handle')
+const { handleRequest, handleSuccess } = require('../utils/handle')
 const Heros = require('../model/heros.model')
 const geoip = require('geoip-lite')
 const authIsVerified = require('../utils/auth')
@@ -40,7 +40,7 @@ heroCtrl.list.GET = async ctx => {
   // 查询
   const result = await Heros
                   .paginate(querys, options)
-                  .catch(err => handleError({ ctx, message: '获取数据失败!' }))
+                  .catch(err => ctx.throw(500, err))
   handleSuccess({
     ctx,
     result: {
@@ -61,13 +61,13 @@ heroCtrl.list.PATCH = async ctx => {
   const { state, _id } = ctx.request.body
 
   if (!state) {
-    handleError({ ctx, message: '无效参数!' })
+    ctx.throw(401, '参数无效')
     return false
   }
 
   let res = Heros
             .update({ _id }, { state })
-            .catch(err => handleError({ ctx, message: '修改状态失败!' }))
+            .catch(err => ctx.throw(500, err))
 
   handleSuccess({ ctx, message: '修改状态成功!' })
 
@@ -78,12 +78,13 @@ heroCtrl.item.DELETE = async ctx => {
   const _id = ctx.params.id
 
   if (!_id) {
-    handleError({ ctx, message: '无效参数!' })
+    ctx.throw(401, '参数无效')
+    return false
   }
 
   let res = Heros
             .findByIdAndRemove({ _id })
-            .catch(() => handleError({ ctx, message: '修改状态失败!' }))
+            .catch(() => ctx.throw(500, err))
 
   handleSuccess({ ctx, message: '删除成功' })
 }
