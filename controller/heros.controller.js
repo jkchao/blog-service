@@ -37,6 +37,7 @@ heroCtrl.list.GET = async ctx => {
   if (!authIsVerified(ctx.request)) {
     querys.state = 1
   }
+
   // 查询
   const result = await Heros
                   .paginate(querys, options)
@@ -87,7 +88,7 @@ heroCtrl.item.DELETE = async ctx => {
   let res = Heros
             .findByIdAndRemove({ _id })
             .catch(() => ctx.throw(500, err))
-  if (res) handleSuccess({ ctx, message: '删除成功' })
+  if (res) handleSuccess({ ctx, message: '删除数据成功' })
   else handleError({ ctx, message: '删除数据失败'})
 }
 // module.exports = ctx => handleRequest({ ctx, controller: heroCtrl })

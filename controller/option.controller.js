@@ -29,8 +29,7 @@ optionCtrl.PUT = async ctx => {
                   : new Option(ctx.request.body).save())
                   .catch(err => ctx.throw(500, '服务器内部错误'))
   if (option) handleSuccess({ ctx, result: option._id, message: '修改配置项成功' })
-  else handleError({ ctx, message: '修改配置项失败' })
-  
+  else handleError({ ctx, message: '修改配置项失败' }) 
 }
 
 
