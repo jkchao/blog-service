@@ -92,6 +92,9 @@ heroCtrl.item.DELETE = async ctx => {
   else handleError({ ctx, message: '删除数据失败'})
 }
 
+// 发布
+heroCtrl.list.POST = async ctx => {}
+
 // module.exports = ctx => handleRequest({ ctx, controller: heroCtrl })
 exports.list = ctx => handleRequest({ ctx, controller: heroCtrl.list })
 exports.item = ctx => handleRequest({ ctx, controller: heroCtrl.item })
