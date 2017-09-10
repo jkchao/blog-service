@@ -42,7 +42,7 @@ tagCtrl.list.GET = async ctx => {
 
 	// 过滤条件
   const options = {
-    sort: { _id: -1 },
+    sort: { sort: 1 },
     page: Number(current_page),
     limit: Number(page_size)
 	}
@@ -88,6 +88,23 @@ tagCtrl.item.DELETE = async ctx => {
 	else handleError({ ctx, message: '删除数据失败'})
 }
 
+// 排序
+tagCtrl.list.PATCH = async ctx => {
+	
+		const { ids } = ctx.request.body
+	
+		try {
+			for (let i = 0; i < ids.length; i++) {
+				await Tag
+					.findByIdAndUpdate(ids[i], { sort: i + 1 })
+			}
+			handleSuccess({ ctx, message: '排序成功' })
+		} catch (error) {
+			console.log(error)
+			handleError({ ctx, message: '排序失败' })
+		}
+	}
+
 // 修改标签
 tagCtrl.item.PUT = async ctx => {
 
@@ -111,6 +128,3 @@ tagCtrl.item.PUT = async ctx => {
 
 exports.list = ctx => handleRequest({ ctx, controller: tagCtrl.list })
 exports.item = ctx => handleRequest({ ctx, controller: tagCtrl.item })
-
-
-

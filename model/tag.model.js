@@ -21,21 +21,24 @@ const tagSchema = new mongoose.Schema({
 	descript: String,
 
 	// 发布日期
-	create_at: { type: Date, default: Date.now },
+	create_at: { type: String, default: Date.now },
 
 	// 最后修改日期
-	update_at: { type: Date },
+	update_at: { type: String },
 
-});
+	// 排序
+	sort: { type: Number, default: 0 }
 
-// 翻页 + 自增ID插件配置
+})
+
+// 翻页
 tagSchema.plugin(mongoosePaginate)
-// tagSchema.plugin(autoIncrement.plugin, {
-// 	model: 'Tag',
-// 	field: 'id',
-// 	startAt: 1,
-// 	incrementBy: 1
-// })
+tagSchema.plugin(autoIncrement.plugin, {
+	model: 'Tag',
+	field: 'id',
+	startAt: 1,
+	incrementBy: 1
+})
 
 // 时间更新
 tagSchema.pre('findOneAndUpdate', function(next) {
