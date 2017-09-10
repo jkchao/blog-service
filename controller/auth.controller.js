@@ -67,9 +67,10 @@ authCtrl.user.PUT = async ctx => {
     else {
       const password = newPassword === '' ? oldPassword : newPassword
       let auth = await Auth
-                .findByIdAndUpdate(_id, { _id, name, username, slogan, gravatar, password: md5Decode(password) }, { new: true })
-                .catch(err => ctx.thorw(500, err))
-      handleSuccess({ ctx, result: auth, message: '修改用户资料成功'})
+                      .findByIdAndUpdate(_id, { _id, name, username, slogan, gravatar, password: md5Decode(password) }, { new: true })
+                      .catch(err => ctx.thorw(500, err))
+      if (auth) handleSuccess({ ctx, result: auth, message: '修改用户资料成功'})
+      else handleError({ ctx, message: "修改用户资料失败" })
     }
   } else handleError({ ctx, message: "修改用户资料失败" })
 

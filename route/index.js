@@ -26,7 +26,8 @@ router
 		.all('/hero', controller.heros.list) // 英雄榜
 		.all('/hero/:id', controller.heros.item)
 
-		.all('tag', controller.tag.list) // 标签
+		.all('/tag', controller.tag.list) // 标签
+		.all('/tag/:id', controller.tag.item)
 
 
 // // sitemap

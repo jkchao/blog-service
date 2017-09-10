@@ -2,7 +2,7 @@
 // API分发至控制器
 
 exports.tag = require('./tag.controller')
-exports.heros = require('./heros.controller')
+exports.heros = require('./hero.controller')
 // exports.like = require('./like.controller')
 exports.auth = require('./auth.controller')
 // exports.music = require('./music.controller')

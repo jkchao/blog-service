@@ -68,9 +68,9 @@ heroCtrl.list.PATCH = async ctx => {
     return false
   }
 
-  let res = Heros
-            .update({ _id }, { state })
-            .catch(err => ctx.throw(500, err))
+  let res = await Heros
+                  .update({ _id }, { state })
+                  .catch(err => ctx.throw(500, err))
 
   if (res) handleSuccess({ ctx, message: '修改状态成功!' })
   else handleError({ ctx, message: '修改状态失败'})
@@ -85,12 +85,13 @@ heroCtrl.item.DELETE = async ctx => {
     return false
   }
 
-  let res = Heros
-            .findByIdAndRemove({ _id })
+  let res = await Heros
+            .findByIdAndRemove(_id)
             .catch(() => ctx.throw(500, err))
   if (res) handleSuccess({ ctx, message: '删除数据成功' })
   else handleError({ ctx, message: '删除数据失败'})
 }
+
 // module.exports = ctx => handleRequest({ ctx, controller: heroCtrl })
 exports.list = ctx => handleRequest({ ctx, controller: heroCtrl.list })
 exports.item = ctx => handleRequest({ ctx, controller: heroCtrl.item })
