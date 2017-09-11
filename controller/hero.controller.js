@@ -93,8 +93,9 @@ heroCtrl.item.DELETE = async ctx => {
 }
 
 // 发布
-heroCtrl.list.POST = async ctx => {}
+heroCtrl.list.POST = async ctx => {
+  let { body: hero } = ctx.request
+}
 
-// module.exports = ctx => handleRequest({ ctx, controller: heroCtrl })
 exports.list = ctx => handleRequest({ ctx, controller: heroCtrl.list })
 exports.item = ctx => handleRequest({ ctx, controller: heroCtrl.item })

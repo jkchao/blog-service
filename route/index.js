@@ -29,6 +29,8 @@ router
 		.all('/tag', controller.tag.list) // 标签
 		.all('/tag/:id', controller.tag.item)
 
+		.all('/article', controller.article.list) // 文章
+
 
 // // sitemap
 // app.get('/sitemap.xml', controller.sitemap);
