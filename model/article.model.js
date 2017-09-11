@@ -36,6 +36,9 @@ const articleSchema = new mongoose.Schema({
 
 	// 缩略图
   thumb: String,
+
+  // 文章分类 1 code 2 think
+  type: { type: Number },
   
 	// 发布日期
   create_at: { type: String, default: Date.now },

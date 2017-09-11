@@ -49,7 +49,13 @@ artCtral.list.GET = async ctx => {
 }
 
 // 添加文章
-artCtral.list.POST = async ctx => {}
+artCtral.list.POST = async ctx => {
+  const res = new Article(ctx.request.body)
+                  .save()
+                  .catch(err => handleError({ ctx, message: '服务器内部错误' }))
+  if (res) handleSuccess({ ctx, message: '添加文章成功' })
+  else handleError({ ctx, message: '添加文章失败' })
+}
 
 // 删除文章
 artCtral.item.DELETE = async ctx => {}
