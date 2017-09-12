@@ -5,7 +5,7 @@
 */
 
 const Tag = require('../model/tag.model')
-
+const Article = require('../model/article.model')
 const {
   handleRequest,
   handleSuccess,
@@ -13,6 +13,7 @@ const {
 	handleError
 } = require("../utils/handle")
 
+const authIsVerified = require('../utils/auth')
 const tagCtrl = { list: {}, item: {} }
 
 // 增加标签
@@ -52,23 +53,46 @@ tagCtrl.list.GET = async ctx => {
 		name: new RegExp(keyword)
 	}
 
-	const res = await Tag
+	const tag = await Tag
 							.paginate(querys, options)
 							.catch(err => ctx.throw(500, '服务器内部错误'))
-	if (res) {
-    handleSuccess({
-      ctx,
-      result: {
-        pagination: {
-          total: res.total,
-          current_page: res.page,
-          total_page: res.pages,
-          page_size: res.limit
-        },
-        list: res.docs
-      },
-      message: '列表数据获取成功!'
-    })
+	if (tag) {
+
+		let tagClone = JSON.parse(JSON.stringify(tag))
+
+		// 查找文章中标签聚合
+		let $match = {}
+
+		// 前台请求时，只有已经发布的和公开
+		if(!authIsVerified(ctx.request)) $match = { state: 1, publish: 1 }
+
+		const article = await Article.aggregate([
+										{ $match },
+										{ $unwind : "$tag" }, 
+										{ $group: {
+											_id: "$tag", 
+											num_tutorial: { $sum : 1 }}
+										}
+									])
+		if (article) {
+			tagClone.docs.forEach(t => {
+				const finded = article.find(c => String(c._id) === String(t._id))
+				t.count = finded ? finded.num_tutorial : 0
+			})
+			handleSuccess({
+				ctx,
+				result: {
+					pagination: {
+						total: tagClone.total,
+						current_page: tagClone.page,
+						total_page: tagClone.pages,
+						page_size: tagClone.limit
+					},
+					list: tagClone.docs
+				},
+				message: '列表数据获取成功!'
+			})
+		} else handleError({ ctx, message: '获取标签列表失败' })
 	} else handleError({ ctx, message: '获取标签列表失败' })
 }
 

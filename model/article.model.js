@@ -42,6 +42,9 @@ const articleSchema = new mongoose.Schema({
   
 	// 发布日期
   create_at: { type: Date, default: Date.now },
+
+	// 最后修改日期
+	update_at: { type: Date, default: Date.now },
   
 	// 其他元信息
 	meta: {

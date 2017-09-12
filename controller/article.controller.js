@@ -36,7 +36,8 @@ artCtral.list.GET = async ctx => {
     sort: { _id: -1 },
     page: Number(current_page),
     limit: Number(page_size),
-    populate: ['tag']
+    populate: ['tag'],
+    select: '-content'
   }
 
   // 参数
@@ -117,7 +118,17 @@ artCtral.list.POST = async ctx => {
 }
 
 // 根据文章id 获取内容
-artCtral.item.GET = async ctx => {}
+artCtral.item.GET = async ctx => {
+  const _id = ctx.params.id
+  
+  if (!_id) handleError({ ctx, message: '无效参数' })
+
+  const res = await Article
+                    .findById(_id)
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
+  if (res) handleSuccess({ ctx, message: '获取文章成功' })
+  else handleError({ ctx, message: '获取文章失败' })
+}
 
 // 删除文章
 artCtral.item.DELETE = async ctx => {
