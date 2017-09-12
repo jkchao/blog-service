@@ -30,6 +30,7 @@ router
 		.all('/tag/:id', controller.tag.item)
 
 		.all('/article', controller.article.list) // 文章
+		.all('/article/:id', controller.article.item)
 
 
 // // sitemap

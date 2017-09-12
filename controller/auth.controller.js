@@ -33,7 +33,7 @@ authCtrl.login.POST = async ctx => {
   const { username, password } = ctx.request.body
   const auth = await Auth
               .findOne({ username })
-              .catch(err => ctx.thorw(500, '服务器内部错误'))
+              .catch(err => ctx.throw(500, '服务器内部错误'))
   if (auth) {
     if (auth.password === md5Decode(password)) {
       const token = jwt.sign({
@@ -50,7 +50,7 @@ authCtrl.login.POST = async ctx => {
 authCtrl.user.GET = async ctx => {
   const auth = await Auth
               .findOne({}, 'name username slogan gravatar')
-              .catch(err => ctx.thorw(500, '服务器内部错误'))
+              .catch(err => ctx.throw(500, '服务器内部错误'))
   if (auth) {
     handleSuccess({ ctx, result: auth, message: '获取用户资料成功'})    
   } else handleError({ ctx, message: "获取用户资料失败" })
@@ -61,14 +61,14 @@ authCtrl.user.PUT = async ctx => {
   const { _id, name, username, slogan, gravatar, oldPassword, newPassword } = ctx.request.body
   const _auth = await Auth
                 .findOne({}, '_id name slogan gravatar password')
-                .catch(err => ctx.thorw(500, err))
+                .catch(err => ctx.throw(500, '服务器内部错误'))
   if (_auth) {
     if (_auth.password !== md5Decode(oldPassword)) handleError({ ctx, message: "原密码错误" })
     else {
       const password = newPassword === '' ? oldPassword : newPassword
       let auth = await Auth
                       .findByIdAndUpdate(_id, { _id, name, username, slogan, gravatar, password: md5Decode(password) }, { new: true })
-                      .catch(err => ctx.thorw(500, err))
+                      .catch(err => ctx.throw(500, '服务器内部错误'))
       if (auth) handleSuccess({ ctx, result: auth, message: '修改用户资料成功'})
       else handleError({ ctx, message: "修改用户资料失败" })
     }

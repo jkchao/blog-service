@@ -70,7 +70,7 @@ heroCtrl.list.PATCH = async ctx => {
 
   let res = await Heros
                   .update({ _id }, { state })
-                  .catch(err => ctx.throw(500, err))
+                  .catch(err => ctx.throw(500, '服务器内部错误'))
 
   if (res) handleSuccess({ ctx, message: '修改状态成功!' })
   else handleError({ ctx, message: '修改状态失败'})
@@ -87,7 +87,7 @@ heroCtrl.item.DELETE = async ctx => {
 
   let res = await Heros
             .findByIdAndRemove(_id)
-            .catch(() => ctx.throw(500, err))
+            .catch(err => ctx.throw(500, '服务器内部错误'))
   if (res) handleSuccess({ ctx, message: '删除数据成功' })
   else handleError({ ctx, message: '删除数据失败'})
 }

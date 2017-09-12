@@ -54,7 +54,7 @@ tagCtrl.list.GET = async ctx => {
 
 	const res = await Tag
 							.paginate(querys, options)
-							.catch(res => handleError({ ctx, message: '服务器内部错误' }))
+							.catch(err => ctx.throw(500, '服务器内部错误'))
 	if (res) {
     handleSuccess({
       ctx,
@@ -83,7 +83,7 @@ tagCtrl.item.DELETE = async ctx => {
 
 	let res = await Tag
 									.findByIdAndRemove(_id)
-									.catch(() => ctx.throw(500, '服务器内部错误'))
+									.catch(err => ctx.throw(500, '服务器内部错误'))
 	if (res) handleSuccess({ ctx, message: '删除数据成功' })
 	else handleError({ ctx, message: '删除数据失败'})
 }
@@ -97,6 +97,7 @@ tagCtrl.list.PATCH = async ctx => {
 			for (let i = 0; i < ids.length; i++) {
 				await Tag
 					.findByIdAndUpdate(ids[i], { sort: i + 1 })
+					.catch(err => ctx.throw(500, '服务器内部错误'))
 			}
 			handleSuccess({ ctx, message: '排序成功' })
 		} catch (error) {
@@ -119,7 +120,7 @@ tagCtrl.item.PUT = async ctx => {
 
 	const res = await Tag
 										.findByIdAndUpdate(_id, { name, descript }, { new: true })
-										.catch(err => console.log(err))
+										.catch(err => ctx.throw(500, '服务器内部错误'))
 	if (res) handleSuccess({ ctx, message: '修改标签成功' })
 	else handleError({ ctx, message: '修改标签失败' })
 }

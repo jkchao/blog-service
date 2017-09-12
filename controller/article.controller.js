@@ -28,6 +28,7 @@ artCtral.list.GET = async ctx => {
     state = 1,
     publish = 1,
     tag,
+    type,
     date } = ctx.query
 
 	// 过滤条件
@@ -59,6 +60,11 @@ artCtral.list.GET = async ctx => {
 	// 按照公开程度查询
 	if (['1', '2'].includes(publish)) {
 		querys.publish = publish
+  }
+
+	// 按照公开程度查询
+	if (['1', '2'].includes(type)) {
+		querys.type = type
   }
 
   // 时间查询
@@ -105,7 +111,7 @@ artCtral.list.GET = async ctx => {
 artCtral.list.POST = async ctx => {
   const res = new Article(ctx.request.body)
                   .save()
-                  .catch(err => handleError({ ctx, message: '服务器内部错误' }))
+                  .catch(err => ctx.throw(500, '服务器内部错误'))
   if (res) handleSuccess({ ctx, message: '添加文章成功' })
   else handleError({ ctx, message: '添加文章失败' })
 }
@@ -114,7 +120,17 @@ artCtral.list.POST = async ctx => {
 artCtral.item.GET = async ctx => {}
 
 // 删除文章
-artCtral.item.DELETE = async ctx => {}
+artCtral.item.DELETE = async ctx => {
+  const _id = ctx.params.id
+
+  if (!_id) handleError({ ctx, message: '无效参数' })
+
+  const res = await Article
+                    .findByIdAndRemove(_id)
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
+  if (res) handleSuccess({ ctx, message: '删除文章成功' })
+  else handleError({ ctx, message: '删除文章失败' })
+}
 
 // 修改文章
 artCtral.item.PUT = async ctx => {}
@@ -125,11 +141,23 @@ artCtral.item.PATCH = async ctx => {
   const _id = ctx.params.id
 
   const { state, publish } = ctx.request.body
+
+  const querys = {}
+
+  if (state) querys.state = state
+
+  if (publish) querys.publish = publish
   
   if (!_id) {
     handleError({ ctx, message: '无效参数'})
     return false
   }
+
+  const res = await Article
+                    .findByIdAndUpdate(_id, querys)
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
+  if (res) handleSuccess({ ctx, message: '更新文章状态成功'})
+  else handleError({ ctx, message: '更新文章状态失败' })
 }
 
 exports.list = ctx => handleRequest({ ctx, controller: artCtral.list })
