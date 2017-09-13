@@ -94,7 +94,32 @@ heroCtrl.item.DELETE = async ctx => {
 
 // 发布
 heroCtrl.list.POST = async ctx => {
-  let { body: hero } = ctx.request
+  let { body: hero } = ctx.request;
+
+  const ip = (req.headers["x-forwarded-for"] ||
+        req.headers["x-real-ip"] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress ||
+        req.ip ||
+        req.ips[0])
+        .replace('::ffff:', '')
+
+    
+  hero.state = 0
+
+  const ip_location = geoip.lookup(ip)
+  if (ip_location) {
+      hero.city = ip_location.city,
+      hero.range = ip_location.range,
+      hero.country = ip_location.country
+  }
+
+  const res = new Heros(hero)
+              .save()
+              .catch(err => ctx.thorw(500, '服务器内部错误'))
+  if (res) handleSuccess({ ctx, message: '数据提交审核成功，请耐心等待'})
+  else handleError({ ctx, message: '提交数据失败' })
 }
 
 exports.list = ctx => handleRequest({ ctx, controller: heroCtrl.list })

@@ -120,7 +120,7 @@ artCtral.list.POST = async ctx => {
 // 根据文章id 获取内容
 artCtral.item.GET = async ctx => {
   const _id = ctx.params.id
-  
+
   if (!_id) {
     handleError({ ctx, message: '无效参数' })
     return false
@@ -159,7 +159,7 @@ artCtral.item.DELETE = async ctx => {
 artCtral.item.PUT = async ctx => {
     const _id = ctx.params.id
 
-    const { title, keyword } = ctx.request.body
+    const { title, keyword, tag } = ctx.request.body
 
     delete ctx.request.body.create_at
     delete ctx.request.body.update_at
