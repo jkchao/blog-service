@@ -121,20 +121,32 @@ artCtral.list.POST = async ctx => {
 artCtral.item.GET = async ctx => {
   const _id = ctx.params.id
   
-  if (!_id) handleError({ ctx, message: '无效参数' })
+  if (!_id) {
+    handleError({ ctx, message: '无效参数' })
+    return false
+  }
 
   const res = await Article
                     .findById(_id)
+                    .populate('tag')
                     .catch(err => ctx.throw(500, '服务器内部错误'))
-  if (res) handleSuccess({ ctx, message: '获取文章成功' })
-  else handleError({ ctx, message: '获取文章失败' })
+  if (res) {
+    // 每次请求，views 都增加一次
+    res.meta.views += 1
+    res.save()
+    handleSuccess({ ctx, message: '文章获取成功', result: res })
+
+  } else handleError({ ctx, message: '获取文章失败' })
 }
 
 // 删除文章
 artCtral.item.DELETE = async ctx => {
   const _id = ctx.params.id
 
-  if (!_id) handleError({ ctx, message: '无效参数' })
+  if (!_id) {
+    handleError({ ctx, message: '无效参数' })
+    return false
+  }
 
   const res = await Article
                     .findByIdAndRemove(_id)
@@ -144,7 +156,31 @@ artCtral.item.DELETE = async ctx => {
 }
 
 // 修改文章
-artCtral.item.PUT = async ctx => {}
+artCtral.item.PUT = async ctx => {
+    const _id = ctx.params.id
+
+    const { title, keyword } = ctx.request.body
+
+    delete ctx.request.body.create_at
+    delete ctx.request.body.update_at
+    delete ctx.request.body.meta
+
+    if (!_id) {
+      handleError({ ctx, message: '无效参数' })
+      return false
+    }
+
+    if(!title || !keyword)  {
+      handleError({ ctx, message: 'title, keyword必填' })
+      return false
+    }
+
+    const res = await Article
+                      .findByIdAndUpdate(_id, ctx.request.body)
+                      .catch(err => ctx.throw(500, '服务器内部错误'))
+    if (res) handleSuccess({ ctx, message: '更新文章成功' })
+    else handleError({ ctx, message: '更新文章失败' })
+}
 
 // 修改文章状态
 artCtral.item.PATCH = async ctx => {

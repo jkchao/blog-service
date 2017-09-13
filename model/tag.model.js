@@ -21,10 +21,10 @@ const tagSchema = new mongoose.Schema({
 	descript: String,
 
 	// 发布日期
-	create_at: { type: String, default: Date.now },
+	create_at: { type: Date, default: Date.now },
 
 	// 最后修改日期
-	update_at: { type: String },
+	update_at: { type: Date },
 
 	// 排序
 	sort: { type: Number, default: 0 }
