@@ -29,7 +29,8 @@ artCtral.list.GET = async ctx => {
     publish = 1,
     tag,
     type,
-    date } = ctx.query
+    date,
+    hot } = ctx.query
 
 	// 过滤条件
   const options = {
@@ -66,6 +67,14 @@ artCtral.list.GET = async ctx => {
 	// 按照公开程度查询
 	if (['1', '2'].includes(type)) {
 		querys.type = type
+  }
+
+  // 按热度排行
+  if (hot) {
+    options.sort = {
+      'meta.comments': -1,
+      'meta.likes': -1
+    }
   }
 
   // 时间查询
