@@ -41,6 +41,7 @@ artCtral.list.GET = async ctx => {
     select: '-content'
   }
 
+
   // 参数
   const querys = {}
 
@@ -64,7 +65,7 @@ artCtral.list.GET = async ctx => {
 		querys.publish = publish
   }
 
-	// 按照公开程度查询
+	// 按照类型程度查询
 	if (['1', '2'].includes(type)) {
 		querys.type = type
   }
@@ -72,7 +73,7 @@ artCtral.list.GET = async ctx => {
   // 按热度排行
   if (hot) {
     options.sort = {
-      'meta.comments': -1,
+      'meta.views': -1,
       'meta.likes': -1
     }
   }
@@ -87,15 +88,15 @@ artCtral.list.GET = async ctx => {
 			}
 		}
 	}
-  
+
   if (tag) querys.tag = tag
 
 	// 如果是前台请求，则重置公开状态和发布状态
 	if (!authIsVerified(ctx.request)) {
 		querys.state = 1
-		querys.public = 1
-	}
-  
+    querys.publish = 1
+  }
+
   // 查询
   const result = await Article
                       .paginate(querys, options)

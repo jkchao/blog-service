@@ -5,7 +5,7 @@ module.exports = async (ctx, next) => {
   // 拦截器
 	const allowedOrigins = ['https://jkchao.cn', 'https://admin.jkchao.cn'];
 	const origin = ctx.request.headers.origin || '';
-	if (allowedOrigins.includes(origin) || origin.includes('localhost:8080')) {
+	if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
 		ctx.set('Access-Control-Allow-Origin', origin);
 	};
 	ctx.set({
