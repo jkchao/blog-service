@@ -32,12 +32,7 @@ router
 		.all('/article', controller.article.list) // 文章
 		.all('/article/:id', controller.article.item)
 
-
-// // sitemap
-// app.get('/sitemap.xml', controller.sitemap);
-
-// like
-// router.post('/like', controller.like);
+		.post('/like', controller.like) // 喜欢文章
 
 
 // // music
@@ -47,20 +42,10 @@ router
 // app.get('/music/song/:song_id', controller.music.song);
 // app.get('/music/list/:play_list_id', controller.music.list);
 
-// // Tag
-// router.all('/tag', controller.tag.list);
-// router.all('/tag/:tag_id', controller.tag.item);
-
-// // Category
-// app.all('/category', controller.category.list);
-// app.all('/category/:category_id', controller.category.item);
 
 // // 评论
 // app.all('/comment', controller.comment.list);
 // app.all('/comment/:comment_id', controller.comment.item);
 
-// // Article
-// router.all('/article', controller.article.list);
-// router.all('/article/:article_id', controller.article.item);
 
 module.exports = router;

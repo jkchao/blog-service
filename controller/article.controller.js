@@ -5,7 +5,7 @@
 */
 
 const Article = require('../model/article.model')
-const Option = require('../model/option.model')
+// const Option = require('../model/option.model')
 const {
   handleRequest,
   handleSuccess,
@@ -49,8 +49,8 @@ artCtral.list.GET = async ctx => {
 	if (keyword) {
 		const keywordReg = new RegExp(keyword)
 		querys['$or'] = [
-			{ 'title': keywordReg },
-			{ 'content': keywordReg },
+      { 'title': keywordReg },
+      { 'content': keywordReg },
 			{ 'description': keywordReg }
 		]
   }
@@ -87,7 +87,8 @@ artCtral.list.GET = async ctx => {
 				"$lt": new Date((getDate / 1000 + 60 * 60 * 16) * 1000)
 			}
 		}
-	}
+  }
+  
 
   if (tag) querys.tag = tag
 

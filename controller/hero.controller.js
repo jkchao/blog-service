@@ -14,7 +14,7 @@ const heroCtrl = { list:{}, item: {} }
 // 获取列表
 heroCtrl.list.GET = async ctx => {
 
-  let { current_page = 1, page_size = 10, keyword = '', state = '' } = ctx.query
+  let { current_page = 1, page_size = 12, keyword = '', state = '' } = ctx.query
 
   // 过滤条件
   const options = {
@@ -96,24 +96,26 @@ heroCtrl.item.DELETE = async ctx => {
 heroCtrl.list.POST = async ctx => {
   let { body: hero } = ctx.request;
 
-  const ip = (req.headers["x-forwarded-for"] ||
-        req.headers["x-real-ip"] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress ||
-        req.ip ||
-        req.ips[0])
-        .replace('::ffff:', '')
+	// 获取ip地址以及物理地理地址
+	const ip = (ctx.req.headers['x-forwarded-for'] || 
+  ctx.req.headers['x-real-ip'] || 
+  ctx.req.connection.remoteAddress || 
+  ctx.req.socket.remoteAddress ||
+  ctx.req.connection.socket.remoteAddress ||
+  ctx.req.ip ||
+  ctx.req.ips[0]).replace('::ffff:', '');
 
-    
   hero.state = 0
+  hero.agent = ctx.headers['user-agent'] || hero.agent
 
   const ip_location = geoip.lookup(ip)
+
   if (ip_location) {
       hero.city = ip_location.city,
       hero.range = ip_location.range,
       hero.country = ip_location.country
   }
+
 
   const res = new Heros(hero)
               .save()

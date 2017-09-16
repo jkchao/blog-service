@@ -3,7 +3,7 @@
 
 exports.tag = require('./tag.controller')
 exports.heros = require('./hero.controller')
-// exports.like = require('./like.controller')
+exports.like = require('./like.controller')
 exports.auth = require('./auth.controller')
 // exports.music = require('./music.controller')
 exports.qiniu = require('./qiniu.controller')
