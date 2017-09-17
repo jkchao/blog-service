@@ -29,6 +29,9 @@ router
 		.all('/tag', controller.tag.list) // 标签
 		.all('/tag/:id', controller.tag.item)
 
+		.all('/hotReview', controller.hotReview.list) // 网易云热评
+		.all('/hotReview/:id', controller.hotReview.item)
+
 		.all('/article', controller.article.list) // 文章
 		.all('/article/:id', controller.article.item)
 
