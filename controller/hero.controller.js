@@ -18,7 +18,7 @@ heroCtrl.list.GET = async ctx => {
 
   // 过滤条件
   const options = {
-    sort: { _id: -1 },
+    sort: { _id: +1 },
     page: Number(current_page),
     limit: Number(page_size)
   }
