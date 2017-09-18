@@ -28,8 +28,8 @@ exports.APP = {
 
 exports.INFO = {
 	name: 'by_blog',
-	version: '1.1.0',
-	author: 'Surmon',
+	version: '1.0.0',
+	author: 'jkchao',
 	site: '',
 	powered: ['Vue2', 'Nuxt.js', 'Node.js', 'MongoDB', 'koa', 'Nginx']
 }
