@@ -5,7 +5,7 @@ module.exports = async (ctx, next) => {
   // 拦截器
 	const allowedOrigins = ['https://jkchao.cn', 'https://admin.jkchao.cn'];
 	const origin = ctx.request.headers.origin || '';
-	if (allowedOrigins.includes(origin)) {
+	if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
 		ctx.set('Access-Control-Allow-Origin', origin);
 	};
 	ctx.set({
@@ -28,7 +28,7 @@ module.exports = async (ctx, next) => {
 		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
-			ctx.thorw(403, { code: 0, message: '来者何人！' })
+			ctx.thorw(403, { code: 0, message: '身份验证失败！' })
 			return false;
 		};
 	};
@@ -46,7 +46,7 @@ module.exports = async (ctx, next) => {
 
 	// 拦截所有非管路员的非get请求
 	if (!authIsVerified(ctx.request) && !Object.is(ctx.request.method, 'GET')) {
-		ctx.throw(401, { code: -2, message: '来者何人！' })
+		ctx.throw(401, { code: -2, message: '身份验证失败！' })
 		return false;
 	};
 
