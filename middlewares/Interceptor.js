@@ -23,8 +23,6 @@ module.exports = async (ctx, next) => {
 		return false;
 	};
 
-	console.log(process.env.NODE_ENV)
-
 	// 如果是生产环境，需要验证用户来源渠道，防止非正常请求
 	if (Object.is(process.env.NODE_ENV, 'production')) {
 		const { origin, referer } = ctx.request.headers;
