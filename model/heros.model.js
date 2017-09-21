@@ -28,7 +28,7 @@ const herosSchema = new mongoose.Schema({
 
   // 状态  0 待审核，1 审核通过， 2 审核不通过
 	state: { type: Number, default: 0 },
-	
+
 	// ip
 	ip: { type: String },
 
