@@ -106,6 +106,7 @@ heroCtrl.list.POST = async ctx => {
   ctx.req.ips[0]).replace('::ffff:', '');
 
   hero.state = 0
+  hero.ip = ip
   hero.agent = ctx.headers['user-agent'] || hero.agent
 
   const ip_location = geoip.lookup(ip)
