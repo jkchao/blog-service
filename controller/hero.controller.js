@@ -8,6 +8,7 @@ const { handleRequest, handleSuccess,  handleError } = require('../utils/handle'
 const Heros = require('../model/heros.model')
 const geoip = require('geoip-lite')
 const authIsVerified = require('../utils/auth')
+const { sendMail } = require('../utils/email')
 
 const heroCtrl = { list:{}, item: {} }
 
@@ -117,12 +118,18 @@ heroCtrl.list.POST = async ctx => {
       hero.country = ip_location.country
   }
 
-
   const res = new Heros(hero)
-              .save()
-              .catch(err => ctx.thorw(500, '服务器内部错误'))
-  if (res) handleSuccess({ ctx, message: '数据提交审核成功，请耐心等待'})
-  else handleError({ ctx, message: '提交数据失败' })
+                  .save()
+                  .catch(err => ctx.thorw(500, '服务器内部错误'))
+  if (res) {
+    handleSuccess({ ctx, message: '数据提交审核成功，请耐心等待'})
+    sendMail({
+      to: '419027396@qq.com',
+      subject: '博客有新的英雄',
+      text: `来自 ${hero.name} 的留言：${hero.content}`,
+      html: `<p> 来自 ${hero.name} 的留言：${hero.content}</p>`
+    })
+  } else handleError({ ctx, message: '提交数据失败' })
 }
 
 exports.list = ctx => handleRequest({ ctx, controller: heroCtrl.list })

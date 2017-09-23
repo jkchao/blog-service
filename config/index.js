@@ -20,6 +20,11 @@ exports.AUTH = {
 	defaultPassword: argv.auth_default_password || '123456'
 }
 
+exports.EMAIL = {
+	account: argv.EMAIL_account || '419027396@qq.com',
+	password: argv.EMAIL_password || 'sdrddtrxcxxlbhfd'
+}
+
 exports.APP = {
 	ROOT_PATH: '/api',
 	LIMIT: 16,
@@ -30,6 +35,6 @@ exports.INFO = {
 	name: 'by_blog',
 	version: '1.0.0',
 	author: 'jkchao',
-	site: '',
+	site: 'https://jkchao.cn',
 	powered: ['Vue2', 'Nuxt.js', 'Node.js', 'MongoDB', 'koa', 'Nginx']
 }
