@@ -35,7 +35,10 @@ router
 		.all('/article', controller.article.list) // 文章
 		.all('/article/:id', controller.article.item)
 
-		.post('/like', controller.like) // 喜欢文章
+		.all('/comment', controller.comments.list)
+		.all('/comment/:id', controller.comments.item)
+
+		.post('/like', controller.like) // 喜欢文章 评论
 
 
 // // music

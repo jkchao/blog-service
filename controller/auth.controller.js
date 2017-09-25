@@ -31,6 +31,7 @@ const md5Decode = pwd => {
 // 登录
 authCtrl.login.POST = async ctx => {
   const { username, password } = ctx.request.body
+
   const auth = await Auth
               .findOne({ username })
               .catch(err => ctx.throw(500, '服务器内部错误'))
