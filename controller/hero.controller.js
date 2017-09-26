@@ -62,6 +62,7 @@ heroCtrl.list.GET = async ctx => {
 
 // 修改状态
 heroCtrl.list.PATCH = async ctx => {
+
   const { state, _id } = ctx.request.body
 
   if (!state) {

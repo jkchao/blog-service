@@ -153,70 +153,48 @@ commentCtrl.list.POST = async ctx => {
 		sendMailToAdminAndTargetUser(res, permalink)
 		updateArticleCommentCount([res.post_id])
 	} else handleError({ ctx, message: '评论发布失败' })
-};
-
-// 批量修改（移回收站、回收站恢复
-commentCtrl.list.PATCH = async ctx => {
-
-	const { comments, post_ids, state } = ctx.request.body
-
-	state = Object.is(state, undefined) ? null : Number(state)
-
-	// 验证 comments 0待审核 1通过 2不通过
-	if (!comments || !comments.length || Object.is(state, null) || Object.is(state, NaN) || ![0, 1, 2].includes(state)) {
-		handleError({ res, message: '缺少有效参数或参数无效' });
-		return false;
-	}
-
-	const result = await Comment
-												.update({ '_id': { $in: comments }}, { $set: { state }}, { multi: true })
-												.catch(err => ctx.throw(500, '服务器内部错误'))
-	if (result) {
-		handleSuccess({ ctx, result, message: '评论批量操作成功' })
-		if (post_ids && post_ids.length) {
-			updateArticleCommentCount(post_ids)
-		}
-	} else handleError({ ctx, message: '评论批量操作失败' })
 }
 
-// 批量删除评论
-commentCtrl.list.DELETE = async ctx => {
-
-	const { comments, post_ids } = ctx.request.body
-	// 验证
-	if (!comments || !comments.length) {
-		handleError({ res, message: '缺少有效参数' })
-		return false;
-	}
-	
-	const result = await Comment
-												.remove({ '_id': { $in: comments }})
-												.catch(err => ctx.throw(500, '服务器内部错误'))
-	if (result) {
-		handleSuccess({ ctx, result, message: '评论批量删除成功' })
-		if (post_ids && post_ids.length) {
-			updateArticleCommentCount(post_ids)
-		}
-	} else handleError({ ctx, message: '评论批量删除失败' });
-}
-
-// 删除单个评论
+// 删除评论
 commentCtrl.item.DELETE = async ctx => {
 
 	const _id = ctx.params.id
-	// const post_ids = ctx.request.body.post_ids.split(',')
+	
+	const post_ids = Array.of(Number(ctx.query.post_ids))
 
-	console.log(ctx.request)
-	// console.log(post_ids)
 	const res = await Comment
 										.findByIdAndRemove(_id)
 										.catch(err => ctx.throw(500, '服务器内部错误'))
 	if (res) {
 		handleSuccess({ ctx, message: '评论删除成功' })
-		// updateArticleCommentCount(post_ids)
+		updateArticleCommentCount(post_ids)
 	}
 	else handleError({ ctx, message: '评论删除失败' })
 }
+
+// 修改评论状态
+commentCtrl.item.PATCH = async ctx => {
+	
+		const _id = ctx.params.id
+
+		let { post_ids, state } = ctx.request.body
+
+		if (!state || !post_ids) {
+			ctx.throw(401, '参数无效')
+			return false
+		}
+
+		post_ids = Array.of(Number(post_ids))
+
+		const res = await Comment
+											.findByIdAndUpdate(_id, { state })
+											.catch(err => ctx.throw(500, '服务器内部错误'))
+		if (res) {
+			handleSuccess({ ctx, message: '评论删除成功' })
+			updateArticleCommentCount(post_ids)
+		}
+		else handleError({ ctx, message: '评论删除失败' })
+	}
 
 // export
 exports.list = ctx => handleRequest({ ctx, controller: commentCtrl.list })
