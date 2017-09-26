@@ -34,6 +34,9 @@ const commentSchema = new mongoose.Schema({
 	range: { type: String },
 	country: { type: String },
 
+	// 用户ua
+	agent: { type: String, validate: /\S+/ },
+
 	// 评论产生者
 	author: {
 		name: { type: String, required: true, validate: /\S+/ },

@@ -146,8 +146,6 @@ commentCtrl.list.POST = async ctx => {
   ctx.req.connection.socket.remoteAddress ||
   ctx.req.ip ||
   ctx.req.ips[0]).replace('::ffff:', '');
-
-  comment.state = 0
   comment.ip = ip
   comment.agent = ctx.headers['user-agent'] || comment.agent
 
