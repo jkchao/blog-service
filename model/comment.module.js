@@ -26,6 +26,14 @@ const commentSchema = new mongoose.Schema({
 	// 被赞数
 	likes: { type: Number, default: 0 },
 
+	// ip
+	ip: { type: String },
+
+	// ip 物理地址
+	city: { type: String },
+	range: { type: String },
+	country: { type: String },
+
 	// 评论产生者
 	author: {
 		name: { type: String, required: true, validate: /\S+/ },

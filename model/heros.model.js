@@ -32,9 +32,6 @@ const herosSchema = new mongoose.Schema({
 	// ip
 	ip: { type: String },
 
-	// range
-	range: { type: String },
-
 	// ip 物理地址
 	city: { type: String },
 	range: { type: String },

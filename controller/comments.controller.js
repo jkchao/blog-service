@@ -135,7 +135,28 @@ commentCtrl.list.GET = async ctx => {
 // 发布评论
 commentCtrl.list.POST = async ctx => {
 
-  let { body: comment } = ctx.request
+	let { body: comment } = ctx.request
+	
+	// 获取ip地址以及物理地理地址
+	const ip = (ctx.req.headers['x-forwarded-for'] || 
+  ctx.req.headers['x-real-ip'] || 
+  ctx.req.connection.remoteAddress || 
+  ctx.req.socket.remoteAddress ||
+  ctx.req.connection.socket.remoteAddress ||
+  ctx.req.ip ||
+  ctx.req.ips[0]).replace('::ffff:', '');
+
+  comment.state = 0
+  comment.ip = ip
+  comment.agent = ctx.headers['user-agent'] || comment.agent
+
+  const ip_location = geoip.lookup(ip)
+
+  if (ip_location) {
+		comment.city = ip_location.city,
+		comment.range = ip_location.range,
+		comment.country = ip_location.country
+  }
 
 	comment.likes = 0
 	comment.author = JSON.parse(comment.author)
