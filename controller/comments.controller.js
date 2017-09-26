@@ -9,6 +9,7 @@ const { sendMail } = require('../utils/email')
 const authIsVerified = require('../utils/auth')
 const Comment = require('../model/comment.module')
 const Article = require('../model/article.model')
+const geoip = require('geoip-lite')
 const commentCtrl = { list: {}, item: {} }
 
 // 更新当前所受影响的文章的评论聚合数据
