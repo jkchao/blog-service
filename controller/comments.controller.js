@@ -161,7 +161,10 @@ commentCtrl.list.POST = async ctx => {
 	comment.author = JSON.parse(comment.author)
 
 	// 永久链接
-	const permalink = 'https://jkchao.cn/' + (Object.is(comment.post_id, 0) ? 'guestbook' : `article/${comment.post_id}`);
+	const article = await Article
+														.findOne({ id: comment.post_id }, '_id')
+														.catch(err => ctx.throw(500, '服务器内部错误'))
+	const permalink = `https://jkchao.cn/article/${article._id}`
 
 	// 发布评论
 	const res = await new Comment(comment)
