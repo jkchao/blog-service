@@ -66,7 +66,7 @@ const sendMailToAdminAndTargetUser = (comment, permalink) => {
 // 获取评论列表
 commentCtrl.list.GET = async ctx => {
 
-	let { sort = -1, current_page = 1, page_size = 88, keyword = '', post_id, state } = ctx.query
+	let { sort = -1, current_page = 1, page_size = 20, keyword = '', post_id, state } = ctx.query
 
 	sort = Number(sort)
 

@@ -29,7 +29,7 @@ likeCtrl.POST = async ctx => {
                         .findById(_id)
                         .catch(err => ctx.throw(500, '服务器内部错误'))
   if (res) {
-    if (type === 0) res.meta.likes += 1
+    if (Number(type) === 0) res.meta.likes += 1
     else res.likes += 1
     const info = await res
                       .save()
