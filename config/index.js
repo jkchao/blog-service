@@ -11,7 +11,7 @@ exports.QINIU = {
 	secretKey: argv.qn_secretKey || 'your_qn_secretKey',
 	bucket: argv.qn_bucket || 'your_qn_bucket',
 	origin: argv.qn_origin || 'http://blog.u.qiniudn.com',
-	uploadURL: argv.qn_uploadURL || ''
+	uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
 }
 
 exports.AUTH = {
