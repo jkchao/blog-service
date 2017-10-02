@@ -22,7 +22,7 @@ exports.AUTH = {
 
 exports.EMAIL = {
 	account: argv.EMAIL_account || '419027396@qq.com',
-	password: argv.EMAIL_password || ''
+	password: argv.EMAIL_password || 'your_email_passwrod'
 }
 
 exports.APP = {
