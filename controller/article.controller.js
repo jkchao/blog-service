@@ -12,8 +12,9 @@ const {
   handleThrottle,
   handleError
 } = require('../utils/handle')
-
 const authIsVerified = require('../utils/auth')
+const request = require('request')
+const config = require('../config/index')
 
 
 const artCtral = { list: {}, item: {} }
@@ -124,8 +125,19 @@ artCtral.list.POST = async ctx => {
   const res = new Article(ctx.request.body)
                   .save()
                   .catch(err => ctx.throw(500, '服务器内部错误'))
-  if (res) handleSuccess({ ctx, message: '添加文章成功' })
-  else handleError({ ctx, message: '添加文章失败' })
+  if (res) {
+    handleSuccess({ ctx, message: '添加文章成功' })
+    
+    // 百度 seo push
+    request.post({
+      url: `http://data.zz.baidu.com/urls?site=${config.BAIDU.site}&token=${config.BAIDU.token}`, 
+      headers: { 'Content-Type': 'text/plain' },
+      body: `${config.INFO.site}/article/${res._id}`
+    }, (error, response, body) => {
+      console.log('推送结果：', body)
+    })
+
+  } else handleError({ ctx, message: '添加文章失败' })
 }
 
 // 根据文章id 获取内容
@@ -162,8 +174,18 @@ artCtral.item.DELETE = async ctx => {
   const res = await Article
                     .findByIdAndRemove(_id)
                     .catch(err => ctx.throw(500, '服务器内部错误'))
-  if (res) handleSuccess({ ctx, message: '删除文章成功' })
-  else handleError({ ctx, message: '删除文章失败' })
+  if (res) {
+    handleSuccess({ ctx, message: '删除文章成功' })
+
+    // 百度推送
+    request.post({
+      url: `http://data.zz.baidu.com/del?site=${config.BAIDU.site}&token=${config.BAIDU.token}`, 
+      headers: { 'Content-Type': 'text/plain' },
+      body: `${config.INFO.site}/article/${_id}`
+    }, (error, response, body) => {
+      console.log(urls, '百度删除结果：', body);
+    })
+  } else handleError({ ctx, message: '删除文章失败' })
 }
 
 // 修改文章
@@ -189,8 +211,18 @@ artCtral.item.PUT = async ctx => {
     const res = await Article
                       .findByIdAndUpdate(_id, ctx.request.body)
                       .catch(err => ctx.throw(500, '服务器内部错误'))
-    if (res) handleSuccess({ ctx, message: '更新文章成功' })
-    else handleError({ ctx, message: '更新文章失败' })
+    if (res) {
+      handleSuccess({ ctx, message: '更新文章成功' })
+
+      // 百度推送
+      request.post({
+        url: `http://data.zz.baidu.com/update?site=${config.BAIDU.site}&token=${config.BAIDU.token}`, 
+        headers: { 'Content-Type': 'text/plain' },
+        body: `${config.INFO.site}/article/${_id}`
+      }, (error, response, body) => {
+        console.log(urls, '百度删除结果：', body);
+      })
+    } else handleError({ ctx, message: '更新文章失败' })
 }
 
 // 修改文章状态

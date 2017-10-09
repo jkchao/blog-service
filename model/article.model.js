@@ -31,7 +31,7 @@ const articleSchema = new mongoose.Schema({
   // 状态 1 发布 2 草稿
   state: { type: Number, default: 1 },
 
-  // 文章公开状态 1 发布 2 私密
+  // 文章公开状态 1 公开 2 私密
   publish: { type: Number, default: 1 },
 
 	// 缩略图
