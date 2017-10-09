@@ -7,9 +7,9 @@ exports.MONGODB = {
 }
 
 exports.QINIU = {
-	accessKey: argv.qn_accessKey || 'uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf',
-	secretKey: argv.qn_secretKey || '_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph',
-	bucket: argv.qn_bucket || 'my_blog',
+	accessKey: argv.qn_accessKey || 'your_qn_accessKey',
+	secretKey: argv.qn_secretKey || 'your_qn_secretKey',
+	bucket: argv.qn_bucket || 'your_qn_bucket',
 	origin: argv.qn_origin || 'http://blog.u.qiniudn.com',
 	uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
 }
@@ -21,13 +21,13 @@ exports.AUTH = {
 }
 
 exports.EMAIL = {
-	account: argv.EMAIL_account || '419027396@qq.com',
-	password: argv.EMAIL_password || 'sdrddtrxcxxlbhfd'
+	account: argv.EMAIL_account || 'your_email_account',
+	password: argv.EMAIL_password || 'your_email_password'
 }
 
 exports.BAIDU = {
-	site: argv.baidu_site || 'http://jkchao.cn',
-	token: argv.baidu_token || 'phhdOEtkGgVKToH5'
+	site: argv.baidu_site || 'your_baidu_site',
+	token: argv.baidu_token || 'your_baidu_token'
 }
 
 exports.APP = {
