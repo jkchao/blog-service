@@ -183,7 +183,7 @@ artCtral.item.DELETE = async ctx => {
       headers: { 'Content-Type': 'text/plain' },
       body: `${config.INFO.site}/article/${_id}`
     }, (error, response, body) => {
-      console.log(urls, '百度删除结果：', body);
+      console.log('百度删除结果：', body);
     })
   } else handleError({ ctx, message: '删除文章失败' })
 }
@@ -220,7 +220,7 @@ artCtral.item.PUT = async ctx => {
         headers: { 'Content-Type': 'text/plain' },
         body: `${config.INFO.site}/article/${_id}`
       }, (error, response, body) => {
-        console.log(urls, '百度删除结果：', body);
+        console.log('百度删除结果：', body);
       })
     } else handleError({ ctx, message: '更新文章失败' })
 }
