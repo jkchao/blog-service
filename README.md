@@ -18,7 +18,7 @@ BUILD WIDTH: Koa + mongoose
  
  - ~百度 seo push~
  
- - 重构
+ - 重构 Restful API http://sinn.boyagirl.com/detail/58d9072cc1a5bd0001672cdc
 
  
 --- 
