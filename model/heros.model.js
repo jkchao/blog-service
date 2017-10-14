@@ -24,7 +24,10 @@ const herosSchema = new mongoose.Schema({
   github: String,
 
   // blog
-  blog: String,
+	blog: String,
+	
+	// email
+	email: { type: String, required: true, validate: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/ },
 
   // 状态  0 待审核，1 审核通过， 2 审核不通过
 	state: { type: Number, default: 0 },
