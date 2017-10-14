@@ -17,6 +17,8 @@ BUILD WIDTH: Koa + mongoose
  - redis 缓存标签、网易云热门评论。
  
  - ~百度 seo push~
+ 
+ - 重构 Restful API http://sinn.boyagirl.com/detail/58d9072cc1a5bd0001672cdc
 
  
 --- 
