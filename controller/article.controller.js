@@ -125,11 +125,11 @@ class ArticleController {
 
       // 百度 seo push
       request.post({
-      url: `http://data.zz.baidu.com/urls?site=${config.BAIDU.site}&token=${config.BAIDU.token}`, 
-      headers: { 'Content-Type': 'text/plain' },
-      body: `${config.INFO.site}/article/${res._id}`
-      }, (error, response, body) => {
-      console.log('推送结果：', body)
+        url: `http://data.zz.baidu.com/urls?site=${config.BAIDU.site}&token=${config.BAIDU.token}`, 
+        headers: { 'Content-Type': 'text/plain' },
+        body: `${config.INFO.site}/article/${res._id}`
+        }, (error, response, body) => {
+        console.log('推送结果：', body)
       })
 
     } else handleError({ ctx, message: '添加文章失败' })

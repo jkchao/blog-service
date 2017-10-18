@@ -34,12 +34,6 @@ app.use(async (ctx, next) => {
 // middleware
 app.use(Interceptor)
 
-// 404
-app.use(async (ctx, next) => {
-  await next()
-  if (ctx.status === 404) ctx.body = { code: 0, message: '无效的api请求'}  
-})
-
 
 app.use(initAdmin)
 
@@ -49,6 +43,16 @@ app.use(koaBody({
   formLimit: '10mb',
   textLimit: '10mb'
 }))
+
+// 404 500
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (error) {
+    ctx.body = { code: 0, message: '服务器内部错误' }
+  }
+  if (ctx.status === 404 || ctx.status === 405) ctx.body = { code: 0, message: '无效的api请求'}
+})
 
 app
   .use(router.routes())

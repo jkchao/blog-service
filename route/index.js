@@ -36,13 +36,6 @@ router
 		.put('/tag/:id', controller.tag.putTag)																	// 修改标签
 		.delete('/tag/:id', controller.tag.deleteTag)														// 删除标签
 
-		.get('/hotReview', controller.hotReview.getHotReview) 									// 获取热评
-		.post('/hotReview', controller.hotReview.postHotReview)									// 添加热评
-		.patch('/hotReview', controller.hotReview.patchHotReview)								// 标签热评
-		.put('/hotReview/:id', controller.hotReview.putHotReview)								// 修改热评
-		.delete('/hotReview/:id', controller.hotReview.deleteHotReview)					// 删除热评
-
-
 		.get('/article', controller.article.getArts) 														// 文章列表
 		.post('/article', controller.article.postArt)														// 添加文章
 		.get('/article/:id', controller.article.getArt)													// 文章详情
@@ -56,6 +49,12 @@ router
 		.delete('/comment/:id', controller.comments.deleteComment)							// 删除评论
 
 		.post('/like', controller.like.postLike) 																// 喜欢文章 评论
+
+		.get('/music/pic/:pic_id', controller.music.getPic)											// 音乐封面图
+		.get('/music/lrc/:song_id', controller.music.getLrc)										// 音乐歌词
+		.get('/music/url/:song_id', controller.music.getUrl)										// 音乐地址
+		.get('/music/song/:song_id', controller.music.getSone)									// 音乐详情
+		.get('/music/list/:play_list_id', controller.music.getList)							// 音乐列表
 
 
 module.exports = router
