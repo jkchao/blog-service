@@ -17,7 +17,6 @@
     "koa"
   ],
   "author": "jkchao",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jkchao/node-koa/issues"
   },
