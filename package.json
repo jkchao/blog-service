@@ -14,7 +14,8 @@
   },
   "keywords": [
     "node",
-    "koa"
+    "koa",
+    "mongodb"
   ],
   "author": "jkchao",
   "bugs": {
