@@ -26,6 +26,7 @@ module.exports = async (ctx, next) => {
 	// 如果是生产环境，需要验证用户来源渠道，防止非正常请求
 	if (Object.is(process.env.NODE_ENV, 'production')) {
 		const { origin, referer } = ctx.request.headers;
+		console.log(origin, referer)
 		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
