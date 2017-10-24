@@ -119,7 +119,7 @@ class HerosController {
 
     const res = new Heros(hero)
                     .save()
-                    .catch(err => ctx.thorw(500, '服务器内部错误'))
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
     if (res) {
       handleSuccess({ ctx, message: '数据提交审核成功，请耐心等待'})
       sendMail({

@@ -29,7 +29,7 @@ module.exports = async (ctx, next) => {
 		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
 														(!referer || referer.includes('jkchao.cn'))
 		if (!originVerified) {
-			ctx.thorw(403, { code: 0, message: '身份验证失败！' })
+			ctx.throw(403, { code: 0, message: '身份验证失败！' })
 			return false;
 		};
 	};
