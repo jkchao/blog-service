@@ -3,7 +3,7 @@ const authIsVerified = require('../utils/auth');
 module.exports = async (ctx, next) => {
 
   // 拦截器
-	const allowedOrigins = ['https://jkchao.cn', 'https://admin.jkchao.cn'];
+	const allowedOrigins = ['https://jkchao.cn', 'https://admin.jkchao.cn', 'file://'];
 	const origin = ctx.request.headers.origin || '';
 	if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
 		ctx.set('Access-Control-Allow-Origin', origin);
@@ -26,13 +26,14 @@ module.exports = async (ctx, next) => {
 	// 如果是生产环境，需要验证用户来源渠道，防止非正常请求
 	if (Object.is(process.env.NODE_ENV, 'production')) {
 		const { origin, referer } = ctx.request.headers;
-		console.log(origin, referer)
-		const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
-														(!referer || referer.includes('jkchao.cn'))
-		if (!originVerified) {
-			ctx.throw(403, { code: 0, message: '身份验证失败！' })
-			return false;
-		};
+		if (origin !== 'file://') {
+			const originVerified = (!origin	|| origin.includes('jkchao.cn')) && 
+															(!referer || referer.includes('jkchao.cn'))
+			if (!originVerified) {
+				ctx.throw(403, { code: 0, message: '身份验证失败！' })
+				return false;
+			};
+		}
 	};
 
 	// 排除auth的post请求 && 评论的post请求 && like请求 && hero post
