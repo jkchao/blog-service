@@ -70,7 +70,8 @@ class ArticleController {
     if (hot) {
       options.sort = {
         'meta.views': -1,
-        'meta.likes': -1
+        'meta.likes': -1,
+        'meta.comments': -1
       }
     }
   
