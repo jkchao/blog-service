@@ -158,13 +158,16 @@ class CommentController {
 	
 		comment.likes = 0
 		comment.author = JSON.parse(comment.author)
-	
-		// 永久链接
-		const article = await Article
-															.findOne({ id: comment.post_id }, '_id')
-															.catch(err => ctx.throw(500, '服务器内部错误'))
-		const permalink = `https://jkchao.cn/article/${article._id}`
-	
+
+		let permalink
+		if (Number(comment.post_id) !== 0) {
+			// 永久链接
+			const article = await Article
+											.findOne({ id: comment.post_id }, '_id')
+											.catch(err => ctx.throw(500, '服务器内部错误'))
+			permalink = `https://jkchao.cn/article/${article._id}`
+		} else permalink = 'https://jkchao.cn/about'
+
 		// 发布评论
 		const res = await new Comment(comment)
 																.save()
