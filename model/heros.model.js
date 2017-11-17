@@ -15,19 +15,10 @@ autoIncrement.initialize(mongoose.connection)
 const herosSchema = new mongoose.Schema({
 
 	// 名称
-	name: { type: String, required: true, validate: /\S+/ },
+	name: { type: String },
 
 	// 内容
-  content: String,
-
-  // github
-  github: String,
-
-  // blog
-	blog: String,
-	
-	// email
-	email: { type: String, required: true, validate: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/ },
+  content: { type: String, required: true, validate: /\S+/ },
 
   // 状态  0 待审核，1 审核通过， 2 审核不通过
 	state: { type: Number, default: 0 },
