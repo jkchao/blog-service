@@ -7,9 +7,9 @@ exports.MONGODB = {
 }
 
 exports.QINIU = {
-	accessKey: argv.qn_accessKey || 'uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf',
-	secretKey: argv.qn_secretKey || '_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph',
-	bucket: argv.qn_bucket || 'blog',
+	accessKey: argv.qn_accessKey || 'your_qqn_accessKey',
+	secretKey: argv.qn_secretKey || 'your_qn_secretKey',
+	bucket: argv.qn_bucket || 'your_qn_bucket',
 	origin: argv.qn_origin || 'http://blog.u.qiniudn.com',
 	uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
 }

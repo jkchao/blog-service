@@ -62,7 +62,7 @@ class ArticleController {
     }
   
     // 按照类型程度查询
-    if (['1', '2'].includes(type)) {
+    if (['1', '2', '3'].includes(type)) {
       querys.type = type
     }
   
