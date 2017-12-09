@@ -86,9 +86,9 @@ class CommentController {
 	
 		// 查询参数
 		let querys = {}
-	
+
 		// 查询各种状态
-		if (state && [0, 1, 2].includes(state)) {
+		if (state && ['0', '1', '2'].includes(state)) {
 			querys.state = state;
 		};
 	
@@ -199,7 +199,7 @@ class CommentController {
 	// 修改评论状态
 	static async patchComment (ctx) {
 		const _id = ctx.params.id
-		
+
 		let { post_ids, state } = ctx.request.body
 
 		if (!state || !post_ids) {
@@ -213,10 +213,10 @@ class CommentController {
 											.findByIdAndUpdate(_id, { state })
 											.catch(err => ctx.throw(500, '服务器内部错误'))
 		if (res) {
-			handleSuccess({ ctx, message: '评论删除成功' })
+			handleSuccess({ ctx, message: '评论状态修改成功' })
 			updateArticleCommentCount(post_ids)
 		}
-		else handleError({ ctx, message: '评论删除失败' })
+		else handleError({ ctx, message: '评论状态修改失败' })
 	}
 }
 
