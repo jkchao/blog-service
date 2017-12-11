@@ -123,7 +123,7 @@ class HerosController {
     if (res) {
       handleSuccess({ ctx, message: '数据提交审核成功，请耐心等待'})
       sendMail({
-        to: '419027396@qq.com',
+        to: 'jkchao@foxmail.com',
         subject: '博客有新的留言墙',
         text: `来自 ${hero.name} 的留言：${hero.content}`,
         html: `<p> 来自 ${hero.name} 的留言：${hero.content}</p>`

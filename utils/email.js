@@ -39,7 +39,7 @@ const sendMail = mailOptions => {
     return false;
 	}
 
-	mailOptions.from = '"jkchao" <419027396@qq.com>'
+	mailOptions.from = '"jkchao" <jkchao@foxmail.com>'
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) return console.warn("邮件发送失败", error)

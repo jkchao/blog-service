@@ -45,7 +45,7 @@ const updateArticleCommentCount = (post_ids = []) => {
 // 邮件通知网站主及目标对象
 const sendMailToAdminAndTargetUser = (comment, permalink) => {
 	sendMail({
-		to: '419027396@qq.com',
+		to: 'jkchao@foxmail.com',
 		subject: '博客有新的留言',
 		text: `来自 ${comment.author.name} 的留言：${comment.content}`,
 		html: `<p> 来自 ${comment.author.name} 的留言：${comment.content}</p><br><a href="${permalink}" target="_blank">[ 点击查看 ]</a>`
