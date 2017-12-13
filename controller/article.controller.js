@@ -291,6 +291,9 @@ class ArticleController {
                                 }
                               }
                             }
+                          },
+                          {
+                            $sort: { '_id' : -1 }
                           }
                         ])
     if (article) {
