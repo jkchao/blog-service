@@ -42,6 +42,7 @@ router
 		.patch('/article/:id', controller.article.patchArt)											// 修改文章状态
 		.put('/article/:id', controller.article.putArt)													// 修改文章
 		.delete('/article/:id', controller.article.deleteArt)										// 删除文章
+		.get('/allArticle', controller.article.getAllArts)											// 文章归档
 
 		.get('/comment', controller.comments.getComments)												// 评论列表
 		.post('/comment', controller.comments.postComment)											// 增加评论

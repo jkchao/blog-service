@@ -119,8 +119,8 @@ class ArticleController {
   // 添加文章
   static async postArt (ctx) {
     const res = new Article(ctx.request.body)
-    .save()
-    .catch(err => ctx.throw(500, '服务器内部错误'))
+                    .save()
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
     if (res) {
       handleSuccess({ ctx, message: '添加文章成功' })
 
@@ -243,6 +243,72 @@ class ArticleController {
                       .catch(err => ctx.throw(500, '服务器内部错误'))
     if (res) handleSuccess({ ctx, message: '更新文章状态成功'})
     else handleError({ ctx, message: '更新文章状态失败' })
+  }
+
+  // 文章归档
+  static async getAllArts (ctx) {
+
+    const current_page = 1
+    const page_size = 10000
+
+    // 过滤条件
+    const options = {
+      sort: { create_at: -1 },
+      page: Number(current_page),
+      limit: Number(page_size),
+      populate: ['tag'],
+      select: '-content'
+    }
+
+    // 参数
+    const querys = {
+      state: 1,
+      publish: 1
+    }
+
+    // 查询
+    const article = await Article.aggregate([
+                          { $match: { state: 1, publish: 1 } },
+                          {
+                            $project: {
+                              year: { $year: '$create_at' },
+                              month: { $month: '$create_at' },
+                              title: 1,
+                              create_at: 1
+                            }
+                          },
+                          {
+                            $group: {
+                              _id: {
+                                year: '$year',
+                                month: '$month'
+                              },
+                              article: {
+                                $push: {
+                                   title: '$title',
+                                   _id: '$_id',
+                                   create_at: '$create_at'
+                                }
+                              }
+                            }
+                          }
+                        ])
+    if (article) {
+      let yearList = [...new Set(article.map(item => item._id.year))]
+                      .map(item => {
+                        let monthList = []
+                        article.forEach(n => {
+                          // 同一年
+                          if (n._id.year === item) {
+                            monthList.push({ month: n._id.month, articleList: n.article })
+                          }
+                        })
+                        return { year: item, monthList }
+                      })
+
+      handleSuccess({ ctx, result: yearList, message: '获取内容成功' })
+    }
+    else handleError({ ctx, message: '获取内容失败' })
   }
 }
 
