@@ -291,9 +291,6 @@ class ArticleController {
                                 }
                               }
                             }
-                          },
-                          {
-                            $sort: { '_id' : -1 }
                           }
                         ])
     if (article) {
@@ -303,7 +300,7 @@ class ArticleController {
                         article.forEach(n => {
                           // 同一年
                           if (n._id.year === item) {
-                            monthList.push({ month: n._id.month, articleList: n.article })
+                            monthList.push({ month: n._id.month, articleList: n.article.reverse() })
                           }
                         })
                         return { year: item, monthList }
