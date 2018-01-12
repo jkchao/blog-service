@@ -14,7 +14,7 @@ class BookController {
 	
 	// 获取书本列表
 	static async getBooks (ctx) {
-		const { current_page = 1, page_size = 18, keyword = '' } = ctx.query
+		const { current_page = 1, page_size = 18, keyword = '', state = '' } = ctx.query
 
 		// 过滤条件
 		const options = {
@@ -27,6 +27,11 @@ class BookController {
 		const querys = {
 			name: new RegExp(keyword)
 		}
+
+    // 按照 state 查询
+    if (['1', '2'].includes(state)) {
+      querys.state = state
+    }
 
 		const book = await Book
 								.paginate(querys, options)
