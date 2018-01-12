@@ -34,8 +34,8 @@ const bookSchema = new mongoose.Schema({
 })
 
 // 翻页
-tagSchema.plugin(mongoosePaginate)
-tagSchema.plugin(autoIncrement.plugin, {
+bookSchema.plugin(mongoosePaginate)
+bookSchema.plugin(autoIncrement.plugin, {
 	model: 'Book',
 	field: 'id',
 	startAt: 1,
@@ -43,13 +43,13 @@ tagSchema.plugin(autoIncrement.plugin, {
 })
 
 // 时间更新
-tagSchema.pre('findOneAndUpdate', function(next) {
+bookSchema.pre('findOneAndUpdate', function(next) {
 	this.findOneAndUpdate({}, { update_at: Date.now() })
 	next()
 })
 
 // 标签模型
-const Book = mongoose.model('Book', bagSchema)
+const Book = mongoose.model('Book', bookSchema)
 
 // export
 module.exports = Book
