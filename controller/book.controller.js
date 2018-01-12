@@ -66,7 +66,7 @@ class BookController {
 			return false
 		}
 
-		const book = await new Book({ name, descript })
+		const book = await new Book({ name, descript, thumb })
 											.save()
 											.catch(err => handleError({ ctx, message: '服务器内部错误' }))
 		if (book) handleSuccess({ ctx, message: '发布书本成功', result: book })
