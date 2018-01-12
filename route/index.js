@@ -57,5 +57,11 @@ router
 		.get('/music/song/:song_id', controller.music.getSone)									// 音乐详情
 		.get('/music/list/:play_list_id', controller.music.getList)							// 音乐列表
 
+		.get('/book', controller.book.getBooks) 																 // 获取书本列表
+		.post('/book', controller.book.postBook)																 // 添加书本
+		.patch('/book', controller.book.patchBook)															 // 修改书本状态
+		.put('/book/:id', controller.book.putBook)															 // 修改书本
+		.delete('/book/:id', controller.book.deleteBook)												 // 删除书本
+
 
 module.exports = router
