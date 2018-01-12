@@ -1,13 +1,13 @@
 const config = require('../config')
 const Auth = require('../model/auth.model')
-const crypto = require("crypto")
+const crypto = require('crypto')
 
 // md5 编码
 const md5Decode = pwd => {
   return crypto
-            .createHash("md5")
+            .createHash('md5')
             .update(pwd)
-            .digest("hex")
+            .digest('hex')
 }
 
 // 初始化管理员账号中间件(当然这些中间件只有用户访问改网址才会执行)

@@ -34,7 +34,6 @@ app.use(async (ctx, next) => {
 // middleware
 app.use(Interceptor)
 
-
 app.use(initAdmin)
 
 app.use(helmet())
