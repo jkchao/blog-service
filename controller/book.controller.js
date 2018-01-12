@@ -77,9 +77,11 @@ class BookController {
 	static async patchBook (ctx) {
     const _id = ctx.params.id
 
-    const { state } = ctx.request.body
+		const { state } = ctx.request.body
 
-    if (state) querys.state = state
+		let querys = {}
+
+		if (state) querys.state = state
 
     if (!_id) {
       handleError({ ctx, message: '无效参数'})
