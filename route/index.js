@@ -59,7 +59,7 @@ router
 
 		.get('/book', controller.book.getBooks) 																 // 获取书本列表
 		.post('/book', controller.book.postBook)																 // 添加书本
-		.patch('/book/:id', controller.book.patchBook)															 // 修改书本状态
+		.patch('/book/:id', controller.book.patchBook)													 // 修改书本状态
 		.put('/book/:id', controller.book.putBook)															 // 修改书本
 		.delete('/book/:id', controller.book.deleteBook)												 // 删除书本
 
