@@ -7,8 +7,8 @@ exports.MONGODB = {
 }
 
 exports.QINIU = {
-	accessKey: argv.qn_accessKey || 'uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf',
-	secretKey: argv.qn_secretKey || '_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph',
+	accessKey: argv.qn_accessKey || 'your_qn_accessKey',
+	secretKey: argv.qn_secretKey || 'your_qn_secretKey',
 	bucket: argv.qn_bucket || 'blog',
 	origin: argv.qn_origin || 'http://blog.u.qiniudn.com',
 	uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
@@ -21,8 +21,8 @@ exports.AUTH = {
 }
 
 exports.EMAIL = {
-	account: argv.EMAIL_account || 'jkchao@foxmail.com',
-	password: argv.EMAIL_password || 'asjiohiaqmoncbcd'
+	account: argv.EMAIL_account || 'your_email_account',
+	password: argv.EMAIL_password || 'your_email_password'
 }
 
 exports.BAIDU = {
