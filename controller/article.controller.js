@@ -278,11 +278,6 @@ class ArticleController {
                             }
                           },
                           {
-                            $sort: {
-                              "_id": 1
-                            }
-                          },
-                          {
                             $group: {
                               _id: {
                                 year: '$year',
@@ -300,6 +295,7 @@ class ArticleController {
                         ])
     if (article) {
       let yearList = [...new Set(article.map(item => item._id.year))]
+                      .sort((a, b) => b - a)
                       .map(item => {
                         let monthList = []
                         article.forEach(n => {
