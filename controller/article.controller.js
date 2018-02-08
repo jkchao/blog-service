@@ -304,7 +304,7 @@ class ArticleController {
                             monthList.push({ month: n._id.month, articleList: n.article.reverse() })
                           }
                         })
-                        return { year: item, monthList }
+                        return { year: item, monthList: monthList.sort((a, b) => b.month - a.month)}
                       })
 
       handleSuccess({ ctx, result: yearList, message: '获取内容成功' })
