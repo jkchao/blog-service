@@ -278,6 +278,11 @@ class ArticleController {
                             }
                           },
                           {
+                            $sort: {
+                              "_id": 1
+                            }
+                          },
+                          {
                             $group: {
                               _id: {
                                 year: '$year',
