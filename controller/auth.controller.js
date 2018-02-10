@@ -37,9 +37,9 @@ class AuthController {
         const token = jwt.sign({
           name: auth.name,
           password: auth.password,
-          exp: Math.floor(Date.now() / 1000) + 60 * 60
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7)
         }, config.AUTH.jwtTokenSecret)
-        handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + 60 * 60 }, message: "登陆成功" })
+        handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) }, message: "登陆成功" })
       } else handleError({ ctx, message: "密码错误!" })
     } else handleError({ ctx, message: "账户不存在" })
   }
