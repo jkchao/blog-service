@@ -63,5 +63,11 @@ router
 		.put('/book/:id', controller.book.putBook)															 // 修改书本
 		.delete('/book/:id', controller.book.deleteBook)												 // 删除书本
 
+		.get('/link', controller.link.getLinks) 																 // 获取友链列表
+		.post('/link', controller.link.postLink)																 // 添加友链
+		.patch('/link/:id', controller.link.patchLink)													 // 修改友链状态
+		.put('/link/:id', controller.link.putLink)															 // 修改友链
+		.delete('/link/:id', controller.link.deleteLink)												 // 删除友链
+
 
 module.exports = router
