@@ -10,7 +10,7 @@ const {
 	handleError
 } = require("../utils/handle")
 
-class LinksController {
+class LinkController {
 	
 	// 获取列表
 	static async getLinks (ctx) {
