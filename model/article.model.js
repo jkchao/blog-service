@@ -20,7 +20,7 @@ const articleSchema = new mongoose.Schema({
   keyword: { type: String, required: true },
 
   // 描述
-  descript: { type: String, required: true },
+  descript: { type: String, required: false },
 
   // 标签
   tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],

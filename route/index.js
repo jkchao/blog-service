@@ -46,7 +46,7 @@ router
 
 		.get('/comment', controller.comments.getComments)												// 评论列表
 		.post('/comment', controller.comments.postComment)											// 增加评论
-		.patch('/comment/:id', controller.comments.patchComment)								// 修改状态
+		.put('/comment/:id', controller.comments.putComment)								// 修改状态
 		.delete('/comment/:id', controller.comments.deleteComment)							// 删除评论
 
 		.post('/like', controller.like.postLike) 																// 喜欢文章 评论
