@@ -199,6 +199,7 @@ class CommentController {
 	// 修改评论
 	static async putComment (ctx) {
 		const _id = ctx.params.id
+		console.log(ctx.request.body)
 
 		let { post_ids, state, author } = ctx.request.body
 
