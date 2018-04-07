@@ -196,21 +196,25 @@ class CommentController {
 		else handleError({ ctx, message: '评论删除失败' })
 	}
 
-	// 修改评论状态
-	static async patchComment (ctx) {
+	// 修改评论
+	static async putComment (ctx) {
 		const _id = ctx.params.id
 
-		let { post_ids, state } = ctx.request.body
+		let { post_ids, state, author } = ctx.request.body
 
 		if (!state || !post_ids) {
 			ctx.throw(401, '参数无效')
 			return false
 		}
 
+		if (author) {
+			author = JSON.parse(author)
+		}
+
 		post_ids = Array.of(Number(post_ids))
 
 		const res = await Comment
-											.findByIdAndUpdate(_id, { state })
+											.findByIdAndUpdate(_id, { ...ctx.request.body, author })
 											.catch(err => ctx.throw(500, '服务器内部错误'))
 		if (res) {
 			handleSuccess({ ctx, message: '评论状态修改成功' })
