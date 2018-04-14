@@ -1,5 +1,7 @@
 # NODE-KOA
 
+*使用 TypeScript 升级中*
+
 CLIENT: [vue-blog](https://github.com/jkchao/vue-blog)
 
 ADMIN: [vue-admin](https://github.com/jkchao/vue-admin)
