@@ -4,8 +4,8 @@
   "description": "api",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node --harmony index.js",
-    "dev": "nodemon --exec \"NODE_ENV=development node --harmony index.js\"",
+    "start": "NODE_ENV=production node --harmony ./disk/index.js",
+    "dev": "nodemon --exec 'ts-node' ./src/index.ts",
     "updatedb": "node ./node_modules/geoip-lite/scripts/updatedb.js"
   },
   "repository": {
@@ -28,8 +28,8 @@
     "crypto": "^1.0.1",
     "geoip-lite": "^1.2.1",
     "jsonwebtoken": "^7.4.3",
-    "koa": "^2.3.0",
-    "koa-body": "^2.3.0",
+    "koa": "^2.5.0",
+    "koa-body": "^2.5.0",
     "koa-cors": "0.0.16",
     "koa-helmet": "^3.2.0",
     "koa-json": "^2.0.2",
@@ -44,5 +44,15 @@
     "request": "^2.83.0",
     "simple-netease-cloud-music": "^0.1.8",
     "yargs": "^8.0.2"
+  },
+  "devDependencies": {
+    "@types/helmet": "0.0.37",
+    "@types/koa": "^2.0.45",
+    "@types/mongoose": "^5.0.9",
+    "@types/mongoose-paginate": "^5.0.6",
+    "nodemon": "^1.17.3",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
   }
 }
