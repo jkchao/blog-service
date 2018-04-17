@@ -4,10 +4,10 @@ const config	 = require('../config')
 
 mongoose.Promise = global.Promise
 
-exports.mongoose = mongoose
+export const mongoose = mongoose
 
 // 数据库
-exports.connect = () => {
+export const connect = () => {
 
 	// 连接数据库
 	mongoose.connect(config.MONGODB.uri, { useMongoClient: true})

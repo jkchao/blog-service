@@ -33,8 +33,8 @@
     "jsx": "preserve",
     // 使用的JSX工厂函数
     "jsxFactory": "h",
-    // 允许从没有设置默认导出的模块中默认导入
-    "allowSyntheticDefaultImports": true,
+    // 不允许从没有设置默认导出的模块中默认导入
+    "allowSyntheticDefaultImports": false,
     // 启用装饰器
     "experimentalDecorators": true,
     // 允许编译javascript文件

@@ -20,6 +20,8 @@
       "never"
     ],
 
+    "no-var-requires": false,
+
     // 如果一个变量声明后不再被修改，那么应使用 const 来声明该变量
     "prefer-const": true,
 

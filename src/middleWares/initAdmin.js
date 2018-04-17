@@ -11,7 +11,7 @@ const md5Decode = pwd => {
 }
 
 // 初始化管理员账号中间件(当然这些中间件只有用户访问改网址才会执行)
-module.exports = async (ctx, next) => {
+export default async (ctx, next) => {
     const username = config.AUTH.defaultUsername
     const password = md5Decode(config.AUTH.defaultPassword)
     // const name = config.admin.name;

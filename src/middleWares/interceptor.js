@@ -1,6 +1,6 @@
 const authIsVerified = require('../utils/auth');
 
-module.exports = async (ctx, next) => {
+export default async (ctx, next) => {
 
   // 拦截器
 	const allowedOrigins = ['https://jkchao.cn', 'https://admin.jkchao.cn', 'file://'];
