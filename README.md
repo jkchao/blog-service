@@ -1,6 +1,7 @@
 # NODE-KOA
 
 *使用 TypeScript 升级中*
+*可查看分支：https://github.com/jkchao/node-koa/tree/TS*
 
 CLIENT: [vue-blog](https://github.com/jkchao/vue-blog)
 
