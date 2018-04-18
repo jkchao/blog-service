@@ -1,10 +1,6 @@
 // 路由管理
 
-// const config = require('../config')
-// const controller = require('../controller')
-// const authIsVerified = require('../utils/auth')
 import * as Router from 'koa-router'
-// const Router = require('koa-router')
 
 import * as config from '../config'
 import * as controller from '../controller'

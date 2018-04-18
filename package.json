@@ -47,10 +47,13 @@
   },
   "devDependencies": {
     "@types/helmet": "0.0.37",
+    "@types/jsonwebtoken": "^7.2.6",
     "@types/koa": "^2.0.45",
     "@types/koa-router": "^7.0.27",
     "@types/mongoose": "^5.0.9",
     "@types/mongoose-paginate": "^5.0.6",
+    "@types/nodemailer": "^4.6.0",
+    "@types/nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^1.17.3",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
