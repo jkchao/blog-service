@@ -1,4 +1,9 @@
 declare module 'koa-helmet' {
-  let exportAs: any
-  export = exportAs
+  let koaHelmet: any
+  export = koaHelmet
+}
+
+declare module 'qn' {
+  let qn: any
+  export = qn
 }

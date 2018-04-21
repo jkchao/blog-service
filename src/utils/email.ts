@@ -1,7 +1,5 @@
 /* email */
 
-/// <reference types="@types/nodemailer" />
-
 import * as config from '../config'
 import * as nodemailer from 'nodemailer'
 import * as smtpTransport from 'nodemailer-smtp-transport'

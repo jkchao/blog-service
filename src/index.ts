@@ -2,15 +2,15 @@
 import * as helmet from 'koa-helmet' // 安全相关
 import * as http from 'http'
 import * as Koa from 'koa'
+
 import * as koaBody from 'koa-body'  // post body 解析
 import * as mongoosePaginate from 'mongoose-paginate'
 
 import * as config from './config'
+import * as mongodb from './mongodb'
+
 import initAdmin from './middleWares/initAdmin'
 import interceptor from './middleWares/interceptor'
-
-import * as mongodb from './mongodb'
-// import redis from './redis'
 import router from './route'
 
 // const cors = require('koa-cors')
