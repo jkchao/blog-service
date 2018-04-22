@@ -4,10 +4,6 @@
 *
 */
 
-// const mongoose = require('../mongodb').mongoose
-// const autoIncrement = require('mongoose-auto-increment')
-// const mongoosePaginate = require('mongoose-paginate')
-
 import { db } from '../mongodb'
 import * as autoIncrement from 'mongoose-auto-increment'
 import * as mongoosePaginate from 'mongoose-paginate'

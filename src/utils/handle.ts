@@ -3,7 +3,7 @@
 import * as Koa from 'koa'
 
 export interface IParams {
-  ctx: Koa.Context
+  ctx: Koa.BaseContext
   message: string
   err?: any
   result?: any

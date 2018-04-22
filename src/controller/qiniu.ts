@@ -9,11 +9,10 @@ import { Context } from 'koa'
 
 import * as config from '../config'
 import { handleSuccess, IParams } from '../utils/handle'
-import { Controller } from './base'
 
 const client = qn.create(config.QINIU)
 
-export default class QNController extends Controller {
+export default class QNController {
   public static getQN (ctx: Context) {
     handleSuccess(
       {
