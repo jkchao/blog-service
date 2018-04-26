@@ -5,6 +5,7 @@
 */
 
 import { BaseContext } from 'koa'
+import { PaginateResult } from 'mongoose'
 
 import Tag, { ITag } from '../model/tag'
 import Article from '../model/article'
@@ -53,7 +54,7 @@ export default class TagController {
         }
       ])
       if (article) {
-        tagClone.docs.forEach(t => {
+        tagClone.docs.forEach((t: any) => {
           const finded = article.find(c => String(c._id) === String(t._id))
           t.count = finded ? finded.num_tutorial : 0
         })
