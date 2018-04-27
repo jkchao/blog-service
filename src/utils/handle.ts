@@ -1,6 +1,6 @@
 /* 公共解析器 */
 
-import * as Koa from 'koa'
+import Koa = require('koa')
 
 export interface IParams {
   ctx: Koa.BaseContext

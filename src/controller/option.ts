@@ -23,12 +23,16 @@ export default class OptionController {
   // 修改信息
   public static async putOption (ctx: Context) {
     const _id = ctx.request.body._id
-    const option = await (
-                            _id
-                            ? Option.findByIdAndUpdate(_id, ctx.request.body, { new: true })
-                            : new Option(ctx.request.body).save()
-                          )
-                          .catch(err => ctx.throw(500, '服务器内部错误'))
+
+    let option
+    if (_id) option = await Option.findByIdAndUpdate(_id, ctx.request.body, { new: true })
+    else option = await new Option(ctx.request.body).save()
+    // const option = await (
+    //                         _id
+    //                         ? Option.findByIdAndUpdate(_id, ctx.request.body, { new: true })
+    //                         : new Option(ctx.request.body).save()
+    //                       )
+    //                       .catch(err => ctx.throw(500, '服务器内部错误'))
     if (option) handleSuccess({ ctx, result: option._id, message: '修改配置项成功' })
     else handleError({ ctx, message: '修改配置项失败' })
   }

@@ -5,8 +5,9 @@
 */
 
 import { db } from '../mongodb'
+import { Document } from 'mongoose'
 
-export interface IOption {
+export interface IOption extends Document  {
   // 网站标题
   title: string
 

@@ -1,6 +1,6 @@
 /* auth验证方法 */
 
-import * as jwt from 'jsonwebtoken'
+import jwt = require('jsonwebtoken')
 import { Context } from 'koa'
 
 import * as config from '../config'

@@ -1,8 +1,8 @@
 /* email */
 
 import * as config from '../config'
-import * as nodemailer from 'nodemailer'
-import * as smtpTransport from 'nodemailer-smtp-transport'
+import nodemailer = require('nodemailer')
+import smtpTransport = require('nodemailer-smtp-transport')
 
 let clientIsValid = false
 
@@ -13,7 +13,7 @@ export interface IMailOptions {
   text?: string
 }
 
-export const transporter = nodemailer.createTransport(
+const transporter = nodemailer.createTransport(
   smtpTransport({
     host: "smtp.qq.com",
     secure: true,
@@ -40,7 +40,7 @@ const verifyClient = () => {
 
 verifyClient()
 
-export const sendMail = (mailOptions: IMailOptions) => {
+const sendMail = (mailOptions: IMailOptions) => {
 
   if (!clientIsValid) {
     console.warn("由于未初始化成功，邮件客户端发送被拒绝")
