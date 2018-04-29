@@ -7,7 +7,7 @@
 import { Context } from 'koa'
 
 import Link from '../model/links'
-import * as config from '../config'
+import config = require('../config')
 import { handleSuccess, IParams, handleError } from '../utils/handle'
 
 export default class LinkController {

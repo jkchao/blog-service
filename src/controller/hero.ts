@@ -1,20 +1,28 @@
-/* 
+/*
 *
 *  留言墙控制器
 *
 */
 
-const { handleSuccess,  handleError } = require('../utils/handle')
-const Heros = require('../model/heros.model')
-const geoip = require('geoip-lite')
-const authIsVerified = require('../utils/auth')
-const { sendMail } = require('../utils/email')
+import { handleSuccess, IParams, handleError } from '../utils/handle'
+import Heros from '../model/heros'
+import geoip from 'geoip-lite'
+import { sendMail } from '../utils/email'
+import { BaseContext } from 'koa'
 
-class HerosController {
+import authIsVerified from '../utils/auth'
+
+export default class HerosController {
 
   // 获取留言墙列表
-  static async getHeros (ctx) {
-    let { current_page = 1, page_size = 12, keyword = '', state = '' } = ctx.query
+  public static async getHeros (ctx: BaseContext) {
+
+    const {
+      current_page = 1,
+      page_size = 12,
+      keyword = '',
+      state = ''
+    } = ctx.query
 
     // 过滤条件
     const options = {
@@ -24,7 +32,10 @@ class HerosController {
     }
 
     // 查询参数
-    const querys = {
+    const querys: {
+      name: RegExp,
+      state?: number
+    } = {
       name: new RegExp(keyword)
     }
 
@@ -60,7 +71,7 @@ class HerosController {
   }
 
   // 修改留言墙状态
-  static async patchHero (ctx) {
+  public static async patchHero (ctx: BaseContext) {
     const { state, _id } = ctx.request.body
 
     if (!state) {
@@ -68,7 +79,7 @@ class HerosController {
       return false
     }
 
-    let res = await Heros
+    const res = await Heros
                     .update({ _id }, { state })
                     .catch(err => ctx.throw(500, '服务器内部错误'))
 
@@ -77,7 +88,7 @@ class HerosController {
   }
 
   // 删除留言墙
-  static async deleteHero (ctx) {
+  public static async deleteHero (ctx: BaseContext) {
     const _id = ctx.params.id
 
     if (!_id) {
@@ -85,7 +96,7 @@ class HerosController {
       return false
     }
 
-    let res = await Heros
+    const res = await Heros
               .findByIdAndRemove(_id)
               .catch(err => ctx.throw(500, '服务器内部错误'))
     if (res) handleSuccess({ ctx, message: '删除数据成功' })
@@ -93,28 +104,28 @@ class HerosController {
   }
 
   // 发布留言墙
-  static async postHero (ctx) {
-    let { body: hero } = ctx.request;
+  public static async postHero (ctx: BaseContext) {
+    const { body: hero } = ctx.request
 
     // 获取ip地址以及物理地理地址
-    const ip = (ctx.req.headers['x-forwarded-for'] || 
-    ctx.req.headers['x-real-ip'] || 
-    ctx.req.connection.remoteAddress || 
+    const ip = (ctx.req.headers['x-forwarded-for'] ||
+    ctx.req.headers['x-real-ip'] ||
+    ctx.req.connection.remoteAddress ||
     ctx.req.socket.remoteAddress ||
     ctx.req.connection.socket.remoteAddress ||
     ctx.req.ip ||
-    ctx.req.ips[0]).replace('::ffff:', '');
+    ctx.req.ips[0]).replace('::ffff:', '')
 
     hero.state = 0
     hero.ip = ip
     hero.agent = ctx.headers['user-agent'] || hero.agent
 
-    const ip_location = geoip.lookup(ip)
+    const ipLocation = geoip.lookup(ip)
 
-    if (ip_location) {
-        hero.city = ip_location.city,
-        hero.range = ip_location.range,
-        hero.country = ip_location.country
+    if (ipLocation) {
+        hero.city = ipLocation.city,
+        hero.range = ipLocation.range,
+        hero.country = ipLocation.country
     }
 
     const res = new Heros(hero)
@@ -131,5 +142,3 @@ class HerosController {
     } else handleError({ ctx, message: '提交数据失败' })
   }
 }
-
-module.exports = HerosController

@@ -11,9 +11,10 @@ export interface IMailOptions {
   from?: string
   html?: string
   text?: string
+  subject?: string
 }
 
-const transporter = nodemailer.createTransport(
+export const transporter = nodemailer.createTransport(
   smtpTransport({
     host: "smtp.qq.com",
     secure: true,
@@ -40,7 +41,7 @@ const verifyClient = () => {
 
 verifyClient()
 
-const sendMail = (mailOptions: IMailOptions) => {
+export const sendMail = (mailOptions: IMailOptions) => {
 
   if (!clientIsValid) {
     console.warn("由于未初始化成功，邮件客户端发送被拒绝")
@@ -53,10 +54,4 @@ const sendMail = (mailOptions: IMailOptions) => {
     if (error) return console.warn("邮件发送失败", error)
     console.log("邮件发送成功", info.messageId, info.response)
   })
-}
-
-export default {
-  sendMail,
-  nodemailer,
-  transporter
 }

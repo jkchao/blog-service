@@ -1,9 +1,5 @@
-declare module 'koa-helmet' {
-  let koaHelmet: any
-  export = koaHelmet
-}
+declare module 'koa-helmet'
 
-declare module 'qn' {
-  let qn: any
-  export = qn
-}
+declare module 'qn'
+
+declare module 'geoip-lite'
