@@ -1,9 +1,10 @@
 // 路由管理
 
-import * as Router from 'koa-router'
+import Router = require('koa-router')
 
-import * as config from '../config'
-import * as controller from '../controller'
+import config = require('../config')
+import controller = require('../controller')
+
 import authIsVerified from '../utils/auth'
 
 const router = new Router({

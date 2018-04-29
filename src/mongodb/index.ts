@@ -1,6 +1,6 @@
 // 数据库模块
-import * as mongoose from 'mongoose'
-import * as config from '../config'
+import mongoose =  require('mongoose')
+import config = require('../config')
 
 (mongoose as any).Promise = global.Promise
 

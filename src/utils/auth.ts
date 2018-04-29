@@ -3,7 +3,7 @@
 import jwt = require('jsonwebtoken')
 import { Context } from 'koa'
 
-import * as config from '../config'
+import config = require('../config')
 
 // 验证Auth
 const authToken = (req: Context) => {

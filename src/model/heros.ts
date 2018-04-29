@@ -5,8 +5,8 @@
 */
 
 import { db } from '../mongodb'
-import * as autoIncrement from 'mongoose-auto-increment'
-import * as mongoosePaginate from 'mongoose-paginate'
+import autoIncrement = require('mongoose-auto-increment')
+import mongoosePaginate = require('mongoose-paginate')
 
 // 自增ID初始化
 autoIncrement.initialize(db.connection)

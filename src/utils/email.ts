@@ -1,6 +1,6 @@
 /* email */
 
-import * as config from '../config'
+import config = require('../config')
 import nodemailer = require('nodemailer')
 import smtpTransport = require('nodemailer-smtp-transport')
 
