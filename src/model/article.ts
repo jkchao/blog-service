@@ -10,10 +10,12 @@ import { ITag } from './tag'
 import autoIncrement = require('mongoose-auto-increment')
 import mongoosePaginate = require('mongoose-paginate')
 
+import { Document } from 'mongoose'
+
 // 自增ID初始化
 autoIncrement.initialize(db.connection)
 
-export interface IArticle {
+export interface IArticle extends Document {
 
   // 文章标题
   title: string

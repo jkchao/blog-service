@@ -7,11 +7,12 @@
 import { db } from '../mongodb'
 import autoIncrement = require('mongoose-auto-increment')
 import mongoosePaginate = require('mongoose-paginate')
+import { Document } from 'mongoose'
 
 // 自增ID初始化
 autoIncrement.initialize(db.connection)
 
-export interface IComment {
+export interface IComment extends Document {
 
   // 评论所在的文章_id，0代表系统留言板
   post_id: number

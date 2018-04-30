@@ -5,11 +5,13 @@
 */
 
 import * as crypto from 'crypto'
+import { Document } from 'mongoose'
+
 
 import { db } from '../mongodb'
 import * as config from '../config'
 
-export interface IAuth {
+export interface IAuth extends Document {
   // 名字
   name: string,
 

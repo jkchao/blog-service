@@ -8,10 +8,12 @@ import { db } from '../mongodb'
 import autoIncrement = require('mongoose-auto-increment')
 import mongoosePaginate = require('mongoose-paginate')
 
+import { Document } from 'mongoose'
+
 // 自增ID初始化
 autoIncrement.initialize(db.connection)
 
-export interface IBook {
+export interface IBook extends Document {
   // 书本名称名称
   name: string
 

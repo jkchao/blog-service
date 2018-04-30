@@ -171,12 +171,7 @@
 
     // 定义变量命名规则
     "variable-name": [
-      true,
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case",
-      "allow-trailing-underscore",
-      "ban-keywords"
+      false
     ],
 
     // 句尾逗号

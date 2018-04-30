@@ -10,7 +10,7 @@ const {
 	handleError
 } = require("../utils/handle")
 
-class BookController {
+export default class BookController {
 	
 	// 获取书本列表
 	static async getBooks (ctx) {
@@ -129,5 +129,3 @@ class BookController {
 		else handleError({ ctx, message: '删除数据失败'})
 	}
 }
-
-module.exports = BookController

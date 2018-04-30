@@ -52,17 +52,11 @@ router
 
     .post('/like', controller.like.postLike) 																// 喜欢文章 评论
 
-    .get('/music/pic/:pic_id', controller.music.getPic)											// 音乐封面图
-    .get('/music/lrc/:song_id', controller.music.getLrc)										// 音乐歌词
-    .get('/music/url/:song_id', controller.music.getUrl)										// 音乐地址
-    .get('/music/song/:song_id', controller.music.getSone)									// 音乐详情
-    .get('/music/list/:play_list_id', controller.music.getList)							// 音乐列表
-
-    .get('/book', controller.book.getBooks) 																 // 获取书本列表
-    .post('/book', controller.book.postBook)																 // 添加书本
-    .patch('/book/:id', controller.book.patchBook)													 // 修改书本状态
-    .put('/book/:id', controller.book.putBook)															 // 修改书本
-    .delete('/book/:id', controller.book.deleteBook)												 // 删除书本
+    // .get('/book', controller.book.getBooks) 																 // 获取书本列表
+    // .post('/book', controller.book.postBook)																 // 添加书本
+    // .patch('/book/:id', controller.book.patchBook)													 // 修改书本状态
+    // .put('/book/:id', controller.book.putBook)															 // 修改书本
+    // .delete('/book/:id', controller.book.deleteBook)												 // 删除书本
 
     .get('/link', controller.link.getLinks) 																 // 获取友链列表
     .post('/link', controller.link.postLink)																 // 添加友链

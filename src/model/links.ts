@@ -7,11 +7,12 @@
 import { db } from '../mongodb'
 import autoIncrement = require('mongoose-auto-increment')
 import  mongoosePaginate  = require('mongoose-paginate')
+import { Document } from 'mongoose'
 
 // 自增ID初始化
 autoIncrement.initialize(db.connection)
 
-export interface ILink {
+export interface ILink extends Document {
 
   // 友链名称
   name: string

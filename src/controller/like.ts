@@ -5,8 +5,8 @@
 */
 import { Context } from 'koa'
 
-import Article from '../model/article'
-import Comment from '../model/comment'
+import Article, { IArticle } from '../model/article'
+import Comment, { IComment } from '../model/comment'
 
 import { handleSuccess, IParams, handleError } from '../utils/handle'
 
@@ -21,11 +21,15 @@ export default class LikeController {
     }
 
     // type=0 文章 type=1 评论
-    const res = await (Number(type) === 0 ? Article : Comment)
+    const res = await (
+                        Number(type) === 0
+                        ? Article
+                        : Comment
+                      )
                         .findById(_id)
     if (res) {
-      if (Number(type) === 0) res.meta.likes += 1
-      else res.likes += 1
+      if (Number(type) === 0) (res as IArticle).meta.likes += 1
+      else (res as IComment).likes += 1
       const info = await res
         .save()
         .catch((err: string) => ctx.throw(500, '服务器内部错误'))
