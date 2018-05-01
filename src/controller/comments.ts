@@ -3,10 +3,10 @@
 * 评论控制器
 *
 */
+// 有些模块只能用 commonjs
+const geoip = require('geoip-lite')
 
 import { BaseContext } from 'koa'
-import geoip from 'geoip-lite'
-
 import { handleSuccess, IParams, handleError } from '../utils/handle'
 import { sendMail } from '../utils/email'
 import authIsVerified from '../utils/auth'

@@ -6,7 +6,8 @@
 
 import { handleSuccess, IParams, handleError } from '../utils/handle'
 import Heros from '../model/heros'
-import geoip from 'geoip-lite'
+// 有些模块只能用 commonjs
+const geoip = require('geoip-lite')
 import { sendMail } from '../utils/email'
 import { BaseContext } from 'koa'
 

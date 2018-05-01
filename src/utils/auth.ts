@@ -22,6 +22,7 @@ const authIsVerified = (req: Context) => {
   if (token) {
     try {
       const decodedToken = jwt.verify(token, config.AUTH.jwtTokenSecret)
+      // @ts-ignore
       if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
         return true
       }

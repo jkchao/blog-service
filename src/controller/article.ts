@@ -142,6 +142,7 @@ export default class ArticleController {
       request.post({
         url: `http://data.zz.baidu.com/urls?site=${config.BAIDU.site}&token=${config.BAIDU.token}`,
         headers: { 'Content-Type': 'text/plain' },
+        // @ts-ignore
         body: `${config.INFO.site}/article/${res._id}`
       }, (error: any, response: any, body: any) => {
         console.log('推送结果：', body)
