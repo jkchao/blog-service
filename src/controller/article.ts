@@ -130,9 +130,11 @@ export default class ArticleController {
 
   // 添加文章
   public static async postArt (ctx: BaseContext) {
-    const res = new Article(ctx.request.body)
-      .save()
-      .catch(err => ctx.throw(500, '服务器内部错误'))
+    const res = (
+                  new Article(ctx.request.body)
+                    .save()
+                    .catch(err => ctx.throw(500, '服务器内部错误'))
+                )
     if (res) {
       handleSuccess({ ctx, message: '添加文章成功' })
 
@@ -160,7 +162,7 @@ export default class ArticleController {
     const res = (await Article
                   .findById(_id)
                   .populate('tag')
-                  .catch(err => ctx.throw(500, '服务器内部错误')) as IArticlec)
+                  .catch(err => ctx.throw(500, '服务器内部错误')) as IArticle)
     if (res) {
       // 每次请求，views 都增加一次
       res.meta.views += 1
@@ -217,8 +219,7 @@ export default class ArticleController {
     }
 
     const res = await Article
-      .findByIdAndUpdate(_id, ctx.request.body)
-      .catch(err => ctx.throw(500, '服务器内部错误'))
+              .findByIdAndUpdate(_id, ctx.request.body)
     if (res) {
       handleSuccess({ ctx, message: '更新文章成功' })
 
