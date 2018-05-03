@@ -1,6 +1,6 @@
 # NODE-KOA
 
-** TypeScript 重构已经完成了，以前代码可查看分支 https://github.com/jkchao/node-koa/tree/javascript **
+**TypeScript 重构已经完成了，以前代码可查看分支 https://github.com/jkchao/node-koa/tree/javascript**
 
 CLIENT: [vue-blog](https://github.com/jkchao/vue-blog)
 
@@ -16,7 +16,7 @@ BUILD WIDTH: Koa + mongoose
 
  - ~网易云 api~
 
- - redis 缓存标签、网易云热门评论。
+ - redis 缓存标签、网易云热门评论（我选择放弃 - -）
  
  - ~百度 seo push~
  
