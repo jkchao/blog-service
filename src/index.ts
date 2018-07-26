@@ -1,10 +1,9 @@
 
-
-import * as helmet from 'koa-helmet'
-// import helmet = require('koa-helmet') // 安全相关
+// import helmet from 'koa-helmet'
+import helmet = require('koa-helmet') // 安全相关
 import http = require('http')
-import Koa = require('koa')
-
+// import Koa = require('koa')
+import * as Koa from 'koa'
 import koaBody = require('koa-body')  // post body 解析
 import mongoosePaginate = require('mongoose-paginate')
 
