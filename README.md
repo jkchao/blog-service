@@ -1,6 +1,6 @@
 # NODE-KOA
 
-**TypeScript 重构已经完成了，以前代码可查看分支 https://github.com/jkchao/node-koa/tree/javascript**
+**TypeScript 重构中，以前代码可查看分支 https://github.com/jkchao/node-koa/tree/javascript**
 
 CLIENT: [vue-blog](https://github.com/jkchao/vue-blog)
 
