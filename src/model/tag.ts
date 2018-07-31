@@ -9,33 +9,35 @@ import { Document, Schema } from 'mongoose'
 import autoIncrement = require('mongoose-auto-increment')
 import mongoosePaginate = require('mongoose-paginate')
 
-import { Entity, Column, ObjectID, ObjectIdColumn } from 'typeorm'
+import { Entity, Column, ObjectID, ObjectIdColumn, getManager, ConnectionOptions } from 'typeorm'
 
 @Entity()
 class Tag {
 
   @ObjectIdColumn()
-  private id: ObjectID
+  public id: ObjectID
 
   @Column()
-  private name: string
+  public name: string
 
   @Column()
-  private descript: string
+  public descript: string
 
   @Column()
-  private create_at: Date
+  public create_at: Date
 
   @Column()
-  private update_at: Date
+  public update_at: Date
 
   @Column()
-  private sort: Date
+  public sort: Date
 
 }
 
+getManager().getMongoRepository(Tag)
+
 // 自增ID初始化
-// autoIncrement.initialize(db.connection)
+autoIncrement.initialize(db.connection)
 
 // export interface ITag extends Document {
 //   // 标签名称
