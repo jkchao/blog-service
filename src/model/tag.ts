@@ -5,88 +5,61 @@
 */
 
 import { db } from '../mongodb'
-import { Document, Schema } from 'mongoose'
+import { Document } from 'mongoose'
 import autoIncrement = require('mongoose-auto-increment')
 import mongoosePaginate = require('mongoose-paginate')
-
-import { Entity, Column, ObjectID, ObjectIdColumn, getManager, ConnectionOptions } from 'typeorm'
-
-@Entity()
-class Tag {
-
-  @ObjectIdColumn()
-  public id: ObjectID
-
-  @Column()
-  public name: string
-
-  @Column()
-  public descript: string
-
-  @Column()
-  public create_at: Date
-
-  @Column()
-  public update_at: Date
-
-  @Column()
-  public sort: Date
-
-}
-
-getManager().getMongoRepository(Tag)
 
 // 自增ID初始化
 autoIncrement.initialize(db.connection)
 
-// export interface ITag extends Document {
-//   // 标签名称
-//   name: string
+export interface ITag extends Document {
+  // 标签名称
+  name: string
 
-//   // 描述
-//   descript: string
+  // 描述
+  descript: string
 
-//   // 创建日期
-//   create_at: Date
+  // 创建日期
+  create_at: Date
 
-//   // 更新日期
-//   update_at: Date
+  // 更新日期
+  update_at: Date
 
-//   // 排序
-//   sort: number
-// }
+  // 排序
+  sort: number
+}
 
-// // 标签模型
-// const tagSchema = new db.Schema({
+// 标签模型
+const tagSchema = new db.Schema({
 
-//   name: { type: String, required: true, validate: /\S+/ },
+  name: { type: String, required: true, validate: /\S+/ },
 
-//   descript: String,
+  descript: String,
 
-//   create_at: { type: Date, default: Date.now },
+  create_at: { type: Date, default: Date.now },
 
-//   update_at: { type: Date },
+  update_at: { type: Date },
 
-//   sort: { type: Number, default: 0 }
+  sort: { type: Number, default: 0 }
 
-// })
+})
 
-// // 翻页
-// tagSchema.plugin(mongoosePaginate)
-// tagSchema.plugin(autoIncrement.plugin, {
-//   model: 'Tag',
-//   field: 'id',
-//   startAt: 1,
-//   incrementBy: 1
-// })
+// 翻页
+tagSchema.plugin(mongoosePaginate)
+tagSchema.plugin(autoIncrement.plugin, {
+  model: 'Tag',
+  field: 'id',
+  startAt: 1,
+  incrementBy: 1
+})
 
-// // 时间更新
-// tagSchema.pre('findOneAndUpdate', function (next) {
-//   this.findOneAndUpdate({}, { update_at: Date.now() })
-//   next()
-// })
+// 时间更新
+tagSchema.pre('findOneAndUpdate', function (next) {
+  this.findOneAndUpdate({}, { update_at: Date.now() })
+  next()
+})
 
-// // 标签模型
-// const Tag = db.model('Tag', tagSchema)
+// 标签模型
+const Tag = db.model('Tag', tagSchema)
 
-// export default Tag
+export default Tag
