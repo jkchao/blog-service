@@ -1,18 +1,12 @@
 {
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/**.spec.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-  
+
     "rootDir": "src",
 
     "outDir": "dist",
@@ -48,15 +42,9 @@
 
     // 在表达式和声明上有隐含的any类型时报错
     "noImplicitAny": true,
-    "lib": [
-      "dom",
-      "es5",
-      "es6",
-      "es7",
-      "es2015.promise"
-    ],
+    "lib": ["dom", "es5", "es6", "es7", "es2015.promise"],
     "sourceMap": true,
     "pretty": true,
-    // "esModuleInterop": true
+    "esModuleInterop": true
   }
 }

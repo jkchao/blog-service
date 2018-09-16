@@ -1,8 +1,9 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
+  "extends": ["tslint:recommended"],
+  "linterOptions": {
+    "exclude": ["node_modules/**"]
+  },
   "jsRules": {},
   "rules": {
     // 允许使用 console
@@ -15,24 +16,19 @@
     "quotemark": false,
 
     // 不加分号
-    "semicolon": [
-      true,
-      "never"
-    ],
-
-    "no-var-requires": false,
+    "semicolon": [true, "always"],
 
     // 如果一个变量声明后不再被修改，那么应使用 const 来声明该变量
     "prefer-const": true,
 
     // 设置成员对象的访问权限（public,private,protect)
     "member-access": true,
-    
+
     // 设置修饰符顺序
     "member-ordering": [
       true,
       {
-      "order": [
+        "order": [
           "public-static-field",
           "public-static-method",
           "protected-static-field",
@@ -55,20 +51,17 @@
     // 不允许空接口
     "no-empty-interface": true,
 
-    // 不允许修改方法输入参数
+    // 允许修改方法输入参数
     "no-parameter-reassignment": true,
 
     // 如果for循环中没有使用索引，建议是使用for-of
-    "prefer-for-of": true,
+    "prefer-for-of": false,
 
     // 不允许没有Promise的情况下使用await
     "await-promise": true,
 
     // if/for/do/while强制使用大括号 同行除外
-    "curly": [
-      true,
-      "ignore-same-line"
-    ],
+    "curly": [true, "ignore-same-line"],
 
     // f使用for in语句时，强制进行hasOwnProperty检查
     "forin": true,
@@ -97,8 +90,8 @@
     // 只允许在模板字符串中使用${
     "no-invalid-template-strings": true,
 
-    // 允许在class之外使用this
-    "no-invalid-this": false,
+    // 不允许在class之外使用this
+    "no-invalid-this": true,
 
     // 不允许使用null,使用undefined代替null，指代空指针对象
     "no-null-keyword": true,
@@ -113,7 +106,7 @@
     "no-unsafe-finally": true,
 
     // 不允许使用未使用的表达式
-    "no-unused-expression": true,
+    "no-unused-expression": false,
 
     // 在使用前必须声明
     "no-use-before-declare": true,
@@ -130,7 +123,7 @@
     // 只允许使用isNaN方法检查数字是否有效
     "use-isnan": true,
 
-    // 每行开始以2个空格符开始
+    // 每行开始以4个空格符开始
     "indent": [true, "spaces", 2],
 
     // 禁止在一个文件内，多次引用同一module
@@ -152,7 +145,7 @@
     "import-spacing": true,
 
     // interface必须以I开头
-    "interface-name": [true, "always-prefix"],
+    "interface-name": false,
 
     // 注释基于jsdoc风格
     "jsdoc-format": true,
@@ -161,7 +154,7 @@
     "new-parens": true,
 
     // 不允许有空行
-    "no-consecutive-blank-lines": [true,2],
+    "no-consecutive-blank-lines": [true, 2],
 
     // 不允许空格结尾
     "no-trailing-whitespace": true,
@@ -170,9 +163,7 @@
     "no-unnecessary-initializer": true,
 
     // 定义变量命名规则
-    "variable-name": [
-      false
-    ],
+    "variable-name": [true, "check-format", "allow-leading-underscore", "allow-trailing-underscore", "ban-keywords"],
 
     // 句尾逗号
     "trailing-comma": [
@@ -186,17 +177,13 @@
     // 不允许case段落中在没有使用breack的情况下，在新启一段case逻辑
     "no-switch-case-fall-through": true,
 
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-whitespace"
-    ],
+    "one-line": [true, "check-open-brace", "check-whitespace"],
 
     // 可以对象字面量断言
     "no-object-literal-type-assertion": false,
 
     // function paren 前需要有空格
-    "space-before-function-paren": true,
+    "space-before-function-paren": false,
 
     // 可以导入子包
     "no-submodule-imports": false,
@@ -212,22 +199,16 @@
     "object-literal-sort-keys": false,
 
     // 允许带一个参数的箭头函数省去括号
-    "arrow-parens": [
-      true,
-      "ban-single-arg-parens"
-    ],
+    "arrow-parens": [true, "ban-single-arg-parens"]
 
-    // 对齐方式
-    "align": [
-      true,
-      "parameters",
-      "statements",
-      "members",
-      "elements"
-    ],
-
-    // 换行
-    "max-line-length": false
+    // // 对齐方式
+    // "align": [
+    //   true,
+    //   "parameters",
+    //   "statements",
+    //   "members",
+    //   "elements"
+    // ]
   },
   "rulesDirectory": []
 }
