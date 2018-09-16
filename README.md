@@ -1,6 +1,8 @@
 # NODE-KOA
 
-**TypeScript 重构中，以前代码可查看分支 https://github.com/jkchao/node-koa/tree/javascript**
+简单版本的 TypeScript 重构完成，以前代码可查看分支 [javascript 分支](https://github.com/jkchao/node-koa/tree/javascript)。
+
+目前在计划使用 nest （TypeScript node 框架）重构后端。具体请看分支 [nest 分支](https://github.com/jkchao/node-koa/tree/nest)
 
 CLIENT: [vue-blog](https://github.com/jkchao/vue-blog)
 
