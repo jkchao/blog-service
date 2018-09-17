@@ -9,7 +9,7 @@ import { AppModule } from './app.module';
 
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
-import { CMSLogger } from './common/extends/logger';
+import { BlogLogger } from './common/extends/logger';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { AuthIsVerifiedGuard } from './common/guards/AuthIsVerifiedGuard';
@@ -18,7 +18,7 @@ import { config } from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: new CMSLogger()
+    logger: new BlogLogger()
   });
   const logger = new Logger();
 
@@ -53,7 +53,7 @@ async function bootstrap() {
   app.use(compression());
 
   await app.listen(config.PORT, '0.0.0.0', () => {
-    logger.log('CMS start: 0.0.0.0:8000');
+    logger.log('Serive start: 0.0.0.0:8000');
   });
 }
 

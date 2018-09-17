@@ -2,7 +2,7 @@ import { LoggerService } from '@nestjs/common';
 import log4js, { Logger } from 'log4js';
 import { config } from '../../config';
 
-export class CMSLogger implements LoggerService {
+export class BlogLogger implements LoggerService {
   private readonly logger: Logger;
 
   constructor() {
