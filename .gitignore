@@ -1,4 +1,12 @@
 /node_modules
 
+.DS_Store
+
+*.log
+/logs
+
 /dist
 
+yarn-error.log*
+
+coverage/
