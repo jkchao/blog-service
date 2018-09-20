@@ -11,10 +11,10 @@ describe('HttpService', () => {
   it('all config', () => {
     configService = new ConfigService(path.resolve(process.cwd(), `src/config/test.env`));
 
-    expect(configService.APPNAME).toBe('CMS');
+    expect(configService.APPNAME).toBe('Blog');
     expect(configService.PORT).toBe(8000);
     expect(configService.ENV).toBe('test');
-    expect(configService.JWTKEY).toBe('CMSJWT');
+    expect(configService.JWTKEY).toBe('BlogJWT');
     expect(configService.API).toBe('http://mock.fe.vipabc.com/mock/5b9a244b99b0224e7d062190');
     expect(configService.AXIOS_CONFIG).toMatchObject({
       baseURL: 'http://mock.fe.vipabc.com/mock/5b9a244b99b0224e7d062190',
