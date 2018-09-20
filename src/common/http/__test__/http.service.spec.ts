@@ -1,74 +1,58 @@
-
-
 import { HttpService } from '../http.service';
 import axios from 'axios';
-import { HttpModule } from '../http.module';
 
+jest.mock('axios');
 
 describe('HttpService', () => {
   let httpService: HttpService;
-
-  const result = {
-    data: ''
-  };
+  const axiosResponse = { data: {} };
 
   beforeEach(() => {
     httpService = new HttpService(axios);
   });
 
+  it('mock get', () => {
+    (axios.get as any).mockResolvedValue(axiosResponse);
 
-  it('get', () => {
+    const res = httpService.get('/test');
 
-    jest
-      .spyOn(httpService.axiosRef, 'get')
-      .mockImplementation(() => result);
-
-      const res = httpService.get('/test');
-
-      expect(res).toMatchObject(result);
+    expect(res).toMatchObject({});
   });
 
-  // it('post', () => {
+  it('mock post', () => {
+    (axios.post as any).mockResolvedValue(axiosResponse);
 
-  //   jest
-  //   .spyOn(httpService, 'post')
-  //   .mockImplementation(() => result);
+    const res = httpService.post('/test');
 
-  //   const res = httpService.post('/test');
+    expect(res).toMatchObject({});
+  });
 
-  //   expect(res).toMatchObject(result);
-  // });
+  it('mock patch', () => {
+    (axios.patch as any).mockResolvedValue(axiosResponse);
 
-  // it('patch', () => {
+    const res = httpService.patch('/test');
 
-  //   jest
-  //   .spyOn(httpService, 'patch')
-  //   .mockImplementation(() => result);
+    expect(res).toMatchObject({});
+  });
 
-  //   const res = httpService.patch('/test');
+  it('mock delete', () => {
+    (axios.delete as any).mockResolvedValue(axiosResponse);
 
-  //   expect(res).toMatchObject(result);
-  // });
+    const res = httpService.delete('/test');
 
-  // it('delete', () => {
+    expect(res).toMatchObject({});
+  });
 
-  //   jest
-  //   .spyOn(httpService, 'delete')
-  //   .mockImplementation(() => result);
+  it('mock put', () => {
+    (axios.put as any).mockResolvedValue(axiosResponse);
 
-  //   const res = httpService.delete('/test');
+    const res = httpService.put('/test');
 
-  //   expect(res).toMatchObject(result);
-  // });
+    expect(res).toMatchObject({});
+  });
 
-  // it('put', () => {
-
-  //   jest
-  //   .spyOn(httpService, 'put')
-  //   .mockImplementation(() => result);
-
-  //   const res = httpService.put('/test');
-
-  //   expect(res).toMatchObject(result);
-  // });
+  it('get instance', () => {
+    const res = httpService.axiosRef;
+    expect(res).toBeInstanceOf(Function);
+  });
 });

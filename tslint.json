@@ -15,6 +15,8 @@
     // 单引号
     "quotemark": false,
 
+    "one-variable-per-declaration": false,
+
     // 不加分号
     "semicolon": [true, "always"],
 
@@ -29,30 +31,30 @@
       true,
       {
         "order": [
-          "public-static-field",
-          "public-static-method",
-          "protected-static-field",
-          "protected-static-method",
           "private-static-field",
           "private-static-method",
-          "public-instance-field",
-          "protected-instance-field",
+          "protected-static-field",
+          "protected-static-method",
+          "public-static-field",
+          "public-static-method",
           "private-instance-field",
-          "public-constructor",
-          "protected-constructor",
+          "protected-instance-field",
+          "public-instance-field",
           "private-constructor",
-          "public-instance-method",
+          "protected-constructor",
+          "public-constructor",
+          "private-instance-method",
           "protected-instance-method",
-          "private-instance-method"
+          "public-instance-method"
         ]
       }
     ],
 
     // 不允许空接口
-    "no-empty-interface": true,
+    "no-empty-interface": false,
 
-    // 允许修改方法输入参数
-    "no-parameter-reassignment": true,
+    // 不允许修改方法输入参数
+    "no-parameter-reassignment": false,
 
     // 如果for循环中没有使用索引，建议是使用for-of
     "prefer-for-of": false,
@@ -90,11 +92,8 @@
     // 只允许在模板字符串中使用${
     "no-invalid-template-strings": true,
 
-    // 不允许在class之外使用this
-    "no-invalid-this": true,
-
     // 不允许使用null,使用undefined代替null，指代空指针对象
-    "no-null-keyword": true,
+    // "no-null-keyword": true,
 
     // 不允许 array 中有空元素
     "no-sparse-arrays": true,
@@ -138,9 +137,6 @@
     // 定义注释格式
     "comment-format": [true, "check-space"],
 
-    // 定义编码格式默认utf-8
-    "encoding": true,
-
     // import关键字后加空格
     "import-spacing": true,
 
@@ -156,6 +152,17 @@
     // 不允许有空行
     "no-consecutive-blank-lines": [true, 2],
 
+    "whitespace": [
+      false,
+      "check-branch",
+      // "check-decl",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-type-operator"
+    ],
+
     // 不允许空格结尾
     "no-trailing-whitespace": true,
 
@@ -163,7 +170,14 @@
     "no-unnecessary-initializer": true,
 
     // 定义变量命名规则
-    "variable-name": [true, "check-format", "allow-leading-underscore", "allow-trailing-underscore", "ban-keywords"],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-trailing-underscore",
+      "allow-pascal-case",
+      "ban-keywords"
+    ],
 
     // 句尾逗号
     "trailing-comma": [
@@ -174,10 +188,14 @@
       }
     ],
 
+    "max-classes-per-file": false,
+
     // 不允许case段落中在没有使用breack的情况下，在新启一段case逻辑
     "no-switch-case-fall-through": true,
 
-    "one-line": [true, "check-open-brace", "check-whitespace"],
+    "no-angle-bracket-type-assertion": false,
+
+    "one-line": [false],
 
     // 可以对象字面量断言
     "no-object-literal-type-assertion": false,
@@ -199,16 +217,13 @@
     "object-literal-sort-keys": false,
 
     // 允许带一个参数的箭头函数省去括号
-    "arrow-parens": [true, "ban-single-arg-parens"]
+    "arrow-parens": [true, "ban-single-arg-parens"],
 
-    // // 对齐方式
-    // "align": [
-    //   true,
-    //   "parameters",
-    //   "statements",
-    //   "members",
-    //   "elements"
-    // ]
+    // 对齐方式
+    "align": false,
+
+    // 允许使用 namespace
+    "no-namespace": false
   },
   "rulesDirectory": []
 }

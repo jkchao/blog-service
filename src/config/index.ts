@@ -75,7 +75,7 @@ export class ConfigService {
       API: Joi.string().required(),
 
       NODE_ENV: Joi.string()
-        .valid(['dev', 'stage', 'pre', 'prod'])
+        .valid(['test', 'dev', 'stage', 'pre', 'prod'])
         .default('dev'),
       PORT: Joi.number().default(3000),
 
@@ -85,10 +85,7 @@ export class ConfigService {
       JWTKEY: Joi.string().required()
     });
 
-    const { error, value: validatedEnvConfig } = Joi.validate(
-      envConfig,
-      envVarsSchema
-    );
+    const { error, value: validatedEnvConfig } = Joi.validate(envConfig, envVarsSchema);
     if (error) {
       throw new ConflictException(`Config validation`);
     }
@@ -97,6 +94,12 @@ export class ConfigService {
 
   public get PORT(): number {
     return Number(this.envConfig.PORT);
+  }
+  public get LOGS_PATH(): string {
+    return this.envConfig.LOGS_PATH;
+  }
+  public get LOG_LEVEL(): string {
+    return this.envConfig.LOG_LEVEL;
   }
   public get ENV(): string {
     return this.envConfig.NODE_ENV;
@@ -124,7 +127,7 @@ export class ConfigService {
       categories: {
         default: {
           appenders: ['out', 'app'],
-          level: this.envConfig.LOG_LEVEL || 'info'
+          level: this.envConfig.LOG_LEVEL
         }
       }
     };
@@ -140,8 +143,6 @@ export class ConfigService {
   }
 }
 
-const config = new ConfigService(
-  path.resolve(__dirname, `${process.env.NODE_ENV}.env`)
-);
+const config = new ConfigService(path.resolve(__dirname, `${process.env.NODE_ENV}.env`));
 
 export { config };
