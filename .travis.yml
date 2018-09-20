@@ -12,7 +12,7 @@ branches:
     - nest
 
 install:
-  - npm run install
+  - npm install
 
 script:
   - npm run test:unit
