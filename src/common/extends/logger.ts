@@ -7,7 +7,7 @@ export class BlogLogger implements LoggerService {
 
   constructor() {
     log4js.configure(config.LOG4CONFI);
-    this.logger = log4js.getLogger(`${config.APPNAME}: APP`);
+    this.logger = log4js.getLogger(`${config.APP_NAME}: APP`);
   }
 
   public error(message: string, trace: string) {

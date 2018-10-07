@@ -22,7 +22,7 @@ async function bootstrap() {
   });
   const logger = new Logger();
 
-  logger.log(config.APPNAME + ' start...');
+  logger.log(config.APP_NAME + ' start...');
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
@@ -52,8 +52,8 @@ async function bootstrap() {
   );
   app.use(compression());
 
-  await app.listen(config.PORT, '0.0.0.0', () => {
-    logger.log('Serive start: 0.0.0.0:8000');
+  await app.listen(config.APP_PORT, '0.0.0.0', () => {
+    logger.log(config.APP_NAME + 'start: 0.0.0.0:' + config.APP_PORT);
   });
 }
 
