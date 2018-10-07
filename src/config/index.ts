@@ -116,7 +116,7 @@ export class ConfigService {
         out: { type: 'console' },
         app: {
           type: 'dateFile',
-          filename: path.join(this.envConfig.LOGS_PATH, 'CMS_LOGGER'),
+          filename: path.join(this.envConfig.LOGS_PATH, 'BLOG_LOGGER'),
           pattern: '-yyyy-MM-dd.log',
           alwaysIncludePattern: true,
           appender: {

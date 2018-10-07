@@ -5,14 +5,14 @@
 
 此分支是使用 nest 重构分支。
 
-Nest + GraphQL + MongoDB + Redis + Docker
+Nest + MongoDB + Redis + Docker
 
 ## start
 
 ### install
 
 ```bash
-
+# install
 $ npm install
 
 $ npm run dev
@@ -32,4 +32,5 @@ $ npm run debug
 ```
 
 ### deploy
+
 ...
