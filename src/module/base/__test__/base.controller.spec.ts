@@ -11,16 +11,16 @@ describe('AppController', () => {
   });
 
   describe('base controller', () => {
-    it('should return success"', () => {
-      const result = {
-        code: 1,
-        message: '请求数据成功',
-        data: ''
-      };
+    // it('should return success"', () => {
+    //   const result = {
+    //     code: 1,
+    //     message: '请求数据成功',
+    //     data: ''
+    //   };
 
-      const baseController = app.get<BaseController>(BaseController);
-      expect(baseController.handleSucces()).toMatchObject(result);
-    });
+    //   const baseController = app.get<BaseController>(BaseController);
+    //   expect(baseController.handleSucces()).toMatchObject(result);
+    // });
 
     it('should thorw error"', () => {
       const baseController = app.get<BaseController>(BaseController);
