@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserInterface } from './user.interface';
+import { UserInterface } from './interface/user.interface';
 
 import jwt from 'jsonwebtoken';
 import { Observable } from 'rxjs';
@@ -10,10 +10,7 @@ import { config } from '../../config';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly redisService: RedisService
-  ) {}
+  constructor(private readonly httpService: HttpService, private readonly redisService: RedisService) {}
 
   public createToken(user: UserInterface) {
     return jwt.sign(
