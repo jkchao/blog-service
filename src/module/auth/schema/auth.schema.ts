@@ -2,10 +2,11 @@ import Mongoose from 'mongoose';
 import { config } from '../../../config';
 import crypto from 'crypto';
 
-export const UserSchema = new Mongoose.Schema({
+export const AuthSchema = new Mongoose.Schema({
   // 名字
   name: { type: String, default: '' },
 
+  // 登录用户名
   username: {
     type: String,
     default: config.DEFAULT_USERNAME

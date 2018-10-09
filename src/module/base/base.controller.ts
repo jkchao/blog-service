@@ -3,10 +3,20 @@ import { Response } from 'express';
 
 export class BaseController {
   public handleSucces(res: Response, data: any = '', code = 200, message = '请求数据成功') {
-    return res.status(code).jsonp(data);
+    return res.status(code).jsonp({
+      code,
+      data,
+      message,
+      success: true
+    });
   }
 
-  public handleError(message = '系统内部错误', code: HttpStatus = 400) {
-    throw new HttpException(message, code);
+  public handleError(res: Response, message = '系统内部错误', code: HttpStatus = 200) {
+    return res.status(code).jsonp({
+      code,
+      data: '',
+      message,
+      success: false
+    });
   }
 }

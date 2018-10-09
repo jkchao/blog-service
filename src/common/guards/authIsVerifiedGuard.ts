@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  UnauthorizedException
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { Request, Response } from 'express';
@@ -23,12 +18,10 @@ export class AuthIsVerifiedGuard implements CanActivate {
     return false;
   }
 
-  public canActivate(
-    context: ExecutionContext
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  public canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const [request] = context.getArgs<[Request, Response]>();
 
-    if (request.url === '/user') return true;
+    if (request.url.includes('auth')) return true;
 
     const token = this.getToken(request);
     if (token) {

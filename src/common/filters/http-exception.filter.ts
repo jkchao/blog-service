@@ -3,13 +3,7 @@
  *
  */
 
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  Logger
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
 
 const logger = new Logger();
 
@@ -29,16 +23,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
       JSON.stringify({
         result: '',
         message,
-        code: 0,
+        code,
         time: new Date().toLocaleString(),
         path: request.url
       })
     );
 
     response.status(code).json({
-      code: 0,
+      code,
       message,
       result: '',
+      success: false,
       time: new Date().toLocaleString(),
       path: request.url
     });

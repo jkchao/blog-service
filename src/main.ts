@@ -28,13 +28,7 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor());
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      disableErrorMessages: config.ENV !== 'prod',
-      whitelist: true,
-      transform: true
-    })
-  );
+  app.useGlobalPipes(new ValidationPipe());
 
   app.useGlobalGuards(new AuthIsVerifiedGuard());
 
