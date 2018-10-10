@@ -2,7 +2,6 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
-    "baseUrl": ".",
     "esModuleInterop": true,
     "rootDir": "src",
 
