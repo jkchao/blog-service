@@ -1,0 +1,37 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: npm run dev
+    ports: 
+      - 8000:8000
+    volumes: 
+      - .:/usr/src/blog_service
+    networks: 
+      - docker-blog-server
+
+  # redis:
+  #     image: redis:4.0.11-alpine
+  #     command: redis-server --appendonly yes --requirepass node-server
+  #     volumes:
+  #         - egg-redis:/data
+  #     networks:
+  #         - docker-node-server
+  #     ports:
+  #         - 6378:6379
+
+  mongodb:
+    image: mongo:3.6.7
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: my_blog
+    volumes:
+      - /data/db:/data/db
+    networks:
+      - docker-blog-server
+    ports:
+      - 27017:27017
+
+networks:
+  docker-blog-server:
+    driver: bridge

@@ -30,7 +30,7 @@ describe('HttpService', () => {
     expect(configService.BAIDU_SITE).toBe('https://jkchao.cn');
     expect(configService.BAIDU_TOKEN).toBe('phhdOEtkGgVKToH5');
 
-    expect(configService.MONGO_URL).toBe('mongodb://127.0.0.1:27017/my_blog');
+    expect(configService.MONGO_URL).toBe('mongodb://blog-server:blog-server@127.0.0.1:27017/my_blog');
 
     expect(configService.JWTKEY).toBe('BLOGJWT');
     expect(configService.DEFAULT_USERNAME).toBe('jkchao');

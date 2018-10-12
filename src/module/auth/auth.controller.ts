@@ -5,6 +5,7 @@ import { AuthDto } from './dto/auth.dto';
 
 import { BaseController } from '../base/base.controller';
 import { md5Decode, createToken } from '../../common/utils';
+import { config } from '../../config';
 @Controller('auth')
 export class AuthController extends BaseController {
   constructor(private readonly authService: AuthService) {
