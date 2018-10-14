@@ -4,31 +4,134 @@ import { INestApplication } from '@nestjs/common';
 
 import { AuthModule } from '../auth.module';
 import { AuthService } from '../auth.service';
-import { DatabaseModule } from '../../../database/database.module';
+
+import { md5Decode, createToken } from '../../../common/utils';
+import { MongooseModule, getModelToken } from '@nestjs/mongoose';
+import { config } from '../../../config';
+
+jest.mock('../../../common/utils', () => {
+  const md5Decode = password => password;
+  const createToken = token => token;
+  return { md5Decode, createToken };
+});
+
+const mockRepository = {
+  findOne() {
+    return { username: 'jkchao' };
+  }
+};
 
 describe('auth', () => {
   let app: INestApplication;
   const authService = {
     findOneByUsername() {
-      return { username: 'jkchao', password: 123456 };
+      return { username: 'jkchao', password: '123456' };
     }
   };
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [AuthModule, DatabaseModule]
+      imports: [MongooseModule.forRoot(config.MONGO_URL), AuthModule]
     })
       .overrideProvider(AuthService)
       .useValue(authService)
+      .overrideProvider(getModelToken('Auth'))
+      .useValue(mockRepository)
       .compile();
 
     app = module.createNestApplication();
     await app.init();
   });
 
-  it('/POST auth/login success', () => {
+  it('/POST /auth/login success', () => {
     return request(app.getHttpServer())
-      .post('auth/login')
-      .expect(200);
+      .post('/auth/login')
+      .send({
+        username: 'jkchao',
+        password: '123456'
+      })
+      .expect(res => {
+        const data = res.body;
+        expect(data.code).toBe(200);
+        expect(data.message).toBe('请求数据成功');
+      });
+  });
+
+  it('/POST /auth/login fail password', () => {
+    return request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        username: 'jkchao',
+        password: '1234567'
+      })
+      .expect(res => {
+        const data = res.body;
+        expect(data.code).toBe(200);
+        expect(data.message).toBe('密码错误');
+      });
+  });
+
+  it('/POST /auth/login fail not auth', async () => {
+    const authService = {
+      findOneByUsername() {
+        return null;
+      }
+    };
+
+    const module = await Test.createTestingModule({
+      imports: [AuthModule, MongooseModule.forRoot(config.MONGO_URL)]
+    })
+      .overrideProvider(AuthService)
+      .useValue(authService)
+      .overrideProvider(getModelToken('Auth'))
+      .useValue(mockRepository)
+      .compile();
+
+    app = module.createNestApplication();
+    await app.init();
+
+    return request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        username: 'jkchao',
+        password: '1234567'
+      })
+      .expect(res => {
+        const data = res.body;
+        expect(data.code).toBe(200);
+        expect(data.message).toBe('用户不存在');
+      });
+  });
+
+  it('/POST /auth/login fail throw error', async () => {
+    const authService = {
+      findOneByUsername() {
+        throw Error();
+      }
+    };
+
+    const module = await Test.createTestingModule({
+      imports: [AuthModule, MongooseModule.forRoot(config.MONGO_URL)]
+    })
+      .overrideProvider(AuthService)
+      .useValue(authService)
+      .overrideProvider(getModelToken('Auth'))
+      .useValue(mockRepository)
+      .compile();
+
+    app = module.createNestApplication();
+    await app.init();
+
+    return request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        username: 'jkchao',
+        password: '1234567'
+      })
+      .expect(500);
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

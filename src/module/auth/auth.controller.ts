@@ -16,6 +16,7 @@ export class AuthController extends BaseController {
   public async login(@Res() res: Response, @Body() body: AuthDto) {
     try {
       const auth = await this.authService.findOneByUsername(body.username);
+
       if (auth) {
         if (auth.password === md5Decode(body.password)) {
           const token = createToken({ username: body.username });

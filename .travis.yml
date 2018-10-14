@@ -16,3 +16,9 @@ install:
 
 script:
   - npm run test:unit
+
+before_script:
+  - mongo my_blog --eval 'db.createUser({user:"blog-server",pwd:"blog-server",roles:[{role: "readWrite", db: 'my_blog'}]});'
+
+# services:
+#   - mongodb
