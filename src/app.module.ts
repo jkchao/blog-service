@@ -17,7 +17,6 @@ import { config } from './config';
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,
     HttpModule
-    // RedisModule
   ],
   providers: [
     // {
