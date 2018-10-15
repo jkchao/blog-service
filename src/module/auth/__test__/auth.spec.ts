@@ -99,7 +99,7 @@ describe('auth', () => {
       .expect(res => {
         const data = res.body;
         expect(data.code).toBe(200);
-        expect(data.message).toBe('账户不存在');
+        expect(data.message).toBe('账号不存在');
       });
   });
 
