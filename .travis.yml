@@ -20,6 +20,6 @@ script:
 services:
   - mongodb
 
-before_script:
-  - sleep 15
-  - mongo my_blog --eval 'db.createUser({user:"blog-server",pwd:"blog-server",roles:[{role: "readWrite"}]});'
+# before_script:
+#   - sleep 15
+#   - mongo my_blog --eval 'db.createUser({user:"blog-server",pwd:"blog-server",roles:[{role: "readWrite"}]});'
