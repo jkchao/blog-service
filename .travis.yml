@@ -14,12 +14,11 @@ branches:
 install:
   - npm install
 
+before_script:
+  - mongo my_blog --eval 'db.createUser({user:"blog-server",pwd:"blog-server",roles:["readWrite"]});'
+
 script:
   - npm run test:unit
 
 services:
   - mongodb
-
-# before_script:
-#   - sleep 15
-#   - mongo my_blog --eval 'db.createUser({user:"blog-server",pwd:"blog-server",roles:[{role: "readWrite"}]});'
