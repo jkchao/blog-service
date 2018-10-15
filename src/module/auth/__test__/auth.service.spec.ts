@@ -6,6 +6,8 @@ import { AuthModule } from '../auth.module';
 import { AuthService } from '../auth.service';
 import { getModelToken } from '@nestjs/mongoose';
 
+import mongoose from 'mongoose';
+
 describe('auth', () => {
   let authService: AuthService;
 
@@ -32,5 +34,9 @@ describe('auth', () => {
   it('findOneByUsername', async () => {
     const res = await authService.findOneByUsername('jkchao');
     expect(res).toMatchObject(mockRepository.findOne());
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
   });
 });

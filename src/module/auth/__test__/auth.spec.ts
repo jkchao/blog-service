@@ -5,9 +5,10 @@ import { INestApplication } from '@nestjs/common';
 import { AuthModule } from '../auth.module';
 import { AuthService } from '../auth.service';
 
-import { md5Decode, createToken } from '../../../common/utils';
 import { MongooseModule, getModelToken } from '@nestjs/mongoose';
 import { config } from '../../../config';
+
+import mongoose from 'mongoose';
 
 jest.mock('../../../common/utils', () => {
   const md5Decode = password => password;
@@ -133,5 +134,6 @@ describe('auth', () => {
 
   afterAll(async () => {
     await app.close();
+    await mongoose.disconnect();
   });
 });
