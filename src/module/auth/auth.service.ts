@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { AuthInterface } from './interface/auth.interface';
 import { config } from '../../config';
 import { md5Decode } from '../../common/utils';
-import { AuthDto } from './dto/auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()

@@ -5,13 +5,17 @@ import { AuthDto } from './dto/auth.dto';
 
 import { BaseController } from '../base/base.controller';
 import { md5Decode, createToken } from '../../common/utils';
-import { config } from '../../config';
 @Controller('auth')
 export class AuthController extends BaseController {
   constructor(private readonly authService: AuthService) {
     super();
   }
 
+  /**
+   * 登录
+   * @param res RESPONSE
+   * @param body BODY
+   */
   @Post('login')
   public async login(@Res() res: Response, @Body() body: AuthDto) {
     try {
@@ -25,7 +29,7 @@ export class AuthController extends BaseController {
           return this.handleError(res, '密码错误');
         }
       } else {
-        this.handleError(res, '用户不存在');
+        this.handleError(res, '账号不存在');
       }
     } catch (error) {
       throw new InternalServerErrorException();
