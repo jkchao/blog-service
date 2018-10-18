@@ -12,7 +12,7 @@ Nest + MongoDB + Redis + Docker
 ### install
 
 ```bash
-# Setup 
+# Setup mongodb and redis
 
 # start
 docker-compose -f docker-compose.dev.yml up
