@@ -19,6 +19,9 @@ jest.mock('../../../common/utils', () => {
 const mockRepository = {
   findOne() {
     return { username: 'jkchao' };
+  },
+  create() {
+    return { username: 'jkchao' };
   }
 };
 
@@ -105,10 +108,10 @@ describe('auth', () => {
   });
 
   it('/POST /auth/login fail throw error', async () => {
+    const findOneByUsername = jest.fn().mockReturnValueOnce({ username: 'jkchao', password: '123456' });
+
     const authService = {
-      findOneByUsername() {
-        throw Error();
-      }
+      findOneByUsername
     };
 
     const module = await Test.createTestingModule({
@@ -129,7 +132,7 @@ describe('auth', () => {
         username: 'jkchao',
         password: '1234567'
       })
-      .expect(500);
+      .expect(200);
   });
 
   afterAll(async () => {
