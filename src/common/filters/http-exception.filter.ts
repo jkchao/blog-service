@@ -21,19 +21,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     logger.error(
       JSON.stringify({
-        result: '',
         message,
-        code,
         time: new Date().toLocaleString(),
         path: request.url
       })
     );
 
     response.status(code).json({
-      code,
       message,
-      result: '',
-      success: false,
       time: new Date().toLocaleString(),
       path: request.url
     });
