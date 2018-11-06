@@ -15,6 +15,7 @@ import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { AuthIsVerifiedGuard } from './common/guards/AuthIsVerifiedGuard';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { config } from './config';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -26,7 +27,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor(), new TransformInterceptor());
 
   app.useGlobalPipes(new ValidationPipe());
 
