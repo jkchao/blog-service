@@ -6,6 +6,7 @@ import { AuthModule } from './module/auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from './config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -15,6 +16,10 @@ import { GraphQLModule } from '@nestjs/graphql';
     }),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql']
+      // definitions: {
+      //   path: join(process.cwd(), 'src/graphql.schema.ts'),
+      //   outputAs: 'class'
+      // }
     }),
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,

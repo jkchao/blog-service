@@ -12,10 +12,8 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { BlogLogger } from './common/extends/logger';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
-import { AuthIsVerifiedGuard } from './common/guards/AuthIsVerifiedGuard';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { config } from './config';
-import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -27,11 +25,9 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor(), new TransformInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor());
 
-  app.useGlobalPipes(new ValidationPipe());
-
-  app.useGlobalGuards(new AuthIsVerifiedGuard());
+  // app.useGlobalGuards(new AuthIsVerifiedGuard());
 
   // 支持 CORS
   app.enableCors({
@@ -48,7 +44,7 @@ async function bootstrap() {
   app.use(compression());
 
   await app.listen(config.APP_PORT, '0.0.0.0', () => {
-    logger.log(config.APP_NAME + 'start: 0.0.0.0:' + config.APP_PORT);
+    logger.log(config.APP_NAME + ' start: 0.0.0.0:' + config.APP_PORT);
   });
 }
 

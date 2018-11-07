@@ -1,6 +1,6 @@
 import { Module, OnModuleInit, InternalServerErrorException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { AuthResolvers } from './auth.resolvers';
 import { MongooseModule, InjectModel } from '@nestjs/mongoose';
 import { AuthSchema } from './schema/auth.schema';
 import { Model } from 'mongoose';
@@ -9,8 +9,7 @@ import { config } from '../../config';
 import { md5Decode } from '../../common/utils';
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Auth', schema: AuthSchema }])],
-  controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService, AuthResolvers]
 })
 export class AuthModule implements OnModuleInit {
   constructor(

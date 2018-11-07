@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Res, Body, HttpException } from '@nestjs/common';
+import { Post, Body, HttpException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
-import { AuthDto } from './dto/auth.dto';
 
 import { md5Decode, createToken } from '../../common/utils';
-@Controller('auth')
-export class AuthController {
+import { Resolver, Query, Args } from '@nestjs/graphql';
+
+@Resolver('Auth')
+export class AuthResolvers {
   constructor(private readonly authService: AuthService) {}
 
   /**
@@ -13,16 +13,15 @@ export class AuthController {
    * @param res RESPONSE
    * @param body BODY
    */
-  @Post('login')
-  public async login(@Body() body: AuthDto) {
+  @Query()
+  public async login(@Args() args: { username: string; password: string }) {
     try {
-      const auth = await this.authService.findOneByUsername(body.username);
+      const auth = await this.authService.findOneByUsername(args.username);
       if (auth) {
-        if (auth.password === md5Decode(body.password)) {
-          const token = createToken({ username: body.username });
+        if (auth.password === md5Decode(args.password)) {
+          const token = createToken({ username: args.username });
           return { token, lifeTime: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7 };
         } else {
-          // return this.handleError(res, '密码错误');
           throw {
             status: 401,
             message: '密码错误'

@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "dev": "cross-env NODE_ENV=dev nodemon --exec 'ts-node' ./src/main.ts",
+    "start": "cross-env NODE_ENV=dev nodemon --exec 'ts-node' ./src/main.ts",
     "debug": "cross-env NODE_ENV=dev nodemon --config nodemon.debug.json",
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/main.js",

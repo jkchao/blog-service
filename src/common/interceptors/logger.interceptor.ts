@@ -5,22 +5,24 @@
 import { Injectable, NestInterceptor, ExecutionContext, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 const logger = new Logger();
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   public intercept(context: ExecutionContext, call$: Observable<any>): Observable<any> {
-    const [request] = context.getArgs<[Request, Response]>();
+    const ctx = GqlExecutionContext.create(context);
+    const { fieldName } = ctx.getInfo();
 
     const now = Date.now();
     return call$.pipe(
       tap(
         () => {
-          logger.log(`${request.method} ${request.url} SUCCESS ---- ${Date.now() - now}ms`);
+          logger.log(`${fieldName} SUCCESS ---- ${Date.now() - now}ms`);
         },
         () => {
-          logger.error(`${request.method} ${request.url} ERROR ---- ${Date.now() - now}ms`);
+          logger.error(`${fieldName} ERROR ---- ${Date.now() - now}ms`);
         }
       )
     );

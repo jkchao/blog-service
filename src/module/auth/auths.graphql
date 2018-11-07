@@ -1,0 +1,11 @@
+type Query {
+  login(username: String!, password: String!): Token
+}
+
+type Token {
+  token: String
+  lifeTime: Date
+}
+
+
+scalar Date
