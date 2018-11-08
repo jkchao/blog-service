@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 
 import { md5Decode, createToken } from '../../common/utils';
 import { Resolver, Query, Args } from '@nestjs/graphql';
+import { AuthDto } from './dto/auth.dto';
 
 @Resolver('Auth')
 export class AuthResolvers {
@@ -14,7 +15,7 @@ export class AuthResolvers {
    * @param body BODY
    */
   @Query()
-  public async login(@Args() args: { username: string; password: string }) {
+  public async login(@Args() args: AuthDto) {
     try {
       const auth = await this.authService.findOneByUsername(args.username);
       if (auth) {
