@@ -100,7 +100,7 @@ describe('auth', () => {
   describe('success', () => {
     const authService = {
       findOneByUsername() {
-        throw {};
+        return null;
       }
     };
 
