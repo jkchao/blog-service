@@ -1,5 +1,10 @@
 type Query {
   login(username: String!, password: String!): Token
+  getInfo: UserInfo
+}
+
+type Mutation {
+  updateUserInfo(userInfo: InfoInput!): UserInfo
 }
 
 type Token {
@@ -7,5 +12,21 @@ type Token {
   lifeTime: Date
 }
 
+input InfoInput {
+  _id: ID!
+  name: String
+  username: String
+  slogan: String
+  gravatar: String
+  password: String
+}
+
+type UserInfo {
+  name: String
+  username: String
+  slogan: String
+  gravatar: String
+  password: String
+}
 
 scalar Date

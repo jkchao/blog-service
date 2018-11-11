@@ -2,8 +2,9 @@ import { Post, Body, HttpException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 import { md5Decode, createToken } from '../../common/utils';
-import { Resolver, Query, Args } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { AuthDto } from './dto/auth.dto';
+import { Info } from './decorators/User';
 
 @Resolver('Auth')
 export class AuthResolvers {
@@ -17,7 +18,7 @@ export class AuthResolvers {
   @Query()
   public async login(@Args() args: AuthDto) {
     try {
-      const auth = await this.authService.findOneByUsername(args.username);
+      const auth = await this.authService.findOne(args.username);
       if (auth) {
         if (auth.password === md5Decode(args.password)) {
           const token = createToken({ username: args.username });
@@ -38,5 +39,20 @@ export class AuthResolvers {
     } catch (error) {
       throw new HttpException(error.message || '', error.status || 400);
     }
+  }
+
+  @Query()
+  public async getInfo() {
+    try {
+      return await this.authService.findOne();
+    } catch (error) {
+      throw new HttpException(error.message || '', error.status || 400);
+    }
+  }
+
+  @Mutation()
+  public async updateUserInfo(@Args() userInfo: any) {
+    console.log(userInfo);
+    const auth = await this.authService.findOne();
   }
 }

@@ -29,8 +29,8 @@ describe('auth', () => {
     authService = module.get<AuthService>(AuthService);
   });
 
-  it('findOneByUsername', async () => {
-    const res = await authService.findOneByUsername('jkchao');
+  it('findOne', async () => {
+    const res = await authService.findOne('jkchao');
     expect(res).toMatchObject(mockRepository.findOne());
   });
 

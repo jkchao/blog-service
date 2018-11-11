@@ -12,7 +12,11 @@ export class AuthService {
    * 根据用户名查找用户
    * @param username 用户名
    */
-  public async findOneByUsername(username: string) {
-    return await this.authModel.findOne({ username });
+  public async findOne(username?: string) {
+    const param = {} as { username?: string };
+    if (username) {
+      param.username = username;
+    }
+    return await this.authModel.findOne({ ...param });
   }
 }

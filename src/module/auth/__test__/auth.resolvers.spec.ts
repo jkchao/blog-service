@@ -36,7 +36,7 @@ describe('auth', () => {
 
   describe('success', () => {
     const authService = {
-      findOneByUsername() {
+      findOne() {
         return { username: 'jkchao', password: '123456' };
       }
     };
@@ -99,7 +99,7 @@ describe('auth', () => {
 
   describe('success', () => {
     const authService = {
-      findOneByUsername() {
+      findOne() {
         return null;
       }
     };
