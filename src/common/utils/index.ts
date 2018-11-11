@@ -14,11 +14,12 @@ export function md5Decode(pwd: string | Buffer | DataView) {
 }
 
 export function createToken(params: { username: string }) {
-  return jwt.sign(
+  const toekn = jwt.sign(
     {
       ...params,
       ext: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
     },
     config.JWTKEY
   );
+  return toekn;
 }

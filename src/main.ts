@@ -15,7 +15,7 @@ import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { Logger } from '@nestjs/common';
 import { config } from './config';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new BlogLogger()
   });

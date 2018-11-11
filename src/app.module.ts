@@ -15,11 +15,8 @@ import { join } from 'path';
       ttl: 5
     }),
     GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql']
-      // definitions: {
-      //   path: join(process.cwd(), 'src/graphql.schema.ts'),
-      //   outputAs: 'class'
-      // }
+      typePaths: ['./**/*.graphql'],
+      path: '/api'
     }),
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,
