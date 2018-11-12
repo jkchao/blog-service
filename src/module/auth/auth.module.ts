@@ -12,27 +12,20 @@ import { md5Decode } from '../../common/utils';
   providers: [AuthService, AuthResolvers]
 })
 export class AuthModule implements OnModuleInit {
-  constructor(
-    private readonly authService: AuthService,
-    @InjectModel('Auth') private readonly authModel: Model<AuthInterface>
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   /**
    * 初始化创建用户
    */
   private async initUser() {
-    const auth = await this.authService.findOne(config.DEFAULT_USERNAME);
+    const auth = await this.authService.findOne({ username: config.DEFAULT_USERNAME });
     if (!auth) {
       const password = md5Decode(config.DEFAULT_PASSWORD);
 
-      try {
-        await this.authModel.create({
-          username: config.DEFAULT_USERNAME,
-          password
-        });
-      } catch (error) {
-        throw new InternalServerErrorException('初始化用户失败');
-      }
+      await this.authService.create({
+        username: config.DEFAULT_USERNAME,
+        password
+      });
     }
   }
 

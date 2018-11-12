@@ -14,7 +14,10 @@ describe('auth', () => {
       return { username: 'jkchao' };
     },
     create() {
-      return true;
+      return { username: 'jkchao' };
+    },
+    findOneAndUpdate() {
+      return { username: 'jkchao' };
     }
   };
 
@@ -30,7 +33,17 @@ describe('auth', () => {
   });
 
   it('findOne', async () => {
-    const res = await authService.findOne('jkchao');
+    const res = await authService.findOne();
+    expect(res).toMatchObject(mockRepository.findOne());
+  });
+
+  it('findOne', async () => {
+    const res = await authService.create({ username: '', password: '' });
+    expect(res).toMatchObject(mockRepository.create());
+  });
+
+  it('findOne', async () => {
+    const res = await authService.update({});
     expect(res).toMatchObject(mockRepository.findOne());
   });
 

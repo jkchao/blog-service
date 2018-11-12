@@ -19,6 +19,7 @@ input InfoInput {
   slogan: String
   gravatar: String
   password: String
+  oldPassword: String!
 }
 
 type UserInfo {

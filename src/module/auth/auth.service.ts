@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { AuthInterface } from './interface/auth.interface';
 import { InjectModel } from '@nestjs/mongoose';
+import { InfoDto, AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,11 +13,19 @@ export class AuthService {
    * 根据用户名查找用户
    * @param username 用户名
    */
-  public async findOne(username?: string) {
-    const param = {} as { username?: string };
-    if (username) {
-      param.username = username;
-    }
-    return await this.authModel.findOne({ ...param });
+  public async findOne(info?: InfoDto) {
+    return await this.authModel.findOne({ ...info });
+  }
+
+  /**
+   * 初始化创建用户
+   * @param auth { username password }
+   */
+  public async create(auth: AuthDto) {
+    return await this.authModel.create(auth);
+  }
+
+  public async update(auth: InfoDto) {
+    return this.authModel.findOneAndUpdate(auth._id, auth, { new: true });
   }
 }

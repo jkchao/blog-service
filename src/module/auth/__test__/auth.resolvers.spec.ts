@@ -28,6 +28,9 @@ const mockRepository = {
   },
   create() {
     return { username: 'jkchao' };
+  },
+  update() {
+    return { username: 'jkchao' };
   }
 };
 
@@ -38,6 +41,12 @@ describe('auth', () => {
     const authService = {
       findOne() {
         return { username: 'jkchao', password: '123456' };
+      },
+      create() {
+        return { username: 'jkchao' };
+      },
+      update() {
+        return { username: 'jkchao' };
       }
     };
 
@@ -61,7 +70,7 @@ describe('auth', () => {
       app = await module.createNestApplication().init();
     });
 
-    it('should success', () => {
+    it('login should success', () => {
       return request(app.getHttpServer())
         .post('/api')
         .send({
@@ -76,7 +85,7 @@ describe('auth', () => {
         .expect(200);
     });
 
-    it('should fail', () => {
+    it('login should passwordword', () => {
       return request(app.getHttpServer())
         .post('/api')
         .send({
@@ -91,16 +100,90 @@ describe('auth', () => {
         .expect(200);
     });
 
+    it('login should account does not exit', () => {
+      return request(app.getHttpServer())
+        .post('/api')
+        .send({
+          query: `
+            {
+              login(username: "jkchaos", password: "1234567") {
+                token
+              }
+            }
+        `
+        })
+        .expect(200);
+    });
+
+    it('getInfo', () => {
+      return request(app.getHttpServer())
+        .post('/api')
+        .send({
+          query: `
+            {
+              getInfo {
+                name
+              }
+            }
+        `
+        })
+        .expect(200);
+    });
+
+    it('getInfo success', () => {
+      return request(app.getHttpServer())
+        .post('/api')
+        .send({
+          query: `
+          mutation Auth {
+            updateUserInfo(userInfo: {_id: "59ef13f0a3ad094f5d294da3", oldPassword: "123456", name: "4"}) {
+              name
+              gravatar
+              slogan
+              username
+              password
+            }
+          }
+          `
+        })
+        .expect(200);
+    });
+
+    it('updateUserInfo success', () => {
+      return request(app.getHttpServer())
+        .post('/api')
+        .send({
+          query: `
+          mutation Auth {
+            updateUserInfo(userInfo: {_id: "59ef13f0a3ad094f5d294da3", oldPassword: "1234567", name: "4"}) {
+              name
+              gravatar
+              slogan
+              username
+              password
+            }
+          }
+          `
+        })
+        .expect(200);
+    });
+
     afterAll(async () => {
       await app.close();
       await mongoose.disconnect();
     });
   });
 
-  describe('success', () => {
+  describe('error', () => {
     const authService = {
       findOne() {
         return null;
+      },
+      create() {
+        return { username: 'jkchao' };
+      },
+      update() {
+        return { username: 'jkchao' };
       }
     };
 
@@ -124,17 +207,36 @@ describe('auth', () => {
       app = await module.createNestApplication().init();
     });
 
-    it('should fail', () => {
+    it('login error', () => {
       return request(app.getHttpServer())
         .post('/api')
         .send({
           query: `
             {
-              login(username: "jkchao", password: "123456") {
+              login(username: "jkchao", password: "1234567") {
                 token
               }
             }
         `
+        })
+        .expect(200);
+    });
+
+    it('updateUserInfo error', () => {
+      return request(app.getHttpServer())
+        .post('/api')
+        .send({
+          query: `
+          mutation Auth {
+            updateUserInfo(userInfo: {_id: "59ef13f0a3ad094f5d294da3", oldPassword: "1234567", name: "4"}) {
+              name
+              gravatar
+              slogan
+              username
+              password
+            }
+          }
+          `
         })
         .expect(200);
     });
