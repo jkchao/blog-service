@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { md5Decode, createToken } from '../../common/utils';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { AuthDto, InfoDto, InfoRequredDto } from './dto/auth.dto';
-import { Info } from './decorators/User';
+import { Info } from './decorators/auth';
 
 @Resolver('Auth')
 export class AuthResolvers {

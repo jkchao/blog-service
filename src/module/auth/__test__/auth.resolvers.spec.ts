@@ -1,12 +1,11 @@
 import request from 'supertest';
-import axios from 'axios';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 
 import { AuthModule } from '../auth.module';
 import { AuthService } from '../auth.service';
 
-import { MongooseModule, getModelToken } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { config } from '../../../config';
 
 import mongoose from 'mongoose';
@@ -21,18 +20,6 @@ jest.mock('../../../common/utils', () => {
   const createToken = _ => '123456';
   return { md5Decode, createToken };
 });
-
-const mockRepository = {
-  findOne() {
-    return { username: 'jkchao' };
-  },
-  create() {
-    return { username: 'jkchao' };
-  },
-  update() {
-    return { username: 'jkchao' };
-  }
-};
 
 describe('auth', () => {
   let app: INestApplication;
@@ -57,14 +44,12 @@ describe('auth', () => {
           AuthModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
-            path: '/api'
+            path: '/api/v2'
           })
         ]
       })
         .overrideProvider(AuthService)
         .useValue(authService)
-        .overrideProvider(getModelToken('Auth'))
-        .useValue(mockRepository)
         .compile();
 
       app = await module.createNestApplication().init();
@@ -72,7 +57,7 @@ describe('auth', () => {
 
     it('login should success', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
             {
@@ -87,7 +72,7 @@ describe('auth', () => {
 
     it('login should passwordword', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
             {
@@ -102,7 +87,7 @@ describe('auth', () => {
 
     it('login should account does not exit', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
             {
@@ -117,7 +102,7 @@ describe('auth', () => {
 
     it('getInfo', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
             {
@@ -132,7 +117,7 @@ describe('auth', () => {
 
     it('getInfo success', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
           mutation Auth {
@@ -151,7 +136,7 @@ describe('auth', () => {
 
     it('updateUserInfo success', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
           mutation Auth {
@@ -194,14 +179,12 @@ describe('auth', () => {
           AuthModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
-            path: '/api'
+            path: '/api/v2'
           })
         ]
       })
         .overrideProvider(AuthService)
         .useValue(authService)
-        .overrideProvider(getModelToken('Auth'))
-        .useValue(mockRepository)
         .compile();
 
       app = await module.createNestApplication().init();
@@ -209,7 +192,7 @@ describe('auth', () => {
 
     it('login error', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
             {
@@ -224,7 +207,7 @@ describe('auth', () => {
 
     it('updateUserInfo error', () => {
       return request(app.getHttpServer())
-        .post('/api')
+        .post('/api/v2')
         .send({
           query: `
           mutation Auth {

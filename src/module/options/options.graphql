@@ -1,0 +1,36 @@
+
+
+type Query {
+  getOptions: Options
+}
+
+type Mutation {
+  updateOptions(options: OptionsInput): Options
+}
+
+type Options {
+  id: String
+  title: String
+  sub_title: String
+  keyword: String
+  descript: String
+  url: String
+  email: String
+  icp: String
+  meta: Meta
+}
+
+input OptionsInput {
+  id: String
+  title: String
+  sub_title: String
+  keyword: String
+  descript: String
+  url: String
+  email: String
+  icp: String
+}
+
+type Meta {
+  likes: Int
+}
