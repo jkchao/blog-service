@@ -26,6 +26,7 @@ describe('HttpService', () => {
     expect(configService.QINNIU_ACCESSKEY).toBe('uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf');
     expect(configService.QINNIU_TOKEN).toBe('_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph');
     expect(configService.QINNIU_BUCKET).toBe('blog');
+    expect(configService.QINIU_UPLOADURL).toBe('http://up.qiniu.com/');
 
     expect(configService.BAIDU_SITE).toBe('https://jkchao.cn');
     expect(configService.BAIDU_TOKEN).toBe('phhdOEtkGgVKToH5');

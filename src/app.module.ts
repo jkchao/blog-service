@@ -8,13 +8,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { config } from './config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { QiniuModule } from './module/qiniu/qiniu.module';
 
 @Module({
   imports: [
-    CacheModule.register({
-      max: 5,
-      ttl: 5
-    }),
+    // CacheModule.register({
+    //   max: 5,
+    //   ttl: 5
+    // }),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       path: '/api/v2'
@@ -22,7 +23,8 @@ import { join } from 'path';
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,
     HttpModule,
-    OptionsModule
+    OptionsModule,
+    QiniuModule
   ],
   providers: [
     // {

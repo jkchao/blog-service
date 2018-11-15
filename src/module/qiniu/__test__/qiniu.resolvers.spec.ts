@@ -2,8 +2,8 @@ import request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 
-import { OptionsModule } from '../options.module';
-import { OptionsService } from '../options.service';
+import { QiniuModule } from '../qiniu.module';
+import { QiniuService } from '../qiniu.service';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from '../../../config';
@@ -11,16 +11,13 @@ import { config } from '../../../config';
 import mongoose from 'mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 
-describe('auth', () => {
+describe('Qiniu', () => {
   let app: INestApplication;
 
   describe('success', () => {
-    const optionsService = {
-      getOptions() {
-        return { username: 'jkchao', password: '123456' };
-      },
-      updateOptions() {
-        return { username: 'jkchao' };
+    const qiniuService = {
+      getToken() {
+        return { token: '1234' };
       }
     };
 
@@ -28,46 +25,31 @@ describe('auth', () => {
       const module = await Test.createTestingModule({
         imports: [
           MongooseModule.forRoot(config.MONGO_URL),
-          OptionsModule,
+          QiniuModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
             path: '/api/v2'
           })
         ]
       })
-        .overrideProvider(OptionsService)
-        .useValue(optionsService)
+        .overrideProvider(QiniuService)
+        .useValue(qiniuService)
         .compile();
 
       app = await module.createNestApplication().init();
     });
 
-    it('getOptions should success', () => {
+    it('getToken should success', () => {
       return request(app.getHttpServer())
         .post('/api/v2')
         .send({
           query: `
             {
-              getOptions {
-                url
+              getQiniu {
+                token
               }
             }
         `
-        })
-        .expect(200);
-    });
-
-    it('updateUserInfo success', () => {
-      return request(app.getHttpServer())
-        .post('/api/v2')
-        .send({
-          query: `
-          mutation Options {
-            updateOptions(options: {id: "12345"}) {
-              url
-            }
-          }
-          `
         })
         .expect(200);
     });

@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import fs from 'fs';
 import dotenv from 'dotenv';
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import path from 'path';
 import { AxiosRequestConfig } from 'axios';
 import { Configuration } from 'log4js';
@@ -60,6 +60,7 @@ export interface EnvConfig {
   [prop: string]: string;
 }
 
+@Injectable()
 export class ConfigService {
   private readonly envConfig: EnvConfig;
 
@@ -85,6 +86,8 @@ export class ConfigService {
       QINNIU_ACCESSKEY: Joi.string().required(),
       QINNIU_TOKEN: Joi.string().required(),
       QINNIU_BUCKET: Joi.string().required(),
+      QINNIU_ORIGIN: Joi.string().required(),
+      QINIU_UPLOADURL: Joi.string().required(),
 
       BAIDU_SITE: Joi.string().required(),
       BAIDU_TOKEN: Joi.string().required(),
@@ -143,6 +146,12 @@ export class ConfigService {
   }
   public get QINNIU_BUCKET(): string {
     return this.envConfig.QINNIU_BUCKET;
+  }
+  public get QINNIU_ORIGIN(): string {
+    return this.envConfig.QINNIU_ORIGIN;
+  }
+  public get QINIU_UPLOADURL(): string {
+    return this.envConfig.QINIU_UPLOADURL;
   }
 
   public get BAIDU_SITE(): string {

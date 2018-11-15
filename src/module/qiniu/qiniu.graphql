@@ -1,0 +1,9 @@
+
+
+type Query {
+  getQiniu: Token
+}
+
+type Token {
+  token: String
+}

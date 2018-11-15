@@ -3,7 +3,7 @@ import { OptionsService } from './options.service';
 import { OptionsInfo } from './interface/options.interface';
 import { Info } from './decorators/options.decorators';
 
-@Resolver('options')
+@Resolver('Options')
 export class OptionsResolver {
   constructor(private readonly optionsService: OptionsService) {}
 
