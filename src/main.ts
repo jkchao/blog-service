@@ -9,7 +9,7 @@ import { AppModule } from './app.module';
 
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
-import { BlogLogger } from './common/extends/logger';
+import { BlogLogger } from './common/logger/logger';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { Logger } from '@nestjs/common';
@@ -17,15 +17,18 @@ import { config } from './config';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: new BlogLogger()
+    logger: false
   });
-  const logger = new Logger();
+
+  const logger = app.get(BlogLogger);
+
+  app.useLogger(logger);
 
   logger.log(config.APP_NAME + ' start...');
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.useGlobalInterceptors(new LoggingInterceptor(), new TimeoutInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor(logger), new TimeoutInterceptor());
 
   // app.useGlobalGuards(new AuthIsVerifiedGuard());
 

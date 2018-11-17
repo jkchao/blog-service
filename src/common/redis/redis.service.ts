@@ -2,13 +2,14 @@ import { Injectable, Inject, Logger } from '@nestjs/common';
 import { REDIS_CACHE } from './redis.constant';
 import redis, { RedisClient } from 'redis';
 import { promisify } from 'util';
+import { BlogLogger } from '../logger/logger';
 
 @Injectable()
 export class RedisService {
-  private readonly logger: Logger;
+  // private readonly logger: Logger;
 
-  constructor(@Inject(REDIS_CACHE) private client: RedisClient) {
-    this.logger = new Logger();
+  constructor(@Inject(REDIS_CACHE) private client: RedisClient, private readonly logger: BlogLogger) {
+    // this.logger = new Logger();
     this.initRedis();
   }
 

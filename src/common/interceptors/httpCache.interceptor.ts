@@ -1,9 +1,15 @@
 import { CacheInterceptor, ExecutionContext, Injectable, Logger } from '@nestjs/common';
+import { BlogLogger } from '../logger/logger';
 
 const logger = new Logger();
 
 @Injectable()
 export class HttpCacheInterceptor extends CacheInterceptor {
+  // constructor(
+  //   private readonly logger: BlogLogger
+  // ) {
+  //   super();
+  // }
   public trackBy(context: ExecutionContext): string | undefined {
     const request = context.switchToHttp().getRequest();
     if (this.httpServer.getRequestMethod && this.httpServer.getRequestUrl) {
