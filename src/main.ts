@@ -11,7 +11,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
-import { config } from './config';
+import { config } from '@/config';
 import { BlogLogger } from './module/common/logger/logger';
 
 export async function bootstrap() {

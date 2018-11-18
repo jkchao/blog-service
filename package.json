@@ -9,7 +9,7 @@
     "start": "cross-env NODE_ENV=dev nodemon --config nodemon.json",
     "debug": "cross-env NODE_ENV=dev nodemon --config nodemon-debug.json",
     "prestart:prod": "rm -rf dist && tsc -p './tsconfig.build.json'",
-    "start:prod": "node dist/main.js",
+    "start:prod": "node -r ./tsconfig-paths-bootstrap.js dist/main.js",
     "start:hmr": "node dist/server",
     "test": "jest",
     "test:watch": "jest --watch",
