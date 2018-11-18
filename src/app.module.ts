@@ -1,6 +1,6 @@
 import { Module, CacheModule } from '@nestjs/common';
 
-import { HttpModule } from './common/http/http.module';
+import { HttpModule } from './module/common/http/http.module';
 import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
 import { AuthModule } from './module/auth/auth.module';
 import { OptionsModule } from './module/options/options.module';
@@ -9,8 +9,8 @@ import { config } from './config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { QiniuModule } from './module/qiniu/qiniu.module';
-import { BlogLoggerModule } from './common/logger/logger.module';
-import { BlogLogger } from './common/logger/logger';
+import { BlogLoggerModule } from './module/common/logger/logger.module';
+import { BlogLogger } from './module/common/logger/logger';
 
 @Module({
   imports: [
@@ -20,7 +20,6 @@ import { BlogLogger } from './common/logger/logger';
     }),
     GraphQLModule.forRootAsync({
       imports: [BlogLoggerModule],
-      inject: [BlogLogger],
       useFactory: async (logger: BlogLogger) => ({
         typePaths: ['./**/*.graphql'],
         path: '/api/v2',

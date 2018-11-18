@@ -1,5 +1,4 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { defer, Observable } from 'rxjs';
+import { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ResponseInterface } from './http.interface';
 import { AXIOS_TOKEN } from './http.constants';

@@ -1,7 +1,7 @@
-import { CacheInterceptor, ExecutionContext, Injectable, Logger } from '@nestjs/common';
-import { BlogLogger } from '../logger/logger';
+import { CacheInterceptor, ExecutionContext, Injectable } from '@nestjs/common';
+import { BlogLogger } from '../../module/common/logger/logger';
 
-const logger = new Logger();
+const logger = new BlogLogger();
 
 @Injectable()
 export class HttpCacheInterceptor extends CacheInterceptor {

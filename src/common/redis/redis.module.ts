@@ -2,8 +2,7 @@ import { Module, Global } from '@nestjs/common';
 import { RedisService } from './redis.service';
 import { REDIS_CACHE } from './redis.constant';
 import redis from 'redis';
-import { BlogLogger } from '../logger/logger';
-import { BlogLoggerModule } from '../logger/logger.module';
+import { BlogLoggerModule } from '../../module/common/logger/logger.module';
 
 @Global()
 @Module({
@@ -13,8 +12,7 @@ import { BlogLoggerModule } from '../logger/logger.module';
     {
       provide: REDIS_CACHE,
       useValue: redis
-    },
-    BlogLogger
+    }
   ],
   exports: [RedisService]
 })

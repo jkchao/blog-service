@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Module, Global } from '@nestjs/common';
 import { HttpService } from './http.service';
 import { AXIOS_TOKEN } from './http.constants';
-import { config } from '../../config';
+import { config } from '../../../config';
 
 @Global()
 @Module({
