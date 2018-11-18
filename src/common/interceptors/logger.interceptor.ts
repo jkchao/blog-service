@@ -2,11 +2,11 @@
  * 响应时间拦截器
  */
 
-import { Injectable, NestInterceptor, ExecutionContext, Logger } from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { BlogLogger } from '../../module/common/logger/logger';
+import { BlogLogger } from '@/module/common/logger/logger';
 
 // const logger = new Logger();
 

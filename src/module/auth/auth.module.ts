@@ -5,8 +5,8 @@ import { MongooseModule, InjectModel } from '@nestjs/mongoose';
 import { AuthSchema } from './schema/auth.schema';
 import { Model } from 'mongoose';
 import { AuthInterface } from './interface/auth.interface';
-import { config } from '../../config';
-import { md5Decode } from '../../common/utils';
+import { config } from '@/config';
+import { md5Decode } from '@/common/utils';
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Auth', schema: AuthSchema }])],
   providers: [AuthService, AuthResolvers]

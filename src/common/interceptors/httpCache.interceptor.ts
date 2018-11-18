@@ -1,5 +1,5 @@
 import { CacheInterceptor, ExecutionContext, Injectable } from '@nestjs/common';
-import { BlogLogger } from '../../module/common/logger/logger';
+import { BlogLogger } from '@/module/common/logger/logger';
 
 const logger = new BlogLogger();
 

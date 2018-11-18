@@ -2,7 +2,7 @@ import { Injectable, Inject, Logger } from '@nestjs/common';
 import { REDIS_CACHE } from './redis.constant';
 import redis, { RedisClient } from 'redis';
 import { promisify } from 'util';
-import { BlogLogger } from '../../module/common/logger/logger';
+import { BlogLogger } from '@/module/common/logger/logger';
 
 @Injectable()
 export class RedisService {

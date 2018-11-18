@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { config } from '../../config';
+import { config } from '@/config';
 
 /**
  * 解密

@@ -15,7 +15,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 // mock.re
 
-jest.mock('../../../common/utils', () => {
+jest.mock('@/common/utils', () => {
   const md5Decode = password => password;
   const createToken = _ => '123456';
   return { md5Decode, createToken };
