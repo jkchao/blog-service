@@ -19,6 +19,7 @@ export class InfoDto {
   public slogan?: string;
   public gravatar?: string;
   public password?: string;
+  public oldPassword?: string;
 }
 
 export class InfoRequredDto extends InfoDto {

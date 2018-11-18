@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import { config } from '../../../config';
+import { config } from '@/config';
 import crypto from 'crypto';
 
 export const AuthSchema = new Mongoose.Schema({

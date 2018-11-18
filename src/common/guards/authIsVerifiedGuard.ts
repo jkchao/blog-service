@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { config } from '../../config';
+import { config } from '@/config';
 
 @Injectable()
 export class AuthIsVerifiedGuard implements CanActivate {
