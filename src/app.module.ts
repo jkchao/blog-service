@@ -11,6 +11,7 @@ import { join } from 'path';
 import { QiniuModule } from './module/qiniu/qiniu.module';
 import { BlogLoggerModule } from './module/common/logger/logger.module';
 import { BlogLogger } from './module/common/logger/logger';
+import { LinkModule } from './module/link/link.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { BlogLogger } from './module/common/logger/logger';
     HttpModule,
     OptionsModule,
     QiniuModule,
-    BlogLoggerModule
+    BlogLoggerModule,
+    LinkModule
   ],
   providers: [
     // {

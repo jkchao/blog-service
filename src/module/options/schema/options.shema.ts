@@ -1,6 +1,6 @@
 import Mongoose from 'mongoose';
 
-export const OptionsShema = new Mongoose.Schema({
+export const OptionsSchema = new Mongoose.Schema({
   // 网站标题
   title: { type: String, required: true },
 

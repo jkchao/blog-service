@@ -5,16 +5,16 @@ import { OptionsModel, OptionsInfo } from './interface/options.interface';
 
 @Injectable()
 export class OptionsService {
-  constructor(@InjectModel('Options') private readonly optionsModule: Model<OptionsModel>) {}
+  constructor(@InjectModel('Options') private readonly optionsModel: Model<OptionsModel>) {}
 
   public getOptions() {
-    return this.optionsModule.findOne();
+    return this.optionsModel.findOne();
   }
 
   public updateOptions(options: OptionsInfo) {
     if (options.id) {
-      return this.optionsModule.findByIdAndUpdate(options.id, options, { new: true });
+      return this.optionsModel.findByIdAndUpdate(options.id, options, { new: true });
     }
-    return new this.optionsModule(options).save();
+    return new this.optionsModel(options).save();
   }
 }
