@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Link, LinkHasId, LinkQuery } from './interface/link.interface';
+import { Links, LinksHasId, LinksQuery } from './interface/links.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
-export class LinkService {
-  constructor(@InjectModel('Links') private readonly linksModel: PaginateModel<LinkHasId>) {}
+export class LinksService {
+  constructor(@InjectModel('Links') private readonly linksModel: PaginateModel<LinksHasId>) {}
 
   // 添加
-  public createLink(link: Link) {
+  public createLink(link: Links) {
     return new this.linksModel({ link }).save();
   }
 
   // 查
-  public searchLink(query: LinkQuery) {
+  public searchLink(query: LinksQuery) {
     // 过滤条件
     const options = {
       sort: { id: 1 },
-      page: Number(query.current_page || 1),
-      limit: Number(query.page_size || 10)
+      offset: Number(query.offset || 1),
+      limit: Number(query.limit || 10)
     };
 
     // 参数
@@ -28,7 +28,7 @@ export class LinkService {
   }
 
   // 修改
-  public updateLink(link: LinkHasId) {
+  public updateLink(link: LinksHasId) {
     return this.linksModel.findByIdAndUpdate(link.id, link, { new: true });
   }
 

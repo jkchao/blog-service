@@ -2,7 +2,7 @@ import Mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
 import autoIncrement from 'mongoose-auto-increment';
 
-export const LinkSchema = new Mongoose.Schema({
+export const LinksSchema = new Mongoose.Schema({
   name: { type: String, required: true, validate: /\S+/ },
 
   url: { type: String, required: true },
@@ -12,16 +12,16 @@ export const LinkSchema = new Mongoose.Schema({
   update_at: { type: Date }
 });
 
-LinkSchema.plugin(mongoosePaginate);
+LinksSchema.plugin(mongoosePaginate);
 
-LinkSchema.plugin(autoIncrement.plugin, {
+LinksSchema.plugin(autoIncrement.plugin, {
   model: 'Link',
   field: 'id',
   startAt: 1,
   incrementBy: 1
 });
 
-LinkSchema.pre('findOneAndUpdate', function(next) {
+LinksSchema.pre('findOneAndUpdate', function(next) {
   this.findOneAndUpdate({}, { update_at: Date.now() });
   next();
 });
