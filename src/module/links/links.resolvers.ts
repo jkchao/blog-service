@@ -1,4 +1,24 @@
-import { Resolver } from '@nestjs/graphql';
+import { Resolver, Query, Mutation } from '@nestjs/graphql';
 
 @Resolver('Link')
-export class LinksResolver {}
+export class LinksResolver {
+  @Query()
+  public createLink() {
+    //
+  }
+
+  @Mutation()
+  public deleteLink() {
+    //
+  }
+
+  @Mutation()
+  public updateLink() {
+    //
+  }
+
+  @Mutation()
+  public getLinks() {
+    //
+  }
+}

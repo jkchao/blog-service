@@ -13,7 +13,7 @@ type Token {
 }
 
 input InfoInput {
-  _id: ID!
+  _id: ObjectId!
   name: String
   username: String
   slogan: String
@@ -31,3 +31,4 @@ type UserInfo {
 }
 
 scalar Date
+scalar ObjectId

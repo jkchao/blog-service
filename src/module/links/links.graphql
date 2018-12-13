@@ -1,0 +1,11 @@
+
+
+type Query {
+  getLinks: Options
+}
+
+type Mutation {
+  createLinks()
+  deleteLinks(_id: )
+  updateLinks()
+}
