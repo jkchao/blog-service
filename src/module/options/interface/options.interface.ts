@@ -31,5 +31,5 @@ export interface OptionsBase {
 export interface OptionsModel extends Document, OptionsBase {}
 
 export interface OptionsInfo extends OptionsBase {
-  id?: string;
+  _id?: string;
 }

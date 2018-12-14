@@ -1,11 +1,52 @@
-
-
 type Query {
-  getLinks: Options
+  getLinks(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: Float
+  ): Links
 }
+
 
 type Mutation {
-  createLinks()
-  deleteLinks(_id: )
-  updateLinks()
+  createLink(linkInfo: CreateInfoInput!): linksItem
+  updateLink(linkInfo: UpdateInfoInput!): linksItem
+  deleteLink(_id: ObjectID): Result
 }
+
+type Result {
+  _id: ObjectID
+}
+
+input CreateInfoInput {
+  name: String!
+  url: String!
+}
+
+input UpdateInfoInput {
+  _id: ObjectID
+  name: String
+  url: String
+  state: State
+}
+
+enum State {
+  TODO
+  AGREE
+  REFLUSE
+}
+
+type Links {
+  total: Float
+  offset: Float!
+  limit: Float!
+  list: [linksItem]
+}
+
+type linksItem {
+  state: State
+  url: String
+  name: String
+}
+
+scalar ObjectID

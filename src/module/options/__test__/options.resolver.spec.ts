@@ -11,7 +11,7 @@ import { config } from '../../../config';
 import mongoose from 'mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 
-describe('auth', () => {
+describe('options', () => {
   let app: INestApplication;
 
   describe('success', () => {
@@ -63,7 +63,7 @@ describe('auth', () => {
         .send({
           query: `
           mutation Options {
-            updateOptions(options: {id: "12345"}) {
+            updateOptions(options: {_id: "59ef13f0a3ad094f5d294da3"}) {
               url
             }
           }

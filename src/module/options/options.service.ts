@@ -12,8 +12,8 @@ export class OptionsService {
   }
 
   public updateOptions(options: OptionsInfo) {
-    if (options.id) {
-      return this.optionsModel.findByIdAndUpdate(options.id, options, { new: true });
+    if (options._id) {
+      return this.optionsModel.findByIdAndUpdate(options._id, options, { new: true });
     }
     return new this.optionsModel(options).save();
   }

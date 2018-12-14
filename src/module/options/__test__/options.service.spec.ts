@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 describe('options', () => {
   let optionsService: OptionsService;
 
-  describe('object', () => {
+  describe('create', () => {
     const mockRepository = {
       findOne() {
         return { username: 'jkchao' };
@@ -36,7 +36,7 @@ describe('options', () => {
     });
 
     it('updateOptions', async () => {
-      const res = await optionsService.updateOptions({ id: '12345' });
+      const res = await optionsService.updateOptions({ _id: '12345' });
       expect(res).toMatchObject(mockRepository.findByIdAndUpdate());
     });
 
@@ -45,7 +45,7 @@ describe('options', () => {
     });
   });
 
-  describe('class', () => {
+  describe('update', () => {
     class MockRepository {
       public save() {
         return { username: 'jkchao' };

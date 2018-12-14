@@ -1,24 +1,30 @@
-import { Resolver, Query, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { QueryLinksDto, InfoDto } from './dto/links.dto';
+import { LinksService } from './links.service';
+import { Info } from './decorators/links.decorators';
+import { LinksHasId, LinksQuery } from './interface/links.interface';
 
-@Resolver('Link')
+@Resolver()
 export class LinksResolver {
+  constructor(private linksService: LinksService) {}
+
   @Query()
-  public createLink() {
-    //
+  public getLinks(@Args() args: LinksQuery) {
+    return this.linksService.searchLink(args);
   }
 
   @Mutation()
-  public deleteLink() {
-    //
+  public deleteLink(@Args('_id') _id: string) {
+    return this.linksService.deleteLink(_id);
   }
 
   @Mutation()
-  public updateLink() {
-    //
+  public createLink(@Info() info: InfoDto) {
+    return this.linksService.createLink(info);
   }
 
   @Mutation()
-  public getLinks() {
-    //
+  public updateLink(@Info() info: LinksHasId) {
+    return this.linksService.updateLink(info);
   }
 }

@@ -11,6 +11,8 @@ import { join } from 'path';
 import { QiniuModule } from './module/qiniu/qiniu.module';
 import { BlogLoggerModule } from './module/common/logger/logger.module';
 import { BlogLogger } from './module/common/logger/logger';
+import { GraphQLError } from 'graphql';
+import { ValidationError } from 'apollo-server-core';
 // import { LinksModule } from './module/links/links.module';
 
 @Module({
@@ -24,11 +26,21 @@ import { BlogLogger } from './module/common/logger/logger';
       useFactory: async (logger: BlogLogger) => ({
         typePaths: ['./**/*.graphql'],
         path: '/api/v2',
-        formatError: (error: Error) => {
-          logger.error(JSON.stringify(error));
-          return error;
+        formatError: (error: GraphQLError) => {
+          logger.error(
+            JSON.stringify({
+              message: error.message,
+              location: error.locations,
+              path: error.path
+            })
+          );
+          return {
+            message: error.message,
+            location: error.locations
+          };
         }
-      })
+      }),
+      inject: [BlogLogger]
     }),
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,
