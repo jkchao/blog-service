@@ -1,8 +1,9 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { QueryLinksDto, InfoDto } from './dto/links.dto';
 import { LinksService } from './links.service';
 import { Info } from './decorators/links.decorators';
 import { LinksHasId, LinksQuery } from './interface/links.interface';
+import { Context as cc } from 'apollo-server-core';
 
 @Resolver()
 export class LinksResolver {

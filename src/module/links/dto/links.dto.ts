@@ -8,6 +8,6 @@ export class QueryLinksDto {
 export class InfoDto {
   public _id: string;
   public name: string;
-  public state: 0 | 1 | 2;
+  public state: string;
   public url: string;
 }

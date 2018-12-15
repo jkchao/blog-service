@@ -8,7 +8,8 @@ export class LinksService {
   constructor(@InjectModel('Links') private readonly linksModel: PaginateModel<LinksHasId>) {}
 
   // 添加
-  public createLink(link: Links) {
+  public async createLink(link: Links) {
+    link.state = 'TODO';
     return new this.linksModel(link).save();
   }
 

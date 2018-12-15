@@ -3,10 +3,11 @@ import { Document } from 'mongoose';
 export interface Links {
   name: string;
   url: string;
+  state: string;
 }
 
 export interface LinksHasId extends Links, Document {
-  id: string;
+  _id: string;
 }
 
 export interface LinksQuery {
