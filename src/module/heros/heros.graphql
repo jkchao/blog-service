@@ -1,0 +1,52 @@
+type Query {
+  getHeros(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: Float
+  ): Heros
+}
+
+
+type Mutation {
+  createHero(HeroInfo: CreateInfoInput!): DocsItem
+  updateHero(HeroInfo: UpdateInfoInput!): DocsItem
+  deleteHero(_id: ObjectID): Result
+}
+
+type Result {
+  _id: ObjectID
+}
+
+input CreateInfoInput {
+  name: String!
+  url: String!
+}
+
+input UpdateInfoInput {
+  _id: ObjectID
+  name: String
+  url: String
+  state: State
+}
+
+enum State {
+  TODO
+  AGREE
+  REFLUSE
+}
+
+type Heros {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [DocsItem]
+}
+
+type DocsItem {
+  state: State
+  url: String
+  name: String
+}
+
+scalar ObjectID
