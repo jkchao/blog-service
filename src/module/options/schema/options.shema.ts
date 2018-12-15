@@ -26,5 +26,12 @@ export const OptionsSchema = new Mongoose.Schema({
   meta: {
     // 被喜欢次数
     likes: { type: Number, default: 0 }
-  }
+  },
+
+  update_at: { type: Date, default: Date.now }
+});
+
+OptionsSchema.pre('findOneAndUpdate', function(next) {
+  this.findOneAndUpdate({}, { update_at: Date.now() });
+  next();
 });

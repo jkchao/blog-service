@@ -9,8 +9,8 @@ type Query {
 
 
 type Mutation {
-  createLink(linkInfo: CreateInfoInput!): linksItem
-  updateLink(linkInfo: UpdateInfoInput!): linksItem
+  createLink(linkInfo: CreateInfoInput!): DocsItem
+  updateLink(linkInfo: UpdateInfoInput!): DocsItem
   deleteLink(_id: ObjectID): Result
 }
 
@@ -40,10 +40,10 @@ type Links {
   total: Float
   offset: Float!
   limit: Float!
-  list: [linksItem]
+  docs: [DocsItem]
 }
 
-type linksItem {
+type DocsItem {
   state: State
   url: String
   name: String

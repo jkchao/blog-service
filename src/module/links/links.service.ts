@@ -9,7 +9,7 @@ export class LinksService {
 
   // 添加
   public createLink(link: Links) {
-    return new this.linksModel({ link }).save();
+    return new this.linksModel(link).save();
   }
 
   // 查
@@ -17,7 +17,7 @@ export class LinksService {
     // 过滤条件
     const options = {
       sort: { id: 1 },
-      offset: Number(query.offset || 1),
+      offset: Number(query.offset || 0),
       limit: Number(query.limit || 10)
     };
 

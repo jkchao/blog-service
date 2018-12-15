@@ -7,13 +7,13 @@ import { OptionsModule } from './module/options/options.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from './config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
 import { QiniuModule } from './module/qiniu/qiniu.module';
 import { BlogLoggerModule } from './module/common/logger/logger.module';
 import { BlogLogger } from './module/common/logger/logger';
 import { GraphQLError } from 'graphql';
-import { ValidationError } from 'apollo-server-core';
-// import { LinksModule } from './module/links/links.module';
+import { LinksModule } from './module/links/links.module';
+import Mongoose from 'mongoose';
+import autoIncrement from 'mongoose-auto-increment';
 
 @Module({
   imports: [
@@ -45,7 +45,8 @@ import { ValidationError } from 'apollo-server-core';
     MongooseModule.forRoot(config.MONGO_URL),
     AuthModule,
     OptionsModule,
-    QiniuModule
+    QiniuModule,
+    LinksModule
   ],
   providers: [
     // {

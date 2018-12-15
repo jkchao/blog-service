@@ -15,7 +15,6 @@ type Token {
 input InfoInput {
   _id: ObjectId!
   name: String
-  username: String
   slogan: String
   gravatar: String
   password: String
@@ -23,6 +22,7 @@ input InfoInput {
 }
 
 type UserInfo {
+  _id: ObjectId!
   name: String
   username: String
   slogan: String
