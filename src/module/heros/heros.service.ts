@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Heros, HerosHasId, HerosQuery } from './interface/heros.interface';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
+import { PaginateModel, PaginateOptions } from 'mongoose';
 import geoip from 'geoip-lite';
+import { plainToClass } from 'class-transformer';
+import { ListSerializate } from '@/common/serializate/list.serializate';
+import { StateEnum } from '@/common/enum/state';
 
 @Injectable()
 export class HerosService {
@@ -11,32 +14,33 @@ export class HerosService {
   // 添加
   public createHero(hero: Heros & { ip: string }) {
     const ipLocation = geoip.lookup(hero.ip);
-
     if (ipLocation) {
       hero.city = ipLocation.city;
       hero.range = ipLocation.range;
       hero.country = ipLocation.country;
     }
 
-    return new this.herosModel(hero).save();
+    return new this.herosModel({ ...hero, state: 0 }).save();
   }
 
   // 查
-  public searchHero({ offset = '0', limit = '10', keyword = '', state = 'TODO' }: HerosQuery) {
+  public async searchHero({ offset = '0', limit = '10', keyword = '', state = 'TODO' }: HerosQuery) {
     // 过滤条件
-    const options = {
+    const options: PaginateOptions = {
       sort: { id: -1 },
-      offset: Number(offset || 0),
-      limit: Number(limit || 10)
+      offset: Number(offset),
+      limit: Number(limit)
     };
 
     // 参数
     const querys = {
       name: new RegExp(keyword || ''),
-      state
+      state: StateEnum[state]
     };
-
-    return this.herosModel.paginate(querys, options);
+    const result = await this.herosModel.paginate(querys, options);
+    console.log(result);
+    const a = plainToClass(ListSerializate, result);
+    console.log(a);
   }
 
   // 修改

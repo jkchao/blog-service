@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { StateEnum } from '@/common/enum/state';
 
 export interface Heros {
   name?: string;
@@ -20,5 +21,5 @@ export interface HerosQuery {
   offset?: string;
   limit?: string;
   keyword?: string;
-  state?: string;
+  state?: keyof typeof StateEnum;
 }

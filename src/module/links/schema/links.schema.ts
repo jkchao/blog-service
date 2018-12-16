@@ -14,9 +14,7 @@ export const LinksSchema = new Mongoose.Schema({
 
   create_at: { type: Date, default: Date.now },
 
-  update_at: { type: Date, default: Date.now },
-
-  state: { type: String }
+  update_at: { type: Date, default: Date.now }
 });
 
 LinksSchema.plugin(mongoosePaginate);

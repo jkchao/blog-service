@@ -41,7 +41,7 @@ HerosSchema.plugin(autoIncrement.plugin, {
   incrementBy: 1
 });
 
-HerosSchema.pre('findOneAndUpdate', function(next) {
-  this.findOneAndUpdate({}, { update_at: Date.now() });
+HerosSchema.pre('update', function(next) {
+  this.update({}, { $set: { updatedAt: Date.now() } });
   next();
 });

@@ -33,16 +33,16 @@ export class HerosResolver {
     info.ip = ip;
     info.agent = request.headers['user-agent'] || info.agent;
 
-    await this.herosService.createHero({ ...info, ip });
+    const result = await this.herosService.createHero({ ...info, ip });
 
     this.emailService.sendEmail({
       to: 'jkchao@foxmail.com',
       subject: '博客有新的留言墙',
-      text: `来自 ${info.name} 的留言：${info.content}`,
-      html: `<p> 来自 ${info.name} 的留言：${info.content}</p>`
+      text: `来自 ${info.name} 的留言墙：${info.content}`,
+      html: `<p> 来自 ${info.name} 的留言墙：${info.content}</p>`
     });
 
-    return { message: '数据提交成功，请等待审核' };
+    return { name: result.name, content: result.content, message: '数据提交成功，请等待审核' };
   }
 
   @Mutation()

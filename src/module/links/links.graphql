@@ -3,7 +3,6 @@ type Query {
     offset: Float
     limit: Float
     keyword: String
-    state: State
   ): Links
 }
 
@@ -27,13 +26,6 @@ input UpdateInfoInput {
   _id: ObjectID
   name: String
   url: String
-  state: State
-}
-
-enum State {
-  TODO
-  AGREE
-  REFLUSE
 }
 
 type Links {

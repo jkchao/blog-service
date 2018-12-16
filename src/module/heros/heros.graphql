@@ -9,8 +9,8 @@ type Query {
 
 
 type Mutation {
-  createHero(HeroInfo: CreateInfoInput!): DocsItem
-  updateHero(HeroInfo: UpdateInfoInput!): DocsItem
+  createHero(heroInfo: CreateHeroInput!): HeroDocsItem
+  updateHero(heroInfo: UpdateHeroInput!): HeroDocsItem
   deleteHero(_id: ObjectID): Result
 }
 
@@ -18,15 +18,15 @@ type Result {
   _id: ObjectID
 }
 
-input CreateInfoInput {
+input CreateHeroInput {
   name: String!
-  url: String!
+  content: String!
 }
 
-input UpdateInfoInput {
+input UpdateHeroInput {
   _id: ObjectID
   name: String
-  url: String
+  content: String
   state: State
 }
 
@@ -40,13 +40,14 @@ type Heros {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [DocsItem]
+  docs: [HeroDocsItem]
 }
 
-type DocsItem {
+type HeroDocsItem {
   state: State
-  url: String
+  content: String
   name: String
+  message: String
 }
 
 scalar ObjectID
