@@ -1,4 +1,4 @@
-import { Module, CacheModule } from '@nestjs/common';
+import { Module, CacheModule, NestModule, MiddlewareConsumer } from '@nestjs/common';
 
 import { HttpModule } from './module/common/http/http.module';
 import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
@@ -14,6 +14,9 @@ import { GraphQLError } from 'graphql';
 import { LinksModule } from './module/links/links.module';
 import Mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
+import { Middleware } from 'subscriptions-transport-ws';
+import { Request, Response } from 'express';
+import { HerosModule } from './module/heros/heros.module';
 
 @Module({
   imports: [
@@ -26,17 +29,23 @@ import autoIncrement from 'mongoose-auto-increment';
       useFactory: async (logger: BlogLogger) => ({
         typePaths: ['./**/*.graphql'],
         path: '/api/v2',
+        context: ({ req, res }: { req: Request; res: Response }) => ({
+          request: req
+        }),
         formatError: (error: GraphQLError) => {
           logger.error(
             JSON.stringify({
               message: error.message,
               location: error.locations,
+              stack: error.stack ? error.stack.split('\n') : [],
               path: error.path
             })
           );
           return {
             message: error.message,
-            location: error.locations
+            location: error.locations,
+            stack: error.stack ? error.stack.split('\n') : [],
+            path: error.path
           };
         }
       }),
@@ -46,7 +55,8 @@ import autoIncrement from 'mongoose-auto-increment';
     AuthModule,
     OptionsModule,
     QiniuModule,
-    LinksModule
+    LinksModule,
+    HerosModule
   ],
   providers: [
     // {
@@ -55,4 +65,8 @@ import autoIncrement from 'mongoose-auto-increment';
     // }
   ]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    //
+  }
+}

@@ -2,11 +2,13 @@ import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { QueryLinksDto, InfoDto } from './dto/heros.dto';
 import { HerosService } from './heros.service';
 import { Info } from './decorators/heros.decorators';
-import { HerosHasId, HerosQuery } from './interface/heros.interface';
+import { HerosHasId, HerosQuery, Heros } from './interface/heros.interface';
+import { Request } from 'express';
+import { EmailService } from '../common/email/email.service';
 
 @Resolver()
 export class HerosResolver {
-  constructor(private herosService: HerosService) {}
+  constructor(private readonly herosService: HerosService, private readonly emailService: EmailService) {}
 
   @Query()
   public getHeros(@Args() args: HerosQuery) {
@@ -19,8 +21,28 @@ export class HerosResolver {
   }
 
   @Mutation()
-  public createHero(@Info() info: InfoDto) {
-    return this.herosService.createHero(info);
+  public async createHero(@Info() info: Heros, @Context('request') request: Request) {
+    // 获取ip地址以及物理地理地址
+    const ip = ((request.headers['x-forwarded-for'] ||
+      request.headers['x-real-ip'] ||
+      request.connection.remoteAddress ||
+      request.socket.remoteAddress ||
+      request.ip ||
+      request.ips[0]) as string).replace('::ffff:', '');
+
+    info.ip = ip;
+    info.agent = request.headers['user-agent'] || info.agent;
+
+    await this.herosService.createHero({ ...info, ip });
+
+    this.emailService.sendEmail({
+      to: 'jkchao@foxmail.com',
+      subject: '博客有新的留言墙',
+      text: `来自 ${info.name} 的留言：${info.content}`,
+      html: `<p> 来自 ${info.name} 的留言：${info.content}</p>`
+    });
+
+    return { message: '数据提交成功，请等待审核' };
   }
 
   @Mutation()

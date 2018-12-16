@@ -3,7 +3,7 @@ type Query {
     offset: Float
     limit: Float
     keyword: String
-    state: Float
+    state: State
   ): Links
 }
 

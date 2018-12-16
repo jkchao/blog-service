@@ -6,7 +6,7 @@ export interface Heros {
   state?: string;
   ip?: string;
   city?: string;
-  range?: string;
+  range?: number[];
   country?: string;
   agent?: string;
   create_time?: Date;
@@ -20,4 +20,5 @@ export interface HerosQuery {
   offset?: string;
   limit?: string;
   keyword?: string;
+  state?: string;
 }

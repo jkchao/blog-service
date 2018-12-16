@@ -18,6 +18,7 @@ type Options {
   email: String
   icp: String
   meta: Meta
+  update_time: Date
 }
 
 input OptionsInput {

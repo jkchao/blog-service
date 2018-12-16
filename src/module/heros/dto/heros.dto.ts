@@ -6,8 +6,12 @@ export class QueryLinksDto {
 }
 
 export class InfoDto {
-  public _id: string;
-  public name: string;
-  public state: '';
-  public url: string;
+  public name?: string;
+  public content?: string;
+  public state?: string;
+  public ip?: string;
+  public city?: string;
+  public range?: string;
+  public country?: string;
+  public agent?: string;
 }
