@@ -3,7 +3,7 @@ type Query {
     offset: Float
     limit: Float
     keyword: String
-    state: State
+    state: Float
   ): Heros
 }
 
@@ -27,13 +27,7 @@ input UpdateHeroInput {
   _id: ObjectID
   name: String
   content: String
-  state: State
-}
-
-enum State {
-  TODO
-  AGREE
-  REFLUSE
+  state: Float
 }
 
 type Heros {
@@ -44,7 +38,8 @@ type Heros {
 }
 
 type HeroDocsItem {
-  state: State
+  _id: ObjectID
+  state: Float
   content: String
   name: String
   message: String

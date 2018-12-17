@@ -1,18 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Heros, HerosHasId, HerosQuery } from './interface/heros.interface';
+import { HerosHasId } from './interface/heros.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateOptions } from 'mongoose';
 import geoip from 'geoip-lite';
-import { plainToClass } from 'class-transformer';
-import { ListSerializate } from '@/common/serializate/list.serializate';
-import { StateEnum } from '@/common/enum/state';
+import { QueryLinksDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
 
 @Injectable()
 export class HerosService {
   constructor(@InjectModel('Heros') private readonly herosModel: PaginateModel<HerosHasId>) {}
 
   // 添加
-  public createHero(hero: Heros & { ip: string }) {
+  public createHero(hero: InfoDto & { ip: string }) {
     const ipLocation = geoip.lookup(hero.ip);
     if (ipLocation) {
       hero.city = ipLocation.city;
@@ -24,28 +22,25 @@ export class HerosService {
   }
 
   // 查
-  public async searchHero({ offset = '0', limit = '10', keyword = '', state = 'TODO' }: HerosQuery) {
+  public async searchHero({ offset = 0, limit = 10, keyword = '', state = 0 }: QueryLinksDto) {
     // 过滤条件
     const options: PaginateOptions = {
       sort: { id: -1 },
-      offset: Number(offset),
-      limit: Number(limit)
+      offset,
+      limit
     };
 
     // 参数
     const querys = {
       name: new RegExp(keyword || ''),
-      state: StateEnum[state]
+      state
     };
-    const result = await this.herosModel.paginate(querys, options);
-    console.log(result);
-    const a = plainToClass(ListSerializate, result);
-    console.log(a);
+    return this.herosModel.paginate(querys, options);
   }
 
   // 修改
-  public updateHero(hero: HerosHasId) {
-    return this.herosModel.findByIdAndUpdate(hero.id, hero, { new: true });
+  public updateHero(hero: UpdateInfoDto) {
+    return this.herosModel.findByIdAndUpdate(hero._id, hero, { new: true });
   }
 
   // 删除

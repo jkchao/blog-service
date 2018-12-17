@@ -36,7 +36,6 @@ type Links {
 }
 
 type DocsItem {
-  state: State
   url: String
   name: String
 }
