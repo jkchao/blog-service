@@ -9,7 +9,6 @@ export class LinksService {
 
   // 添加
   public async createLink(link: Links & { state?: string }) {
-    link.state = 'TODO';
     return new this.linksModel(link).save();
   }
 

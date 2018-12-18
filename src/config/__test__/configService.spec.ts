@@ -21,7 +21,6 @@ describe('HttpService', () => {
 
     expect(configService.EMAIL_HOST).toBe('smtp.qq.com');
     expect(configService.EMAIL_ACCOUNT).toBe('419027396@qq.com');
-    expect(configService.EMAIL_PASSWORD).toBe('qmxnznwxfhwbbica');
 
     expect(configService.QINNIU_ACCESSKEY).toBe('uRYE0M3ru9g5Al1h-H1sUV6qqFKAJ4F4yPQXoLcf');
     expect(configService.QINNIU_TOKEN).toBe('_So4S5DZNYmvDezZqav7iB4Z4UZZMawKM_0Uokph');
