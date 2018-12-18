@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-  updateOptions(options: OptionsInput): Options
+  updateOptions(optionsInfo: OptionsInput): Options
 }
 
 type Options {

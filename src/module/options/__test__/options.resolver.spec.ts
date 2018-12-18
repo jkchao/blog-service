@@ -63,7 +63,7 @@ describe('options', () => {
         .send({
           query: `
           mutation Options {
-            updateOptions(options: {_id: "59ef13f0a3ad094f5d294da3"}) {
+            updateOptions(optionsInfo: {_id: "59ef13f0a3ad094f5d294da3"}) {
               url
             }
           }

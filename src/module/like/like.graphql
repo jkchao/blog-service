@@ -1,0 +1,14 @@
+type Mutation {
+  postLike(likeInfo: LikeInput!): Message
+}
+
+type Message {
+  message: String
+}
+
+input LikeInput {
+  _id: ObjectId!
+  type: Float
+}
+
+scalar ObjectId
