@@ -1,14 +1,14 @@
 import { Test } from '@nestjs/testing';
 
-import { LinksModule } from '../links.module';
-import { LinksService } from '../links.service';
+import { HerosModule } from '../heros.module';
+import { HerosService } from '../heros.service';
 import { getModelToken } from '@nestjs/mongoose';
 
 import mongoose from 'mongoose';
-import { LinksHasId, Links, LinksQuery } from '../interface/links.interface';
+import { InfoDto, QueryHerosDto, UpdateInfoDto } from '../dto/heros.dto';
 
-describe('link', () => {
-  let linksService: LinksService;
+describe('hero', () => {
+  let heorsService: HerosService;
 
   // tslint:disable-next-line:class-name
   class mockRepository {
@@ -34,35 +34,35 @@ describe('link', () => {
   // };
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [LinksModule]
+      imports: [HerosModule]
     })
-      .overrideProvider(getModelToken('Links'))
+      .overrideProvider(getModelToken('Heros'))
       .useValue(mockRepository)
       .compile();
 
-    linksService = module.get<LinksService>(LinksService);
+    heorsService = module.get<HerosService>(HerosService);
   });
 
-  it('createLink', async () => {
-    const obj = {} as Links;
-    const res = await linksService.createLink(obj);
+  it('createHero', async () => {
+    const obj = {} as InfoDto & { ip: string };
+    const res = await heorsService.createHero(obj);
     expect(res).toMatchObject(new mockRepository().save());
   });
 
-  it('searchLink', async () => {
-    const obj = {} as LinksQuery;
-    const res = await linksService.searchLink(obj);
+  it('searchHero', async () => {
+    const obj = {} as QueryHerosDto;
+    const res = await heorsService.searchHero(obj);
     expect(res).toMatchObject(mockRepository.paginate());
   });
 
-  it('updateLink', async () => {
-    const obj = {} as LinksHasId;
-    const res = await linksService.updateLink(obj);
+  it('updateHero', async () => {
+    const obj = {} as UpdateInfoDto;
+    const res = await heorsService.updateHero(obj);
     expect(res).toMatchObject(mockRepository.findByIdAndUpdate());
   });
 
-  it('deleteLink', async () => {
-    const res = await linksService.deleteLink('12345');
+  it('deleteHero', async () => {
+    const res = await heorsService.deleteHero('12345');
     expect(res).toMatchObject(mockRepository.findByIdAndRemove());
   });
 

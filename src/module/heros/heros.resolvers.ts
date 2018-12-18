@@ -1,5 +1,5 @@
 import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
-import { QueryLinksDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
+import { QueryHerosDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
 import { HerosService } from './heros.service';
 import { Info } from './decorators/heros.decorators';
 import { HerosHasId } from './interface/heros.interface';
@@ -12,7 +12,7 @@ export class HerosResolver {
   constructor(private readonly herosService: HerosService, private readonly emailService: EmailService) {}
 
   @Query()
-  public getHeros(@Args() args: QueryLinksDto) {
+  public getHeros(@Args() args: QueryHerosDto) {
     return this.herosService.searchHero(args);
   }
 

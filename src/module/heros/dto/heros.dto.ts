@@ -1,6 +1,6 @@
 import { IsIn, ValidateIf } from 'class-validator';
 
-export class QueryLinksDto {
+export class QueryHerosDto {
   public offset?: number;
   public limit?: number;
   public keyword?: string;

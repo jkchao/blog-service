@@ -3,7 +3,7 @@ import { HerosHasId } from './interface/heros.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateOptions } from 'mongoose';
 import geoip from 'geoip-lite';
-import { QueryLinksDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
+import { QueryHerosDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
 
 @Injectable()
 export class HerosService {
@@ -22,7 +22,7 @@ export class HerosService {
   }
 
   // 查
-  public async searchHero({ offset = 0, limit = 10, keyword = '', state = 0 }: QueryLinksDto) {
+  public async searchHero({ offset = 0, limit = 10, keyword = '', state = 0 }: QueryHerosDto) {
     // 过滤条件
     const options: PaginateOptions = {
       sort: { id: -1 },
