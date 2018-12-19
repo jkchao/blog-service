@@ -2,8 +2,9 @@ import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { Permissions } from '@/common/decorator/Permissions.decorator';
 import { CommentsService } from './comments.service';
 import { Info } from './decorators/comments.decprator';
-import { CommentInfoDto, QueryCommentDto } from './dto/comments.dto';
+import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import { Request } from 'express';
+import { BadRequestException } from '@nestjs/common';
 
 @Resolver()
 export class CommentsResolver {
@@ -34,17 +35,26 @@ export class CommentsResolver {
 
     this.commentsServer.sendEmail(info, '');
 
+    this.commentsServer.updateArticleCommentCount([info.post_id]);
+
     return result;
   }
 
   @Mutation()
-  public updateComment() {
-    // ..
+  @Permissions()
+  public updateComment(@Info() info: UpdateCommentDto) {
+    if (info.state && ![0, 1, 2].includes(info.state)) {
+      throw new BadRequestException('state should in [0, 1, 2]');
+    }
+    return this.commentsServer.updateComment(info);
   }
 
   @Mutation()
   @Permissions()
-  public async deleteHero(@Args('_id') _id: string) {
+  public async deleteComment(@Args('_id') _id: string, @Args('post_ids') postIds: number) {
     const res = await this.commentsServer.deleteComment(_id);
+    const ids = Array.of(postIds);
+    await this.commentsServer.updateArticleCommentCount(ids);
+    return res;
   }
 }

@@ -29,9 +29,6 @@ describe('hero', () => {
 
   mockRepository.prototype.save = () => ({});
 
-  // const mockRepository = {
-
-  // };
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [HerosModule]

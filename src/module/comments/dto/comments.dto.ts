@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 export class CommentInfoDto {
   // tslint:disable-next-line:variable-name
-  public post_id: string;
+  public post_id: number;
   public pid: number;
   public content: string;
   public author: Author;
@@ -28,4 +28,11 @@ export class QueryCommentDto {
   // tslint:disable-next-line:variable-name
   public post_id: number;
   public sort?: number;
+}
+
+export class UpdateCommentDto {
+  public _id: string;
+  public name?: string;
+  public content?: string;
+  public state?: number;
 }

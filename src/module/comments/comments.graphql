@@ -13,7 +13,7 @@ type Query {
 type Mutation {
   createComment(commentInfo: CreateCommentInput!): CommentDocsItem
   updateComment(commentInfo: UpdateCommentInput!): CommentDocsItem
-  deleteComment(_id: ObjectID!): Result
+  deleteComment(_id: ObjectID!, post_id: ObjectID!): Result
 }
 
 type Result {
@@ -43,6 +43,7 @@ type Comments {
 }
 
 type CommentDocsItem {
+  id: Float
   _id: ObjectID
   post_id: ObjectID
   pid: Float

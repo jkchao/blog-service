@@ -45,12 +45,7 @@ import { CommentsModule } from './module/comments/comments.module';
               path: error.path
             })
           );
-          return {
-            message: error.message,
-            location: error.locations,
-            stack: error.stack ? error.stack.split('\n') : [],
-            path: error.path
-          };
+          return error;
         }
       }),
       inject: [BlogLogger]

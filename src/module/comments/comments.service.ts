@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 import { CommentInfo } from './interface/comments.interface';
-import { CommentInfoDto, QueryCommentDto } from './dto/comments.dto';
+import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import geoip from 'geoip-lite';
 import { EmailService } from '../common/email/email.service';
 
@@ -14,6 +14,25 @@ export class CommentsService {
     private readonly emailService: EmailService
   ) {}
 
+  // 更新当前所受影响的文章的评论聚合数据
+  public async updateArticleCommentCount(ids: number[] = []) {
+    const postIds = [...new Set(ids)].filter(id => !!id);
+    if (postIds.length) {
+      const counts = await this.commentsModel.aggregate([
+        { $match: { state: 1, post_id: { $in: postIds } } },
+        { $group: { _id: '$post_id', num_tutorial: { $sum: 1 } } }
+      ]);
+      if (counts.length === 0) {
+        this.articlesModel.update({ id: postIds[0] }, { $set: { 'meta.comments': 0 } });
+      } else {
+        counts.forEach(async count => {
+          await this.articlesModel.update({ id: count._id }, { $set: { 'meta.comments': count.num_tutorial } });
+        });
+      }
+    }
+  }
+
+  // 列表
   public searchComments({ offset = 0, limit = 10, keyword = '', state = 0, sort = -1, post_id }: QueryCommentDto) {
     const options: {
       sort: { _id?: number; likes?: number };
@@ -55,7 +74,8 @@ export class CommentsService {
     return this.commentsModel.paginate(querys, options);
   }
 
-  public createComment(comment: CommentInfoDto & { ip: string }) {
+  // 创建
+  public async createComment(comment: CommentInfoDto & { ip: string }) {
     const ipLocation = geoip.lookup(comment.ip);
     if (ipLocation) {
       comment.city = ipLocation.city;
@@ -64,13 +84,15 @@ export class CommentsService {
     }
     comment.likes = 0;
 
-    return new this.commentsModel({ ...comment, state: 0 }).save();
+    return await new this.commentsModel({ ...comment, state: 0 }).save();
   }
 
+  // 删除
   public deleteComment(_id: string) {
     return this.commentsModel.findByIdAndRemove(_id);
   }
 
+  // 发邮件
   public async sendEmail(comment: CommentInfoDto, link: string) {
     this.emailService.sendEmail({
       to: 'jkchao@foxmail.com',
@@ -99,5 +121,10 @@ export class CommentsService {
         });
       }
     }
+  }
+
+  // 更新
+  public async updateComment(comment: UpdateCommentDto) {
+    return this.commentsModel.findByIdAndUpdate(comment._id, comment, { new: true });
   }
 }
