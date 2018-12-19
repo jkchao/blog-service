@@ -2,26 +2,32 @@ import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { QueryHerosDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
 import { HerosService } from './heros.service';
 import { Info } from './decorators/heros.decorators';
-import { HerosHasId } from './interface/heros.interface';
 import { Request } from 'express';
 import { EmailService } from '../common/email/email.service';
 import { BadRequestException } from '@nestjs/common';
+import { Permissions } from '@/common/decorator/Permissions.decorator';
 
 @Resolver()
 export class HerosResolver {
   constructor(private readonly herosService: HerosService, private readonly emailService: EmailService) {}
 
   @Query()
-  public getHeros(@Args() args: QueryHerosDto) {
+  public getHeros(@Args() args: QueryHerosDto, @Context('request') request: Request) {
+    const token = request.headers.authorization;
+    if (!token) {
+      args.state = 1;
+    }
     return this.herosService.searchHero(args);
   }
 
   @Mutation()
+  @Permissions()
   public deleteHero(@Args('_id') _id: string) {
     return this.herosService.deleteHero(_id);
   }
 
   @Mutation()
+  @Permissions()
   public async createHero(@Info() info: InfoDto, @Context('request') request: Request) {
     // 获取ip地址以及物理地理地址
     const ip = ((request.headers['x-forwarded-for'] ||
@@ -47,6 +53,7 @@ export class HerosResolver {
   }
 
   @Mutation()
+  @Permissions()
   public updateHero(@Info() info: UpdateInfoDto) {
     if (info.state && ![0, 1, 2].includes(info.state)) {
       throw new BadRequestException('info state should in [0, 1, 2]');

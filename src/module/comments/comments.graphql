@@ -1,0 +1,75 @@
+type Query {
+  getComments(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: Float
+    post_id: Float,
+    sort: Float
+  ): Comments
+}
+
+
+type Mutation {
+  createComment(commentInfo: CreateCommentInput!): CommentDocsItem
+  updateComment(commentInfo: UpdateCommentInput!): CommentDocsItem
+  deleteComment(_id: ObjectID!): Result
+}
+
+type Result {
+  _id: ObjectID
+}
+
+input CreateCommentInput {
+  post_id: ObjectID!
+  pid: Float
+  content: String!
+  agent: String
+  author: AuthorInput!
+}
+
+input UpdateCommentInput {
+  _id: ObjectID!
+  name: String
+  content: String
+  state: Float
+}
+
+type Comments {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [CommentDocsItem]
+}
+
+type CommentDocsItem {
+  _id: ObjectID
+  post_id: ObjectID
+  pid: Float
+  content: String
+  state: Float
+  likes: Float
+  ip: String
+  city: String
+  range: String
+  country: String
+  agent: String
+  author: Author
+  update_at: Date
+  create_at: Date
+}
+
+
+type Author {
+  name: String!
+  email: String!
+  site: String
+}
+
+input AuthorInput {
+  name: String!
+  email: String!
+  site: String
+}
+
+scalar ObjectID

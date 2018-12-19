@@ -3,6 +3,7 @@ import { InfoDto } from './dto/links.dto';
 import { LinksService } from './links.service';
 import { Info } from './decorators/links.decorators';
 import { LinksHasId, LinksQuery } from './interface/links.interface';
+import { Permissions } from '@/common/decorator/Permissions.decorator';
 
 @Resolver()
 export class LinksResolver {
@@ -14,16 +15,19 @@ export class LinksResolver {
   }
 
   @Mutation()
+  @Permissions()
   public deleteLink(@Args('_id') _id: string) {
     return this.linksService.deleteLink(_id);
   }
 
   @Mutation()
+  @Permissions()
   public createLink(@Info() info: InfoDto) {
     return this.linksService.createLink(info);
   }
 
   @Mutation()
+  @Permissions()
   public updateLink(@Info() info: LinksHasId) {
     return this.linksService.updateLink(info);
   }

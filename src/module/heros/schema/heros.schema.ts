@@ -29,7 +29,10 @@ export const HerosSchema = new Mongoose.Schema({
   agent: { type: String, validate: /\S+/ },
 
   // 发布日期
-  create_time: { type: Date, default: Date.now() }
+  create_at: { type: Date, default: Date.now() },
+
+  // 发布日期
+  update_at: { type: Date, default: Date.now() }
 });
 
 HerosSchema.plugin(mongoosePaginate);
@@ -41,7 +44,8 @@ HerosSchema.plugin(autoIncrement.plugin, {
   incrementBy: 1
 });
 
-HerosSchema.pre('update', function(next) {
-  this.update({}, { $set: { updatedAt: Date.now() } });
+// 时间更新
+HerosSchema.pre('findOneAndUpdate', function(next) {
+  this.findOneAndUpdate({}, { update_at: Date.now() });
   next();
 });

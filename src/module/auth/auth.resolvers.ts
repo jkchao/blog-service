@@ -5,6 +5,7 @@ import { md5Decode, createToken } from '@/common/utils';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { AuthDto, InfoDto, InfoRequredDto } from './dto/auth.dto';
 import { Info } from './decorators/auth';
+import { Permissions } from '@/common/decorator/Permissions.decorator';
 
 @Resolver('Auth')
 export class AuthResolvers {
@@ -36,6 +37,7 @@ export class AuthResolvers {
   }
 
   @Mutation()
+  @Permissions()
   public async updateUserInfo(@Info() userInfo: InfoRequredDto) {
     const auth = await this.authService.findOne({ _id: userInfo._id });
     if (auth) {

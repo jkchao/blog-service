@@ -1,13 +1,16 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Observable } from 'rxjs';
-
+import { GqlExecutionContext } from '@nestjs/graphql';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { config } from '@/config';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
-export class AuthIsVerifiedGuard implements CanActivate {
+export class AccessGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
+
   private getToken(req: Request): false | string {
     if (req.headers && req.headers.authorization) {
       const parts = req.headers.authorization.split(' ');
@@ -19,7 +22,17 @@ export class AuthIsVerifiedGuard implements CanActivate {
   }
 
   public canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const [request] = context.getArgs<[Request, Response]>();
+    if (config.ENV === 'dev') return true;
+
+    const ctx = GqlExecutionContext.create(context);
+
+    const permissions = this.reflector.get<string[]>('permissions', context.getHandler());
+
+    if (permissions === undefined) {
+      return true;
+    }
+
+    const request: Request = ctx.getContext();
 
     if (request.url.includes('auth')) return true;
 
