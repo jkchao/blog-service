@@ -12,7 +12,7 @@ export class AuthDto {
   public password: string;
 }
 
-export class InfoDto {
+export class AuthInfoDto {
   public _id?: string;
   public name?: string;
   public username?: string;
@@ -22,6 +22,6 @@ export class InfoDto {
   public oldPassword?: string;
 }
 
-export class InfoRequredDto extends InfoDto {
+export class InfoRequredDto extends AuthInfoDto {
   public oldPassword: string;
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Links, LinksHasId, LinksQuery } from './interface/links.interface';
+import { Links, LinksMongo, LinksQuery } from './interface/links.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class LinksService {
-  constructor(@InjectModel('Links') private readonly linksModel: PaginateModel<LinksHasId>) {}
+  constructor(@InjectModel('Links') private readonly linksModel: PaginateModel<LinksMongo>) {}
 
   // 添加
   public async createLink(link: Links & { state?: string }) {
@@ -28,7 +28,7 @@ export class LinksService {
   }
 
   // 修改
-  public updateLink(link: LinksHasId) {
+  public updateLink(link: LinksMongo) {
     return this.linksModel.findByIdAndUpdate(link.id, link, { new: true });
   }
 

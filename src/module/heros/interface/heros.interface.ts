@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
-import { InfoDto } from '../dto/heros.dto';
+import { HerosInfoDto } from '../dto/heros.dto';
 
-export interface HerosHasId extends InfoDto, Document {
+export interface HerosHasId extends HerosInfoDto, Document {
   _id: string;
 }

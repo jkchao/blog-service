@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface AuthInterface extends Document {
+export interface AuthMongo extends Document {
   username: string;
   password: string;
   slogan: string;

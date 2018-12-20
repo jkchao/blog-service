@@ -5,7 +5,7 @@ export interface Links {
   url: string;
 }
 
-export interface LinksHasId extends Links, Document {
+export interface LinksMongo extends Links, Document {
   _id: string;
 }
 

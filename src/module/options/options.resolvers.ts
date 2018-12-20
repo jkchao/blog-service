@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { OptionsService } from './options.service';
 import { OptionsInfo } from './interface/options.interface';
-import { Info } from './decorators/options.decorators';
 import { Permissions } from '@/common/decorator/Permissions.decorator';
 
 @Resolver('Options')
@@ -15,7 +14,7 @@ export class OptionsResolver {
 
   @Mutation()
   @Permissions()
-  public updateOptions(@Info() optionsInfo: OptionsInfo) {
+  public updateOptions(@Args('optionsInfo') optionsInfo: OptionsInfo) {
     return this.optionsService.updateOptions(optionsInfo);
   }
 }

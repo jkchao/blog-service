@@ -28,7 +28,7 @@ export interface OptionsBase {
   };
 }
 
-export interface OptionsModel extends Document, OptionsBase {}
+export interface OptionsMongo extends Document, OptionsBase {}
 
 export interface OptionsInfo extends OptionsBase {
   _id?: string;

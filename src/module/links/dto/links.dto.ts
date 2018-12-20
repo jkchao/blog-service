@@ -4,7 +4,7 @@ export class QueryLinksDto {
   public keyword: string;
 }
 
-export class InfoDto {
+export class LinksInfoDto {
   public _id: string;
   public name: string;
   public url: string;

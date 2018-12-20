@@ -1,0 +1,83 @@
+type Query {
+  getArticles(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: Float
+    publish: Float
+    type: Float
+    data: Date
+    hot: Float
+    tag: String
+  ): Articles
+  getArticleById(_id: String): ArticleDocsItem
+}
+
+type Mutation {
+  createArticle(articleInfo: CreateArticleInput!): ArticleDocsItem
+  updateArticle(articleInfo: UpdateArticleInput!): ArticleDocsItem
+  deleteArticle(_id: ObjectID!): Message
+}
+
+input CreateArticleInput {
+  title: String
+  keyword: String
+  content: String
+  state: Float
+  publish: Float
+  thumb: String
+  type: Float
+  name: String
+  tag: [String!]
+  meta: ArticleMetaInput
+}
+
+input UpdateArticleInput {
+  _id: ObjectID!
+  title: String
+  keyword: String
+  content: String
+  state: Float
+  publish: Float
+  thumb: String
+  type: Float
+  name: String
+  tag: [String!]
+  meta: ArticleMetaInput
+}
+
+type Articles {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [ArticleDocsItem]
+}
+
+type ArticleDocsItem {
+  _id: ObjectID!
+  title: String
+  keyword: String
+  content: String
+  state: Float
+  publish: Float
+  thumb: String
+  type: Float
+  name: String
+  meta: ArticleMeta
+  update_at: Date
+  create_at: Date
+}
+
+type ArticleMeta {
+  views: Float
+  likes: Float
+  comments: Float
+}
+
+input ArticleMetaInput {
+  views: Float
+  likes: Float
+  comments: Float
+}
+
+scalar ObjectID

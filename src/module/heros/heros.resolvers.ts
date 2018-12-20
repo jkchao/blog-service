@@ -1,7 +1,6 @@
 import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
-import { QueryHerosDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
+import { QueryHerosDto, HerosInfoDto, UpdateInfoDto } from './dto/heros.dto';
 import { HerosService } from './heros.service';
-import { Info } from './decorators/heros.decorators';
 import { Request } from 'express';
 import { EmailService } from '../common/email/email.service';
 import { BadRequestException } from '@nestjs/common';
@@ -29,7 +28,7 @@ export class HerosResolver {
 
   @Mutation()
   @Permissions()
-  public async createHero(@Info() info: InfoDto, @Context('request') request: Request) {
+  public async createHero(@Args('heroInfo') info: HerosInfoDto, @Context('request') request: Request) {
     // 获取ip地址以及物理地理地址
     const ip = ((request.headers['x-forwarded-for'] ||
       request.headers['x-real-ip'] ||
@@ -55,7 +54,7 @@ export class HerosResolver {
 
   @Mutation()
   @Permissions()
-  public updateHero(@Info() info: UpdateInfoDto) {
+  public updateHero(@Args('heroInfo') info: UpdateInfoDto) {
     if (info.state && ![0, 1, 2].includes(info.state)) {
       throw new BadRequestException('info state should in [0, 1, 2]');
     }

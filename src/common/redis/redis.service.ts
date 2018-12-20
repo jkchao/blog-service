@@ -45,6 +45,7 @@ export class RedisService {
   public remove(key: string) {
     this.logger.warn('Redis remove Key: ' + key);
     const getAsync = promisify(this.client.del).bind(this.client);
+    // @ts-ignore
     return getAsync(key);
   }
 }

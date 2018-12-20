@@ -5,13 +5,13 @@ import { CommentInfo } from './interface/comments.interface';
 import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import geoip from 'geoip-lite';
 import { EmailService } from '../common/email/email.service';
+import { ArticleMongo } from '../articles/interface/articles.interface';
 
 @Injectable()
 export class CommentsService {
   constructor(
     @InjectModel('Comments') private readonly commentsModel: PaginateModel<CommentInfo>,
-    // TODO: any
-    @InjectModel('Articles') private readonly articlesModel: PaginateModel<any>,
+    @InjectModel('Articles') private readonly articlesModel: PaginateModel<ArticleMongo>,
     private readonly emailService: EmailService
   ) {}
 

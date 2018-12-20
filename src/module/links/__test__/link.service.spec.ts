@@ -5,7 +5,7 @@ import { LinksService } from '../links.service';
 import { getModelToken } from '@nestjs/mongoose';
 
 import mongoose from 'mongoose';
-import { LinksHasId, Links, LinksQuery } from '../interface/links.interface';
+import { LinksMongo, Links, LinksQuery } from '../interface/links.interface';
 
 describe('link', () => {
   let linksService: LinksService;
@@ -56,7 +56,7 @@ describe('link', () => {
   });
 
   it('updateLink', async () => {
-    const obj = {} as LinksHasId;
+    const obj = {} as LinksMongo;
     const res = await linksService.updateLink(obj);
     expect(res).toMatchObject(mockRepository.findByIdAndUpdate());
   });

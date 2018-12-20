@@ -1,6 +1,5 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { TagsService } from './tags.service';
-import { Info } from './decorators/tags.decorators';
 import { CreateTagDto, TagInfoDto, QueryTagsDto } from './dto/tag.dto';
 import { Request } from 'express';
 
@@ -19,12 +18,12 @@ export class TagsResolver {
   }
 
   @Mutation()
-  public createTag(@Info() info: CreateTagDto) {
+  public createTag(@Args('tagInfo') info: CreateTagDto) {
     return this.tagService.createTag(info);
   }
 
   @Mutation()
-  public updateTag(@Info() info: TagInfoDto) {
+  public updateTag(@Args('tagInfo') info: TagInfoDto) {
     return this.tagService.updateTag(info);
   }
 

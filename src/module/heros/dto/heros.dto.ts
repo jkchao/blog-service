@@ -1,5 +1,3 @@
-import { IsIn, ValidateIf } from 'class-validator';
-
 export class QueryHerosDto {
   public offset?: number;
   public limit?: number;
@@ -7,7 +5,7 @@ export class QueryHerosDto {
   public state?: number;
 }
 
-export class InfoDto {
+export class HerosInfoDto {
   public name?: string;
   public content?: string;
   public state?: number;
@@ -18,6 +16,6 @@ export class InfoDto {
   public agent?: string;
 }
 
-export class UpdateInfoDto extends InfoDto {
+export class UpdateInfoDto extends HerosInfoDto {
   public _id: number;
 }

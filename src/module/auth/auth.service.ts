@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 
 import { Model } from 'mongoose';
-import { AuthInterface } from './interface/auth.interface';
+import { AuthMongo } from './interface/auth.interface';
 import { InjectModel } from '@nestjs/mongoose';
-import { InfoDto, AuthDto } from './dto/auth.dto';
+import { AuthInfoDto, AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel('Auth') private readonly authModel: Model<AuthInterface>) {}
+  constructor(@InjectModel('Auth') private readonly authModel: Model<AuthMongo>) {}
 
   /**
    * 根据用户名查找用户
    * @param username 用户名
    */
-  public async findOne(info?: InfoDto) {
+  public async findOne(info?: AuthInfoDto) {
     return await this.authModel.findOne({ ...info });
   }
 
@@ -25,7 +25,7 @@ export class AuthService {
     return await this.authModel.create(auth);
   }
 
-  public async update(auth: InfoDto) {
+  public async update(auth: AuthInfoDto) {
     return this.authModel.findOneAndUpdate(auth._id, auth, { new: true });
   }
 }

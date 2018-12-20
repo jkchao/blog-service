@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateResult } from 'mongoose';
-import { TagMo } from './interface/tags.interface';
+import { TagMongo } from './interface/tags.interface';
 import { TagInfoDto, CreateTagDto, QueryTagsDto } from './dto/tag.dto';
+import { ArticleMongo } from '../articles/interface/articles.interface';
 
 @Injectable()
 export class TagsService {
   constructor(
-    @InjectModel('Tags') private readonly tagsModel: PaginateModel<TagMo>,
-    // TODO: any
-    @InjectModel('Articles') private readonly articlesModel: PaginateModel<any>
+    @InjectModel('Tags') private readonly tagsModel: PaginateModel<TagMongo>,
+    @InjectModel('Articles') private readonly articlesModel: PaginateModel<ArticleMongo>
   ) {}
 
   public async searchTags({ limit = 10, offset = 0, keyword = '' }: QueryTagsDto, isAuth: boolean) {
@@ -25,7 +25,7 @@ export class TagsService {
 
     const tags = await this.tagsModel.paginate(querys, options);
 
-    const tagClone: PaginateResult<TagMo> = JSON.parse(JSON.stringify(tags));
+    const tagClone: PaginateResult<TagMongo> = JSON.parse(JSON.stringify(tags));
 
     // 查找文章中标签聚合
     let $match = {};

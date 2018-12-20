@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { Permissions } from '@/common/decorator/Permissions.decorator';
 import { CommentsService } from './comments.service';
-import { Info } from './decorators/comments.decprator';
 import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import { Request } from 'express';
 import { BadRequestException } from '@nestjs/common';
@@ -20,7 +19,7 @@ export class CommentsResolver {
   }
 
   @Mutation()
-  public async createComment(@Info() info: CommentInfoDto, @Context('request') request: Request) {
+  public async createComment(@Args('commentInfo') info: CommentInfoDto, @Context('request') request: Request) {
     const ip = ((request.headers['x-forwarded-for'] ||
       request.headers['x-real-ip'] ||
       request.connection.remoteAddress ||
@@ -44,7 +43,7 @@ export class CommentsResolver {
 
   @Mutation()
   @Permissions()
-  public updateComment(@Info() info: UpdateCommentDto) {
+  public updateComment(@Args('commentInfo') info: UpdateCommentDto) {
     if (info.state && ![0, 1, 2].includes(info.state)) {
       throw new BadRequestException('state should in [0, 1, 2]');
     }

@@ -5,7 +5,7 @@ import { HerosService } from '../heros.service';
 import { getModelToken } from '@nestjs/mongoose';
 
 import mongoose from 'mongoose';
-import { InfoDto, QueryHerosDto, UpdateInfoDto } from '../dto/heros.dto';
+import { HerosInfoDto, QueryHerosDto, UpdateInfoDto } from '../dto/heros.dto';
 
 describe('hero', () => {
   let heorsService: HerosService;
@@ -41,7 +41,7 @@ describe('hero', () => {
   });
 
   it('createHero', async () => {
-    const obj = {} as InfoDto & { ip: string };
+    const obj = {} as HerosInfoDto & { ip: string };
     const res = await heorsService.createHero(obj);
     expect(res).toMatchObject(new mockRepository().save());
   });

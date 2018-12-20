@@ -3,14 +3,14 @@ import { HerosHasId } from './interface/heros.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateOptions } from 'mongoose';
 import geoip from 'geoip-lite';
-import { QueryHerosDto, InfoDto, UpdateInfoDto } from './dto/heros.dto';
+import { QueryHerosDto, HerosInfoDto, UpdateInfoDto } from './dto/heros.dto';
 
 @Injectable()
 export class HerosService {
   constructor(@InjectModel('Heros') private readonly herosModel: PaginateModel<HerosHasId>) {}
 
   // 添加
-  public createHero(hero: InfoDto & { ip: string }) {
+  public createHero(hero: HerosInfoDto & { ip: string }) {
     const ipLocation = geoip.lookup(hero.ip);
     if (ipLocation) {
       hero.city = ipLocation.city;

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { OptionsModel, OptionsInfo } from './interface/options.interface';
+import { OptionsMongo, OptionsInfo } from './interface/options.interface';
 
 @Injectable()
 export class OptionsService {
-  constructor(@InjectModel('Options') private readonly optionsModel: Model<OptionsModel>) {}
+  constructor(@InjectModel('Options') private readonly optionsModel: Model<OptionsMongo>) {}
 
   public getOptions() {
     return this.optionsModel.findOne();
