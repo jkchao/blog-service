@@ -1,0 +1,46 @@
+type Query {
+  getTags(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: Float
+  ): Tags
+}
+
+type Mutation {
+  sortTag(ids: [ObjectID]!): Message
+  createTag(tagInfo: CreateTagInput!): TagDocsItem
+  updateTag(tagInfo: UpdateTagInput!): TagDocsItem
+  deleteTag(_id: ObjectID!): Message
+}
+
+input CreateTagInput {
+  name: String!
+  descript: String
+}
+
+input UpdateTagInput {
+  _id: ObjectID!
+  name: String
+  descript: String
+}
+
+type Tags {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [TagDocsItem]
+}
+
+type TagDocsItem {
+  _id: ObjectID!
+  id: Float
+  name: String
+  descript: String
+  sort: Float
+  count: Float
+  update_at: Date
+  create_at: Date
+}
+
+scalar ObjectID

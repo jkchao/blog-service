@@ -17,10 +17,10 @@ describe('hero', () => {
 
   describe('success', () => {
     const heroService = {
-      searchhero: () => ({}),
-      deletehero: () => ({}),
-      createhero: () => ({}),
-      updatehero: () => ({})
+      searchHero: () => ({}),
+      deleteHero: () => ({}),
+      createHero: () => ({}),
+      updateHero: () => ({})
     };
 
     const emailService = {
@@ -35,7 +35,10 @@ describe('hero', () => {
           HerosModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
-            path: '/api/v2'
+            path: '/api/v2',
+            context: ({ req, res }: { req: Request; res: Response }) => ({
+              request: req
+            })
           })
         ]
       })
@@ -70,7 +73,7 @@ describe('hero', () => {
           query: `
           mutation  {
             deleteHero(_id: "59ef13f0a3ad094f5d294da3") {
-              _id
+              message
             }
           }
           `
@@ -90,7 +93,7 @@ describe('hero', () => {
           }
           `
         })
-        .expect(200);
+        .expect({ data: { createHero: { content: null } } });
     });
 
     it('updateHero success', () => {
@@ -101,6 +104,26 @@ describe('hero', () => {
           mutation {
             updateHero(heroInfo: {_id: "59ef13f0a3ad094f5d294da3"}) {
               content
+            }
+          }
+          `
+        })
+        .expect(200);
+    });
+
+    it('updateHero error', () => {
+      return request(app.getHttpServer())
+        .post('/api/v2')
+        .send({
+          query: `
+          mutation {
+            updateHero(
+              heroInfo: {
+                _id: "5c19d8dddd5dcbabe25e0766",
+                state: 4
+              }
+            ) {
+              name
             }
           }
           `

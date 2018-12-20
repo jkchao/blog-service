@@ -10,6 +10,7 @@ import { EmailService } from '../common/email/email.service';
 export class CommentsService {
   constructor(
     @InjectModel('Comments') private readonly commentsModel: PaginateModel<CommentInfo>,
+    // TODO: any
     @InjectModel('Articles') private readonly articlesModel: PaginateModel<any>,
     private readonly emailService: EmailService
   ) {}

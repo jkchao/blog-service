@@ -64,7 +64,7 @@ describe('comments', () => {
           query: `
           mutation  {
             deleteComment(_id: "59ef13f0a3ad094f5d294da3", post_id: "59ef13f0a3ad094f5d294da3") {
-              _id
+              message
             }
           }
           `

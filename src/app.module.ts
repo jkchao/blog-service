@@ -12,15 +12,12 @@ import { BlogLoggerModule } from './module/common/logger/logger.module';
 import { BlogLogger } from './module/common/logger/logger';
 import { GraphQLError } from 'graphql';
 import { LinksModule } from './module/links/links.module';
-import Mongoose from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
-import { Middleware } from 'subscriptions-transport-ws';
 import { Request, Response } from 'express';
 import { HerosModule } from './module/heros/heros.module';
-import { AuthMiddleware } from './common/middleware/auth.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessGuard } from './common/guards/AccessGuard';
 import { CommentsModule } from './module/comments/comments.module';
+import { TagModule } from './module/tags/tags.module';
 
 @Module({
   imports: [
@@ -56,7 +53,8 @@ import { CommentsModule } from './module/comments/comments.module';
     QiniuModule,
     LinksModule,
     HerosModule,
-    CommentsModule
+    CommentsModule,
+    TagModule
   ],
   providers: [
     // {

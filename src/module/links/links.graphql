@@ -10,11 +10,7 @@ type Query {
 type Mutation {
   createLink(linkInfo: CreateInfoInput!): DocsItem
   updateLink(linkInfo: UpdateInfoInput!): DocsItem
-  deleteLink(_id: ObjectID): Result
-}
-
-type Result {
-  _id: ObjectID
+  deleteLink(_id: ObjectID): Message
 }
 
 input CreateInfoInput {

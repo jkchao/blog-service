@@ -33,6 +33,8 @@ export class CommentsResolver {
 
     const result = await this.commentsServer.createComment({ ...info, ip });
 
+    // TODO: 根据评论获取文章链接
+
     this.commentsServer.sendEmail(info, '');
 
     this.commentsServer.updateArticleCommentCount([info.post_id]);
@@ -52,9 +54,9 @@ export class CommentsResolver {
   @Mutation()
   @Permissions()
   public async deleteComment(@Args('_id') _id: string, @Args('post_ids') postIds: number) {
-    const res = await this.commentsServer.deleteComment(_id);
+    await this.commentsServer.deleteComment(_id);
     const ids = Array.of(postIds);
     await this.commentsServer.updateArticleCommentCount(ids);
-    return res;
+    return { message: 'success' };
   }
 }

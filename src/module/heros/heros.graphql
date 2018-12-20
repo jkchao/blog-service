@@ -11,11 +11,7 @@ type Query {
 type Mutation {
   createHero(heroInfo: CreateHeroInput!): HeroDocsItem
   updateHero(heroInfo: UpdateHeroInput!): HeroDocsItem
-  deleteHero(_id: ObjectID!): Result
-}
-
-type Result {
-  _id: ObjectID
+  deleteHero(_id: ObjectID!): Message
 }
 
 input CreateHeroInput {

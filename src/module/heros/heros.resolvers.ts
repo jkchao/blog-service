@@ -22,8 +22,9 @@ export class HerosResolver {
 
   @Mutation()
   @Permissions()
-  public deleteHero(@Args('_id') _id: string) {
-    return this.herosService.deleteHero(_id);
+  public async deleteHero(@Args('_id') _id: string) {
+    await this.herosService.deleteHero(_id);
+    return { message: 'success' };
   }
 
   @Mutation()

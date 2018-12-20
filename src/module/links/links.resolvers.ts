@@ -16,8 +16,9 @@ export class LinksResolver {
 
   @Mutation()
   @Permissions()
-  public deleteLink(@Args('_id') _id: string) {
-    return this.linksService.deleteLink(_id);
+  public async deleteLink(@Args('_id') _id: string) {
+    await this.linksService.deleteLink(_id);
+    return { message: 'success' };
   }
 
   @Mutation()

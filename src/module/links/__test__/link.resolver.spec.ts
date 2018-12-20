@@ -62,7 +62,7 @@ describe('links', () => {
           query: `
           mutation  {
             deleteLink(_id: "59ef13f0a3ad094f5d294da3") {
-              _id
+              message
             }
           }
           `
