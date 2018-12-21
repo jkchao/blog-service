@@ -4,10 +4,11 @@ import { CommentsService } from './comments.service';
 import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import { Request } from 'express';
 import { BadRequestException } from '@nestjs/common';
+import { ArticlesSercice } from '../articles/articles.service';
 
 @Resolver()
 export class CommentsResolver {
-  constructor(private readonly commentsServer: CommentsService) {}
+  constructor(private readonly commentsServer: CommentsService, private readonly articlesService: ArticlesSercice) {}
 
   @Query()
   public getComments(@Args() args: QueryCommentDto, @Context('request') request: Request) {
@@ -32,9 +33,11 @@ export class CommentsResolver {
 
     const result = await this.commentsServer.createComment({ ...info, ip });
 
-    // TODO: 根据评论获取文章链接
+    const article = await this.articlesService.findOne({ id: info.post_id });
 
-    this.commentsServer.sendEmail(info, '');
+    if (article) {
+      this.commentsServer.sendEmail(info, article._id);
+    }
 
     this.commentsServer.updateArticleCommentCount([info.post_id]);
 

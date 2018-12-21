@@ -145,4 +145,8 @@ export class ArticlesSercice {
       });
     return this.articlesModel.findByIdAndRemove(_id);
   }
+
+  public findOne(info: { id: number }) {
+    return this.articlesModel.findOne(info);
+  }
 }
