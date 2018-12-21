@@ -18,7 +18,7 @@ export const ArticleSchema = new Mongoose.Schema({
   descript: { type: String, required: false },
 
   // 标签
-  tag: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
+  tag: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tags' }],
 
   // 内容
   content: { type: String, required: true },

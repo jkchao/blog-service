@@ -98,7 +98,9 @@ export class ConfigService {
       DEFAULT_USERNAME: Joi.string().required(),
       DEFAULT_PASSWORD: Joi.string().required(),
 
-      NODE_ENV: Joi.string().required()
+      NODE_ENV: Joi.string().required(),
+
+      FRONT_SITE: Joi.string().required()
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(envConfig, envVarsSchema);
@@ -214,6 +216,10 @@ export class ConfigService {
   }
   public get ENV() {
     return this.envConfig.NODE_ENV;
+  }
+
+  public get SITE() {
+    return this.envConfig.FRONT_SITE;
   }
 }
 

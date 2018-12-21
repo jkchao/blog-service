@@ -12,8 +12,8 @@ export class ArticleInfoDto {
 }
 
 export class ArticleMetaDto {
-  public view: number;
-  public like: number;
+  public views: number;
+  public likes: number;
   public comments: number;
 }
 
@@ -23,6 +23,7 @@ export class QueryArticleDto {
   public keyword?: string;
   public state?: number;
   public publish?: number;
+  public date: string;
   public tag?: string;
   public type?: number;
   public hot?: string;

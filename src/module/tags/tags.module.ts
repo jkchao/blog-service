@@ -9,4 +9,4 @@ import { ArticlesModule } from '../articles/articles.module';
   imports: [MongooseModule.forFeature([{ name: 'Tags', schema: TagSchema }]), ArticlesModule],
   providers: [TagsResolver, TagsService]
 })
-export class TagModule {}
+export class TagsModule {}

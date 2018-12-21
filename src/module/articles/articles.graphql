@@ -20,30 +20,28 @@ type Mutation {
 }
 
 input CreateArticleInput {
-  title: String
-  keyword: String
+  title: String!
+  keyword: String!
   content: String
+  descript: String
   state: Float
   publish: Float
   thumb: String
   type: Float
-  name: String
-  tag: [String!]
-  meta: ArticleMetaInput
+  tag: [String]!
 }
 
 input UpdateArticleInput {
   _id: ObjectID!
-  title: String
-  keyword: String
+  title: String!
+  keyword: String!
   content: String
+  descript: String
   state: Float
   publish: Float
   thumb: String
   type: Float
-  name: String
   tag: [String!]
-  meta: ArticleMetaInput
 }
 
 type Articles {
@@ -62,7 +60,6 @@ type ArticleDocsItem {
   publish: Float
   thumb: String
   type: Float
-  name: String
   meta: ArticleMeta
   update_at: Date
   create_at: Date
@@ -74,10 +71,5 @@ type ArticleMeta {
   comments: Float
 }
 
-input ArticleMetaInput {
-  views: Float
-  likes: Float
-  comments: Float
-}
 
 scalar ObjectID
