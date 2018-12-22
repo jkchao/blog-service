@@ -5,7 +5,7 @@
 
 此分支是使用 nest 重构分支。
 
-Nest + MongoDB + Redis + Docker + GraphQL
+NestJS + MongoDB + Redis + Docker + GraphQL
 
 ## start
 
