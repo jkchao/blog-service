@@ -30,7 +30,7 @@ export class ArticlesResolver {
 
   @Mutation()
   public updateArticle(@Args('articleInfo') info: ArticleMongo) {
-    return this.articleService.updateArticle(info);
+    return this.articleService.updateArticleWidthId(info);
   }
 
   @Mutation()

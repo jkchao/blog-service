@@ -2,7 +2,7 @@ import request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 
-import { TagModule } from '../tags.module';
+import { TagsModule } from '../tags.module';
 import { TagsService } from '../tags.service';
 
 import { MongooseModule } from '@nestjs/mongoose';
@@ -27,7 +27,7 @@ describe('tags', () => {
       const module = await Test.createTestingModule({
         imports: [
           MongooseModule.forRoot(config.MONGO_URL),
-          TagModule,
+          TagsModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
             path: '/api/v2',

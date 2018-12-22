@@ -35,8 +35,7 @@ export class ArticlesSercice {
       sort: { create_at: -1 },
       offset,
       limit,
-      populate: ['tag'],
-      select: '-content'
+      populate: ['tag']
     };
 
     const querys: {
@@ -100,7 +99,7 @@ export class ArticlesSercice {
     return result;
   }
 
-  public async updateArticle(info: ArticleMongo) {
+  public async updateArticleWidthId(info: ArticleMongo) {
     this.httpService
       .post(
         `http://data.zz.baidu.com/urls?site=${config.BAIDU_SITE}&token=${config.BAIDU_TOKEN}`,
@@ -118,8 +117,12 @@ export class ArticlesSercice {
     return this.articlesModel.findByIdAndUpdate(info._id, info, { new: true });
   }
 
+  public updateArticle(condition: any, doc?: any) {
+    return this.articlesModel.update(condition, doc);
+  }
+
   public async getArticleById(id: string) {
-    const res = await this.articlesModel.findById(id).populate('tags');
+    const res = await this.articlesModel.findById(id).populate('tag');
     if (res) {
       res.meta.views += 1;
       res.save();
@@ -146,7 +149,11 @@ export class ArticlesSercice {
     return this.articlesModel.findByIdAndRemove(_id);
   }
 
-  public findOne(info: { id: number }) {
+  public findOneArticle(info: Partial<ArticleMongo>) {
     return this.articlesModel.findOne(info);
+  }
+
+  public aggregate(aggregations: any[]) {
+    return this.articlesModel.aggregate(aggregations);
   }
 }

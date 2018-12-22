@@ -1,6 +1,5 @@
-import { Module, CacheModule, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { Module, CacheModule, NestModule, MiddlewareConsumer } from '@nestjs/common';
 
-import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
 import { AuthModule } from './module/auth/auth.module';
 import { OptionsModule } from './module/options/options.module';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -18,6 +17,7 @@ import { AccessGuard } from './common/guards/AccessGuard';
 import { CommentsModule } from './module/comments/comments.module';
 import { TagsModule } from './module/tags/tags.module';
 import { ArticlesModule } from './module/articles/articles.module';
+import { LikeModule } from './module/like/like.module';
 
 @Module({
   imports: [
@@ -55,7 +55,8 @@ import { ArticlesModule } from './module/articles/articles.module';
     HerosModule,
     CommentsModule,
     TagsModule,
-    ArticlesModule
+    ArticlesModule,
+    LikeModule
   ],
   providers: [
     // {

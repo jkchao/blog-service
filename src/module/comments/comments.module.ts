@@ -8,6 +8,7 @@ import { ArticlesModule } from '../articles/articles.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Comments', schema: CommentsSchema }]), EmailModule, ArticlesModule],
-  providers: [CommentsResolver, CommentsService]
+  providers: [CommentsResolver, CommentsService],
+  exports: [CommentsService]
 })
 export class CommentsModule {}

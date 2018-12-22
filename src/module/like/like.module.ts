@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { LikeResolver } from './like.resolver';
 import { LikeService } from './like.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ArticlesModule } from '../articles/articles.module';
+import { CommentsModule } from '../comments/comments.module';
 
 @Module({
-  imports: [
-    // MongooseModule.forFeature([{ name: 'Articles', schema: HerosSchema }]),
-    // MongooseModule.forFeature([{ name: 'Comments', schema: HerosSchema }])
-  ],
+  imports: [ArticlesModule, CommentsModule],
   providers: [LikeResolver, LikeService]
 })
 export class LikeModule {}

@@ -6,12 +6,12 @@ export class CommentInfoDto {
   public pid: number;
   public content: string;
   public author: Author;
-  public ip?: string;
-  public agent?: string;
-  public city?: string;
-  public range?: number[];
-  public country?: string;
-  public likes?: number;
+  public ip: string;
+  public agent: string;
+  public city: string;
+  public range: number[];
+  public country: string;
+  public likes: number;
 }
 
 export class Author {

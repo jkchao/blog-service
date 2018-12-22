@@ -8,7 +8,7 @@ type Message {
 
 input LikeInput {
   _id: ObjectId!
-  type: Float
+  type: Float!
 }
 
 scalar ObjectId

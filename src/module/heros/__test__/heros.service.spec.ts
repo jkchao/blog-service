@@ -41,7 +41,9 @@ describe('hero', () => {
   });
 
   it('createHero', async () => {
-    const obj = {} as HerosInfoDto & { ip: string };
+    const obj = {
+      ip: '95.179.198.236'
+    } as HerosInfoDto & { ip: string };
     const res = await heorsService.createHero(obj);
     expect(res).toMatchObject(new mockRepository().save());
   });

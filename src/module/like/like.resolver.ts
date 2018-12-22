@@ -8,9 +8,11 @@ export class LikeResolver {
   constructor(private readonly likeService: LikeService) {}
 
   @Mutation()
-  public postLike(@Args('likeInfo') likeInfo: LikeInfo) {
+  public async postLike(@Args('likeInfo') likeInfo: LikeInfo) {
     if (![0, 1].includes(likeInfo.type)) {
       throw new BadRequestException('type should in [0, 1]');
     }
+    await this.likeService.createLike(likeInfo);
+    return { message: 'success' };
   }
 }

@@ -61,6 +61,7 @@ type ArticleDocsItem {
   thumb: String
   type: Float
   meta: ArticleMeta
+  tag: [TagDocsItem]
   update_at: Date
   create_at: Date
 }

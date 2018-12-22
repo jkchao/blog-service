@@ -1,10 +1,8 @@
-import { Module, OnModuleInit, InternalServerErrorException } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthResolvers } from './auth.resolvers';
-import { MongooseModule, InjectModel } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthSchema } from './schema/auth.schema';
-import { Model } from 'mongoose';
-import { AuthInterface } from './interface/auth.interface';
 import { config } from '@/config';
 import { md5Decode } from '@/common/utils';
 @Module({

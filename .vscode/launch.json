@@ -18,7 +18,7 @@
       "request": "launch",
       "name": "Jest Current File",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["--config", "./jest-unit.config.js", "${relativeFile}"],
+      "args": ["--config", "./jest-unit.config.js", "${relativeFile}", "--coverage"],
       "env": {
         "NODE_ENV": "dev"
       },

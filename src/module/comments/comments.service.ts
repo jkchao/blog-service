@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
-import { CommentInfo } from './interface/comments.interface';
+import { CommentMongo } from './interface/comments.interface';
 import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comments.dto';
 import geoip from 'geoip-lite';
 import { EmailService } from '../common/email/email.service';
-import { ArticleMongo } from '../articles/interface/articles.interface';
+import { ArticlesSercice } from '../articles/articles.service';
 
 @Injectable()
 export class CommentsService {
   constructor(
-    @InjectModel('Comments') private readonly commentsModel: PaginateModel<CommentInfo>,
-    @InjectModel('Articles') private readonly articlesModel: PaginateModel<ArticleMongo>,
+    @InjectModel('Comments') private readonly commentsModel: PaginateModel<CommentMongo>,
+    private readonly articlesService: ArticlesSercice,
     private readonly emailService: EmailService
   ) {}
 
@@ -24,10 +24,14 @@ export class CommentsService {
         { $group: { _id: '$post_id', num_tutorial: { $sum: 1 } } }
       ]);
       if (counts.length === 0) {
-        this.articlesModel.update({ id: postIds[0] }, { $set: { 'meta.comments': 0 } });
+        this.articlesService.updateArticle({ id: postIds[0] }, { $set: { 'meta.comments': 0 } });
       } else {
         counts.forEach(async count => {
-          await this.articlesModel.update({ id: count._id }, { $set: { 'meta.comments': count.num_tutorial } });
+          // tslint:disable-next-line:max-line-length
+          await this.articlesService.updateArticle(
+            { id: count._id },
+            { $set: { 'meta.comments': count.num_tutorial } }
+          );
         });
       }
     }
@@ -90,7 +94,7 @@ export class CommentsService {
 
   // 删除
   public deleteComment(_id: string) {
-    return this.commentsModel.findByIdAndRemove(_id);
+    return this.commentsModel.findOneAndRemove({ _id });
   }
 
   // 发邮件
@@ -126,6 +130,11 @@ export class CommentsService {
 
   // 更新
   public async updateComment(comment: UpdateCommentDto) {
-    return this.commentsModel.findByIdAndUpdate(comment._id, comment, { new: true });
+    return this.commentsModel.findOneAndUpdate({ _id: comment._id }, comment, { new: true });
+  }
+
+  // 获取单个 comment
+  public async findComment(comment: Partial<CommentMongo>) {
+    return this.commentsModel.findOne(comment);
   }
 }

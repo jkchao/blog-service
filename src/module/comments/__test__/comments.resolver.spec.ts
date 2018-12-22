@@ -10,6 +10,7 @@ import { config } from '../../../config';
 
 import mongoose from 'mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ArticlesSercice } from '../../articles/articles.service';
 
 describe('comments', () => {
   let app: INestApplication;
@@ -31,12 +32,21 @@ describe('comments', () => {
           CommentsModule,
           GraphQLModule.forRoot({
             typePaths: ['./**/*.graphql'],
-            path: '/api/v2'
+            path: '/api/v2',
+            context: ({ req, res }: { req: Request; res: Response }) => ({
+              request: req
+            })
           })
         ]
       })
         .overrideProvider(CommentsService)
         .useValue(commentsService)
+        .overrideProvider(ArticlesSercice)
+        .useValue({
+          findOne() {
+            return { _id: '123' };
+          }
+        })
         .compile();
 
       app = await module.createNestApplication().init();
@@ -48,7 +58,7 @@ describe('comments', () => {
         .send({
           query: `
             {
-              getHeros {
+              getComments {
                 total
               }
             }

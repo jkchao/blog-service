@@ -13,7 +13,7 @@ type Query {
 type Mutation {
   createComment(commentInfo: CreateCommentInput!): CommentDocsItem
   updateComment(commentInfo: UpdateCommentInput!): CommentDocsItem
-  deleteComment(_id: ObjectID!, post_id: ObjectID!): Message
+  deleteComment(_id: ObjectID! post_id: ObjectID!): Message
 }
 
 input CreateCommentInput {

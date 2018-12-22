@@ -2,6 +2,7 @@ export class TagInfoDto {
   public _id: string;
   public name: string;
   public descript: string;
+  public count: number;
   public sort?: number;
 }
 

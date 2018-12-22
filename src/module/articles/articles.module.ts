@@ -7,6 +7,7 @@ import { BlogLoggerModule } from '../common/logger/logger.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Articles', schema: ArticleSchema }]), HttpModule, BlogLoggerModule],
-  providers: [ArticlesResolver, ArticlesSercice]
+  providers: [ArticlesResolver, ArticlesSercice],
+  exports: [ArticlesSercice]
 })
 export class ArticlesModule {}
