@@ -10,7 +10,7 @@ type Query {
     hot: Float
     tag: String
   ): Articles
-  getArticleById(_id: String): ArticleDocsItem
+  getArticleById(_id: ObjectID): ArticleDocsItem
 }
 
 type Mutation {

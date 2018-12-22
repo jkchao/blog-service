@@ -10,7 +10,6 @@ import { CreateTagDto, TagInfoDto, QueryTagsDto } from '../dto/tag.dto';
 
 describe('tag', () => {
   let tagsService: TagsService;
-
   // tslint:disable-next-line:class-name
   class mockRepository {
     public static paginate() {
