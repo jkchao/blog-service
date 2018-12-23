@@ -1,7 +1,7 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
-import { ArticleMongo } from './interface/articles.interface';
+import { ArticleMongo, Publish, ArticleType, ArticleState } from './interface/articles.interface';
 import { QueryArticleDto, ArticleInfoDto } from './dto/article.dto';
 import { config } from '@/config';
 import { BlogLogger } from '../common/logger/logger';
@@ -14,7 +14,7 @@ export class ArticlesSercice {
     private readonly httpService: HttpService
   ) {}
 
-  public searchArticle({
+  public async searchArticle({
     limit = 10,
     offset = 0,
     keyword = '',
@@ -79,7 +79,18 @@ export class ArticlesSercice {
 
     if (tag) querys.tag = tag;
 
-    return this.articlesModel.paginate(querys, options);
+    const res = await this.articlesModel.paginate(querys, options);
+    return {
+      ...res,
+      docs: res.docs.map((doc: ArticleMongo) => {
+        return {
+          ...doc._doc,
+          publish: Publish[doc.publish],
+          type: ArticleType[doc.type],
+          state: ArticleState[doc.state]
+        };
+      })
+    };
   }
 
   public async createArticle(info: ArticleInfoDto) {
@@ -99,7 +110,7 @@ export class ArticlesSercice {
     return result;
   }
 
-  public async updateArticleWidthId(info: ArticleMongo) {
+  public async updateArticleWidthId(info: ArticleInfoDto) {
     this.httpService
       .post(
         `http://data.zz.baidu.com/urls?site=${config.BAIDU_SITE}&token=${config.BAIDU_TOKEN}`,
@@ -114,7 +125,15 @@ export class ArticlesSercice {
       .then(res => {
         this.logger.log(res.data);
       });
-    return this.articlesModel.findByIdAndUpdate(info._id, info, { new: true });
+    const res = await this.articlesModel.findByIdAndUpdate(info._id, info, { new: true });
+    return (
+      res && {
+        ...res,
+        publish: Publish[res.publish],
+        type: ArticleType[res.type],
+        state: ArticleState[res.state]
+      }
+    );
   }
 
   public updateArticle(condition: any, doc?: any) {
@@ -128,7 +147,14 @@ export class ArticlesSercice {
       res.save();
     }
 
-    return res;
+    return (
+      res && {
+        ...res,
+        publish: Publish[res.publish],
+        type: ArticleType[res.type],
+        state: ArticleState[res.state]
+      }
+    );
   }
 
   public deleteArticle(_id: string) {
@@ -149,8 +175,16 @@ export class ArticlesSercice {
     return this.articlesModel.findByIdAndRemove(_id);
   }
 
-  public findOneArticle(info: Partial<ArticleMongo>) {
-    return this.articlesModel.findOne(info);
+  public async findOneArticle(info: Partial<ArticleMongo>) {
+    const res = await this.articlesModel.findOne(info);
+    return (
+      res && {
+        ...res,
+        publish: Publish[res.publish],
+        type: ArticleType[res.type],
+        state: ArticleState[res.state]
+      }
+    );
   }
 
   public aggregate(aggregations: any[]) {

@@ -3,9 +3,9 @@ type Query {
     offset: Float
     limit: Float
     keyword: String
-    state: Float
-    publish: Float
-    type: Float
+    state: ArticleState
+    publish: Publish
+    type: ArticleType
     data: Date
     hot: Float
     tag: String
@@ -24,10 +24,10 @@ input CreateArticleInput {
   keyword: String!
   content: String
   descript: String
-  state: Float
-  publish: Float
+  state: ArticleState
+  publish: Publish
   thumb: String
-  type: Float
+  type: ArticleType
   tag: [String]!
 }
 
@@ -37,10 +37,10 @@ input UpdateArticleInput {
   keyword: String!
   content: String
   descript: String
-  state: Float
-  publish: Float
+  state: ArticleState
+  publish: Publish
   thumb: String
-  type: Float
+  type: ArticleType
   tag: [String!]
 }
 
@@ -56,10 +56,10 @@ type ArticleDocsItem {
   title: String
   keyword: String
   content: String
-  state: Float
-  publish: Float
+  state: ArticleState
+  publish: Publish
   thumb: String
-  type: Float
+  type: ArticleType
   meta: ArticleMeta
   tag: [TagDocsItem]
   update_at: Date
@@ -72,5 +72,20 @@ type ArticleMeta {
   comments: Float
 }
 
+enum Publish {
+  PUBLIC
+  PRIVATE
+}
+
+enum ArticleType {
+  CODE
+  THINK
+  FOLK
+}
+
+enum ArticleState {
+  RELEASE
+  DRAFT
+}
 
 scalar ObjectID
