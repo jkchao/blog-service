@@ -13,7 +13,7 @@ import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { config } from '@/config';
 import { BlogLogger } from './module/common/logger/logger';
-import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

@@ -33,7 +33,7 @@ export class CommentsResolver {
 
     const result = await this.commentsServer.createComment({ ...info, ip });
 
-    const article = await this.articlesService.findOne({ id: info.post_id });
+    const article = await this.articlesService.findOneArticle({ id: info.post_id });
 
     if (article) {
       this.commentsServer.sendEmail(info, article._id);
@@ -47,9 +47,6 @@ export class CommentsResolver {
   @Mutation()
   @Permissions()
   public updateComment(@Args('commentInfo') info: UpdateCommentDto) {
-    if (info.state && ![0, 1, 2].includes(info.state)) {
-      throw new BadRequestException('state should in [0, 1, 2]');
-    }
     return this.commentsServer.updateComment(info);
   }
 

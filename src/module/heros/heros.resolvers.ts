@@ -49,15 +49,12 @@ export class HerosResolver {
       html: `<p> 来自 ${info.name} 的留言墙：${info.content}</p>`
     });
 
-    return { name: result.name, content: result.content, message: '数据提交成功，请等待审核' };
+    return { ...result, message: '数据提交成功，请等待审核' };
   }
 
   @Mutation()
   @Permissions()
   public updateHero(@Args('heroInfo') info: UpdateInfoDto) {
-    if (info.state && ![0, 1, 2].includes(info.state)) {
-      throw new BadRequestException('info state should in [0, 1, 2]');
-    }
     return this.herosService.updateHero(info);
   }
 }

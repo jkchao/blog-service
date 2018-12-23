@@ -1,0 +1,10 @@
+
+enum State {
+  TODO
+  SUCCESS
+  FAIL
+}
+
+type Message {
+  message: String
+}

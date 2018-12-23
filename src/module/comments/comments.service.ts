@@ -6,6 +6,7 @@ import { CommentInfoDto, QueryCommentDto, UpdateCommentDto } from './dto/comment
 import geoip from 'geoip-lite';
 import { EmailService } from '../common/email/email.service';
 import { ArticlesSercice } from '../articles/articles.service';
+import { StateEnum } from '@/common/enum/state';
 
 @Injectable()
 export class CommentsService {
@@ -38,7 +39,14 @@ export class CommentsService {
   }
 
   // 列表
-  public searchComments({ offset = 0, limit = 10, keyword = '', state = 0, sort = -1, post_id }: QueryCommentDto) {
+  public async searchComments({
+    offset = 0,
+    limit = 10,
+    keyword = '',
+    state = 0,
+    sort = -1,
+    post_id
+  }: QueryCommentDto) {
     const options: {
       sort: { _id?: number; likes?: number };
       offset: number;
@@ -76,7 +84,16 @@ export class CommentsService {
       const keywordReg = new RegExp(keyword);
       querys.$or = [{ content: keywordReg }, { 'author.name': keywordReg }, { 'author.email': keywordReg }];
     }
-    return this.commentsModel.paginate(querys, options);
+    const res = await this.commentsModel.paginate(querys, options);
+    return {
+      ...res,
+      docs: res.docs.map((doc: CommentMongo) => {
+        return {
+          ...doc._doc,
+          state: StateEnum[doc.state]
+        };
+      })
+    };
   }
 
   // 创建
@@ -89,7 +106,14 @@ export class CommentsService {
     }
     comment.likes = 0;
 
-    return await new this.commentsModel({ ...comment, state: 0 }).save();
+    const res = await new this.commentsModel({ ...comment, state: 0 }).save();
+
+    return (
+      res && {
+        ...res._doc,
+        state: StateEnum[res.state]
+      }
+    );
   }
 
   // 删除
@@ -130,11 +154,23 @@ export class CommentsService {
 
   // 更新
   public async updateComment(comment: UpdateCommentDto) {
-    return this.commentsModel.findOneAndUpdate({ _id: comment._id }, comment, { new: true });
+    const res = await this.commentsModel.findOneAndUpdate({ _id: comment._id }, comment, { new: true });
+    return (
+      res && {
+        ...res,
+        state: StateEnum[res.state]
+      }
+    );
   }
 
   // 获取单个 comment
   public async findComment(comment: Partial<CommentMongo>) {
-    return this.commentsModel.findOne(comment);
+    const res = await this.commentsModel.findOne(comment);
+    return (
+      res && {
+        ...res,
+        state: StateEnum[res.state]
+      }
+    );
   }
 }

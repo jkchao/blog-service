@@ -35,5 +35,5 @@ export class QueryArticleDto extends ArticleTransformDto {
   public keyword?: string;
   public date: string;
   public tag?: string;
-  public hot?: string;
+  public hot?: boolean;
 }

@@ -43,7 +43,7 @@ describe('comments', () => {
         .useValue(commentsService)
         .overrideProvider(ArticlesSercice)
         .useValue({
-          findOne() {
+          findOneArticle() {
             return { _id: '123' };
           }
         })

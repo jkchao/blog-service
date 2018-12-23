@@ -93,12 +93,13 @@ export class ArticlesSercice {
     };
   }
 
+  // 创建
   public async createArticle(info: ArticleInfoDto) {
-    const result = await new this.articlesModel(info).save();
+    const res = await new this.articlesModel(info).save();
     this.httpService
       .post(
         `http://data.zz.baidu.com/urls?site=${config.BAIDU_SITE}&token=${config.BAIDU_TOKEN}`,
-        `${config.SITE}/article/${result._id}`,
+        `${config.SITE}/article/${res._id}`,
         {
           headers: {
             'Content-Type': 'text/plain'
@@ -107,9 +108,17 @@ export class ArticlesSercice {
       )
       .toPromise()
       .then(res => this.logger.log);
-    return result;
+    return (
+      res && {
+        ...res,
+        publish: Publish[res.publish],
+        type: ArticleType[res.type],
+        state: ArticleState[res.state]
+      }
+    );
   }
 
+  // 修改
   public async updateArticleWidthId(info: ArticleInfoDto) {
     this.httpService
       .post(
@@ -125,7 +134,7 @@ export class ArticlesSercice {
       .then(res => {
         this.logger.log(res.data);
       });
-    const res = await this.articlesModel.findByIdAndUpdate(info._id, info, { new: true });
+    const res = await this.articlesModel.findOneAndUpdate({ _id: info._id }, info, { new: true });
     return (
       res && {
         ...res,
@@ -136,10 +145,12 @@ export class ArticlesSercice {
     );
   }
 
+  // 修改，没有返回
   public updateArticle(condition: any, doc?: any) {
     return this.articlesModel.update(condition, doc);
   }
 
+  // 根据 id 获取
   public async getArticleById(id: string) {
     const res = await this.articlesModel.findById(id).populate('tag');
     if (res) {
@@ -157,6 +168,7 @@ export class ArticlesSercice {
     );
   }
 
+  // 删除
   public deleteArticle(_id: string) {
     this.httpService
       .post(
@@ -172,9 +184,10 @@ export class ArticlesSercice {
       .then(res => {
         this.logger.log(res.data);
       });
-    return this.articlesModel.findByIdAndRemove(_id);
+    return this.articlesModel.findOneAndRemove({ _id });
   }
 
+  // 查找
   public async findOneArticle(info: Partial<ArticleMongo>) {
     const res = await this.articlesModel.findOne(info);
     return (
@@ -187,6 +200,7 @@ export class ArticlesSercice {
     );
   }
 
+  // 聚合
   public aggregate(aggregations: any[]) {
     return this.articlesModel.aggregate(aggregations);
   }

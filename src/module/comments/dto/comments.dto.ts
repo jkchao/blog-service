@@ -1,6 +1,8 @@
 import { Document } from 'mongoose';
+import { Transform } from 'class-transformer';
+import { StateDto } from '@/common/dto/state.dto';
 
-export class CommentInfoDto {
+export class CommentInfoDto extends StateDto {
   // tslint:disable-next-line:variable-name
   public post_id: number;
   public pid: number;
@@ -20,19 +22,17 @@ export class Author {
   public site: string;
 }
 
-export class QueryCommentDto {
+export class QueryCommentDto extends StateDto {
   public offset?: number;
   public limit?: number;
   public keyword?: string;
-  public state?: number;
   // tslint:disable-next-line:variable-name
   public post_id: number;
   public sort?: number;
 }
 
-export class UpdateCommentDto {
+export class UpdateCommentDto extends StateDto {
   public _id: string;
   public name?: string;
   public content?: string;
-  public state?: number;
 }

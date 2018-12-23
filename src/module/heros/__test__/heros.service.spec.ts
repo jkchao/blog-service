@@ -15,10 +15,10 @@ describe('hero', () => {
     public static paginate() {
       return {};
     }
-    public static findByIdAndUpdate() {
+    public static findOneAndUpdate() {
       return {};
     }
-    public static findByIdAndRemove() {
+    public static findOneAndRemove() {
       return {};
     }
 
@@ -57,12 +57,12 @@ describe('hero', () => {
   it('updateHero', async () => {
     const obj = {} as UpdateInfoDto;
     const res = await heorsService.updateHero(obj);
-    expect(res).toMatchObject(mockRepository.findByIdAndUpdate());
+    expect(res).toMatchObject({});
   });
 
   it('deleteHero', async () => {
     const res = await heorsService.deleteHero('12345');
-    expect(res).toMatchObject(mockRepository.findByIdAndRemove());
+    expect(res).toMatchObject({});
   });
 
   afterAll(async () => {

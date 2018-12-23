@@ -16,7 +16,7 @@ describe('comments', () => {
   // tslint:disable-next-line:class-name
   class mockRepository {
     public static paginate() {
-      return {};
+      return { docs: [] };
     }
     public static findOneAndRemove() {
       return {};

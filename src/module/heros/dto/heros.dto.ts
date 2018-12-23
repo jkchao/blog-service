@@ -1,14 +1,14 @@
-export class QueryHerosDto {
+import { StateDto } from '@/common/dto/state.dto';
+
+export class QueryHerosDto extends StateDto {
   public offset?: number;
   public limit?: number;
   public keyword?: string;
-  public state?: number;
 }
 
-export class HerosInfoDto {
+export class HerosInfoDto extends StateDto {
   public name?: string;
   public content?: string;
-  public state?: number;
   public ip?: string;
   public city?: string;
   public range?: number[];

@@ -3,7 +3,7 @@ type Query {
     offset: Float
     limit: Float
     keyword: String
-    state: Float
+    state: State
     post_id: Float,
     sort: Float
   ): Comments
@@ -17,7 +17,7 @@ type Mutation {
 }
 
 input CreateCommentInput {
-  post_id: ObjectID!
+  post_id: Float!
   pid: Float
   content: String!
   agent: String
@@ -28,7 +28,7 @@ input UpdateCommentInput {
   _id: ObjectID!
   name: String
   content: String
-  state: Float
+  state: State
 }
 
 type Comments {
@@ -44,7 +44,7 @@ type CommentDocsItem {
   post_id: ObjectID
   pid: Float
   content: String
-  state: Float
+  state: State
   likes: Float
   ip: String
   city: String

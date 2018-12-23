@@ -111,26 +111,6 @@ describe('hero', () => {
         .expect(200);
     });
 
-    it('updateHero error', () => {
-      return request(app.getHttpServer())
-        .post('/api/v2')
-        .send({
-          query: `
-          mutation {
-            updateHero(
-              heroInfo: {
-                _id: "5c19d8dddd5dcbabe25e0766",
-                state: 4
-              }
-            ) {
-              name
-            }
-          }
-          `
-        })
-        .expect(200);
-    });
-
     afterAll(async () => {
       await app.close();
       await mongoose.disconnect();

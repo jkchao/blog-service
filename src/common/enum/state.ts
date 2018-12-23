@@ -1,5 +1,5 @@
 export enum StateEnum {
   TODO,
-  AGREE,
-  REFLUSE
+  SUCCESS,
+  FAIL
 }

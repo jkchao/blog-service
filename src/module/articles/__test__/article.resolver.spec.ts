@@ -113,7 +113,7 @@ describe('article', () => {
               articleInfo: {
                 title: "z",
                 keyword: "z",
-                state: 1,
+                state: DRAFT,
                 _id: "5ae7d66df92cf8122fc0ca89",
               }
             ) {

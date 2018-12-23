@@ -52,6 +52,7 @@ type Articles {
 }
 
 type ArticleDocsItem {
+  id: Float
   _id: ObjectID!
   title: String
   keyword: String

@@ -4,13 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateOptions } from 'mongoose';
 import geoip from 'geoip-lite';
 import { QueryHerosDto, HerosInfoDto, UpdateInfoDto } from './dto/heros.dto';
+import { StateEnum } from '@/common/enum/state';
 
 @Injectable()
 export class HerosService {
   constructor(@InjectModel('Heros') private readonly herosModel: PaginateModel<HerosHasId>) {}
 
   // 添加
-  public createHero(hero: HerosInfoDto & { ip: string }) {
+  public async createHero(hero: HerosInfoDto & { ip: string }) {
     const ipLocation = geoip.lookup(hero.ip);
     if (ipLocation) {
       hero.city = ipLocation.city;
@@ -18,7 +19,14 @@ export class HerosService {
       hero.country = ipLocation.country;
     }
 
-    return new this.herosModel({ ...hero, state: 0 }).save();
+    const res = await new this.herosModel({ ...hero, state: 0 }).save();
+
+    return (
+      res && {
+        ...res._doc,
+        state: StateEnum[res.state]
+      }
+    );
   }
 
   // 查
@@ -39,12 +47,18 @@ export class HerosService {
   }
 
   // 修改
-  public updateHero(hero: UpdateInfoDto) {
-    return this.herosModel.findByIdAndUpdate(hero._id, hero, { new: true });
+  public async updateHero(hero: UpdateInfoDto) {
+    const res = await this.herosModel.findOneAndUpdate({ _id: hero._id }, hero, { new: true });
+    return (
+      res && {
+        ...res,
+        state: StateEnum[res.state]
+      }
+    );
   }
 
   // 删除
-  public deleteHero(id: string) {
-    return this.herosModel.findByIdAndRemove(id);
+  public deleteHero(_id: string) {
+    return this.herosModel.findOneAndRemove({ _id });
   }
 }
