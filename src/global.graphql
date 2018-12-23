@@ -1,4 +1,7 @@
 
+# TODO: email scalar
+
+
 enum State {
   TODO
   SUCCESS
