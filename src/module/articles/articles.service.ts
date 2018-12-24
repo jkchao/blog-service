@@ -82,7 +82,7 @@ export class ArticlesSercice {
     const res = await this.articlesModel.paginate(querys, options);
     return {
       ...res,
-      docs: res.docs.map((doc: ArticleMongo) => {
+      docs: res.docs.map(doc => {
         return {
           ...doc._doc,
           publish: Publish[doc.publish],
@@ -160,7 +160,7 @@ export class ArticlesSercice {
 
     return (
       res && {
-        ...res,
+        ...res._doc,
         publish: Publish[res.publish],
         type: ArticleType[res.type],
         state: ArticleState[res.state]
@@ -192,7 +192,7 @@ export class ArticlesSercice {
     const res = await this.articlesModel.findOne(info);
     return (
       res && {
-        ...res,
+        ...res._doc,
         publish: Publish[res.publish],
         type: ArticleType[res.type],
         state: ArticleState[res.state]

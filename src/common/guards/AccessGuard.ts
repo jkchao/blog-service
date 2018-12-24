@@ -22,7 +22,7 @@ export class AccessGuard implements CanActivate {
   }
 
   public canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    if (config.ENV === 'dev') return true;
+    if (config.ENV === 'development') return true;
 
     const ctx = GqlExecutionContext.create(context);
 
@@ -34,7 +34,7 @@ export class AccessGuard implements CanActivate {
 
     const request: Request = ctx.getContext();
 
-    if (request.url.includes('auth')) return true;
+    // if (request.url.includes('auth')) return true;
 
     const token = this.getToken(request);
     if (token) {

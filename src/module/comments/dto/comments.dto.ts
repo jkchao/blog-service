@@ -35,4 +35,5 @@ export class UpdateCommentDto extends StateDto {
   public _id: string;
   public name?: string;
   public content?: string;
+  public likes?: number;
 }

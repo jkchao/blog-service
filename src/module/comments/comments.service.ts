@@ -84,7 +84,7 @@ export class CommentsService {
     const res = await this.commentsModel.paginate(querys, options);
     return {
       ...res,
-      docs: res.docs.map((doc: CommentMongo) => {
+      docs: res.docs.map(doc => {
         return {
           ...doc._doc,
           state: StateEnum[doc.state]
@@ -152,9 +152,10 @@ export class CommentsService {
   // 更新
   public async updateComment(comment: UpdateCommentDto) {
     const res = await this.commentsModel.findOneAndUpdate({ _id: comment._id }, comment, { new: true });
+
     return (
       res && {
-        ...res,
+        ...res._doc,
         state: StateEnum[res.state]
       }
     );
@@ -165,7 +166,7 @@ export class CommentsService {
     const res = await this.commentsModel.findOne(comment);
     return (
       res && {
-        ...res,
+        ...res._doc,
         state: StateEnum[res.state]
       }
     );

@@ -43,7 +43,17 @@ export class HerosService {
       name: new RegExp(keyword || ''),
       state
     };
-    return this.herosModel.paginate(querys, options);
+    const res = await this.herosModel.paginate(querys, options);
+
+    return {
+      ...res,
+      docs: res.docs.map(doc => {
+        return {
+          ...doc._doc,
+          state: StateEnum[doc.state]
+        };
+      })
+    };
   }
 
   // 修改
@@ -51,7 +61,7 @@ export class HerosService {
     const res = await this.herosModel.findOneAndUpdate({ _id: hero._id }, hero, { new: true });
     return (
       res && {
-        ...res,
+        ...res._doc,
         state: StateEnum[res.state]
       }
     );

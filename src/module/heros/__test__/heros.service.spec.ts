@@ -13,7 +13,9 @@ describe('hero', () => {
   // tslint:disable-next-line:class-name
   class mockRepository {
     public static paginate() {
-      return {};
+      return {
+        docs: []
+      };
     }
     public static findOneAndUpdate() {
       return {};

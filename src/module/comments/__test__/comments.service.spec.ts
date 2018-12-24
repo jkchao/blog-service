@@ -125,7 +125,7 @@ describe('comments', () => {
 
   it('findComment', async () => {
     const res = await commentsService.findComment('12345');
-    expect(res).toMatchObject({ author: { name: '' } });
+    expect(res).toMatchObject({ state: undefined });
   });
 
   afterAll(async () => {
