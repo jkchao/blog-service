@@ -87,7 +87,7 @@ describe('articles', () => {
     const obj = ({
       keyword: 'hah',
       hot: true,
-      data: new Date(),
+      date: 1545641754197,
       type: 2,
       tag: '123456'
     } as unknown) as QueryArticleDto;

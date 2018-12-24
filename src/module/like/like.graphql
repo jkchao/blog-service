@@ -4,7 +4,12 @@ type Mutation {
 
 input LikeInput {
   _id: ObjectId!
-  type: Float!
+  type: LikeType!
+}
+
+enum LikeType {
+  Article
+  Comment
 }
 
 scalar ObjectId

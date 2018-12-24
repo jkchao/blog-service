@@ -68,12 +68,9 @@ export class CommentsService {
       state?: number;
       $or?: any;
       post_id?: number;
-    } = {};
-
-    // 查询各种状态
-    if ([0, 1, 2].includes(state)) {
-      querys.state = state;
-    }
+    } = {
+      state
+    };
 
     // 通过post-id过滤
     if (!Object.is(post_id, undefined)) {

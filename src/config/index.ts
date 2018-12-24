@@ -223,6 +223,6 @@ export class ConfigService {
   }
 }
 
-const config = new ConfigService(path.resolve(__dirname, `${process.env.NODE_ENV}.env`));
+const config = new ConfigService(path.resolve(__dirname, `.env.${process.env.NODE_ENV}`));
 
 export { config };

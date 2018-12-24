@@ -73,7 +73,7 @@ describe('tag', () => {
 
   it('searchTags', async () => {
     const obj = {} as QueryTagsDto;
-    const res = await tagsService.searchTags(obj, true);
+    const res = await tagsService.searchTags(obj, false);
     expect(res).toMatchObject({});
   });
 

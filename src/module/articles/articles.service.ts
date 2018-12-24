@@ -73,7 +73,7 @@ export class ArticlesSercice {
       }
     }
 
-    if (type && [1, 2, 3].includes(type)) {
+    if (type) {
       querys.type = type;
     }
 
