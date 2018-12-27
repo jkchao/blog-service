@@ -110,7 +110,7 @@ export class ArticlesSercice {
       .then(res => this.logger.log);
     return (
       res && {
-        ...res,
+        ...res._doc,
         publish: Publish[res.publish],
         type: ArticleType[res.type],
         state: ArticleState[res.state]
@@ -137,7 +137,7 @@ export class ArticlesSercice {
     const res = await this.articlesModel.findOneAndUpdate({ _id: info._id }, info, { new: true });
     return (
       res && {
-        ...res,
+        ...res._doc,
         publish: Publish[res.publish],
         type: ArticleType[res.type],
         state: ArticleState[res.state]

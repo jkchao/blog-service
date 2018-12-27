@@ -1,9 +1,7 @@
 import Mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
 import autoIncrement from 'mongoose-auto-increment';
-import { config } from '@/config';
-
-const connection = Mongoose.createConnection(config.MONGO_URL);
+import { connection } from '@/module/common/db';
 
 autoIncrement.initialize(connection);
 
