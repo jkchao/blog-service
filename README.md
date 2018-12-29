@@ -47,3 +47,29 @@ $ npm run debug
 ### deploy
 
 ...
+
+## 性能调优
+
+```bash
+# 安装 clinic
+$ npm i -g clinic
+
+# 安装压力测试工具
+$ npm i -g autocannon
+
+# 在检查之前，先 build 出来
+$ npm run build:stage
+
+# run
+$ npm run performance
+```
+
+你可以选择 doctor/IO/flame 选项，然后输入需要检查的接口;
+
+稍等片刻，会生成新的报告。
+
+参考：
+
+- [node-clinic](https://github.com/nearform/node-clinic);
+- [autocannon](https://github.com/mcollina/autocannon);
+- 数据分析文档：[clinic](https://clinicjs.org/documentation);
