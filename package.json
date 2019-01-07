@@ -14,7 +14,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:unit": "cross-env NODE_ENV=development jest --coverage  --config ./jest-unit.config.js && npm run codecov",
-    "test:e2e": "jest  --config ./jest-e2e.config.js",
     "webpack": "webpack --config webpack.config.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "precommit": "lint-staged",
