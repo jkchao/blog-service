@@ -32,6 +32,7 @@ type Links {
 }
 
 type DocsItem {
+  _id: ObjectID
   url: String
   name: String
 }
