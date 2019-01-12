@@ -16,7 +16,7 @@ export class LinksService {
   public searchLink(query: LinksQuery) {
     // 过滤条件
     const options = {
-      sort: { id: 1 },
+      sort: { id: -1 },
       offset: Number(query.offset || 0),
       limit: Number(query.limit || 10)
     };

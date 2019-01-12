@@ -10,12 +10,12 @@ type Query {
     hot: Float
     tag: String
   ): Articles
-  getArticleById(_id: ObjectID): ArticleDocsItem
+  getArticleById(_id: ObjectID): ArticlesItem
 }
 
 type Mutation {
-  createArticle(articleInfo: CreateArticleInput!): ArticleDocsItem
-  updateArticle(articleInfo: UpdateArticleInput!): ArticleDocsItem
+  createArticle(articleInfo: CreateArticleInput!): ArticlesItem
+  updateArticle(articleInfo: UpdateArticleInput!): ArticlesItem
   deleteArticle(_id: ObjectID!): Message
 }
 
@@ -48,10 +48,10 @@ type Articles {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [ArticleDocsItem]
+  docs: [ArticlesItem]
 }
 
-type ArticleDocsItem {
+type ArticlesItem {
   id: Float
   _id: ObjectID!
   title: String
@@ -62,7 +62,7 @@ type ArticleDocsItem {
   thumb: String
   type: ArticleType
   meta: ArticleMeta
-  tag: [TagDocsItem]
+  tag: [TagsItem]
   update_at: Date
   create_at: Date
 }

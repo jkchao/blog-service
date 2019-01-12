@@ -9,8 +9,8 @@ type Query {
 
 type Mutation {
   sortTag(ids: [ObjectID]!): Message
-  createTag(tagInfo: CreateTagInput!): TagDocsItem
-  updateTag(tagInfo: UpdateTagInput!): TagDocsItem
+  createTag(tagInfo: CreateTagInput!): TagsItem
+  updateTag(tagInfo: UpdateTagInput!): TagsItem
   deleteTag(_id: ObjectID!): Message
 }
 
@@ -29,10 +29,10 @@ type Tags {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [TagDocsItem]
+  docs: [TagsItem]
 }
 
-type TagDocsItem {
+type TagsItem {
   _id: ObjectID!
   id: Float
   name: String

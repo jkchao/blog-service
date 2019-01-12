@@ -11,8 +11,8 @@ type Query {
 
 
 type Mutation {
-  createComment(commentInfo: CreateCommentInput!): CommentDocsItem
-  updateComment(commentInfo: UpdateCommentInput!): CommentDocsItem
+  createComment(commentInfo: CreateCommentInput!): CommentsItem
+  updateComment(commentInfo: UpdateCommentInput!): CommentsItem
   deleteComment(_id: ObjectID! post_id: ObjectID!): Message
 }
 
@@ -35,10 +35,10 @@ type Comments {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [CommentDocsItem]
+  docs: [CommentsItem]
 }
 
-type CommentDocsItem {
+type CommentsItem {
   id: Float
   _id: ObjectID
   post_id: ObjectID

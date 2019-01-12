@@ -9,8 +9,8 @@ type Query {
 
 
 type Mutation {
-  createHero(heroInfo: CreateHeroInput!): HeroDocsItem
-  updateHero(heroInfo: UpdateHeroInput!): HeroDocsItem
+  createHero(heroInfo: CreateHeroInput!): HerosItem
+  updateHero(heroInfo: UpdateHeroInput!): HerosItem
   deleteHero(_id: ObjectID!): Message
 }
 
@@ -31,10 +31,10 @@ type Heros {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [HeroDocsItem]
+  docs: [HerosItem]
 }
 
-type HeroDocsItem {
+type HerosItem {
   _id: ObjectID
   state: State
   content: String
