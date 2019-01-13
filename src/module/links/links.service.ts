@@ -29,11 +29,11 @@ export class LinksService {
 
   // 修改
   public updateLink(link: LinksMongo) {
-    return this.linksModel.findByIdAndUpdate(link.id, link, { new: true });
+    return this.linksModel.findOneAndUpdate({ _id: link._id }, link, { new: true });
   }
 
   // 删除
-  public deleteLink(id: string) {
-    return this.linksModel.findByIdAndRemove(id);
+  public deleteLink(_id: string) {
+    return this.linksModel.findOneAndRemove({ _id });
   }
 }

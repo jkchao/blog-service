@@ -19,7 +19,7 @@ input CreateInfoInput {
 }
 
 input UpdateInfoInput {
-  _id: ObjectID
+  _id: ObjectID!
   name: String
   url: String
 }
