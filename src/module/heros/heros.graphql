@@ -40,6 +40,11 @@ type HerosItem {
   content: String
   name: String
   message: String
+  ip: String
+  agent: String
+  city: String
+  country: String
+  range: String
   update_at: Date
   create_at: Date
 }
