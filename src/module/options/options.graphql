@@ -18,11 +18,11 @@ type Options {
   email: String
   icp: String
   meta: Meta
-  update_time: Date
+  update_at: Date
 }
 
 input OptionsInput {
-  _id: ObjectId
+  _id: ObjectId!
   title: String
   sub_title: String
   keyword: String
