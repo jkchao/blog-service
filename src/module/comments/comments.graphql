@@ -13,7 +13,7 @@ type Query {
 type Mutation {
   createComment(commentInfo: CreateCommentInput!): CommentsItem
   updateComment(commentInfo: UpdateCommentInput!): CommentsItem
-  deleteComment(_id: ObjectID! post_id: ObjectID!): Message
+  deleteComment(_id: ObjectID! post_id: Float!): Message
 }
 
 input CreateCommentInput {
@@ -29,6 +29,7 @@ input UpdateCommentInput {
   name: String
   content: String
   state: State
+  author: AuthorInput
 }
 
 type Comments {
