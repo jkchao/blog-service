@@ -19,6 +19,7 @@ before_script:
 
 script:
   - npm run test:unit
+  - npm run codecov
 
 services:
   - mongodb
