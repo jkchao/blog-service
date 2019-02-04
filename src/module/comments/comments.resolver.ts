@@ -52,7 +52,7 @@ export class CommentsResolver {
 
   @Mutation()
   @Permissions()
-  public async deleteComment(@Args('_id') _id: string, @Args('post_ids') postIds: number) {
+  public async deleteComment(@Args('_id') _id: string, @Args('post_id') postIds: number) {
     await this.commentsServer.deleteComment(_id);
     const ids = Array.of(postIds);
     await this.commentsServer.updateArticleCommentCount(ids);

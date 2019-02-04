@@ -73,7 +73,7 @@ describe('comments', () => {
         .send({
           query: `
           mutation  {
-            deleteComment(_id: "59ef13f0a3ad094f5d294da3", post_id: "59ef13f0a3ad094f5d294da3") {
+            deleteComment(_id: "59ef13f0a3ad094f5d294da3", post_id: 1) {
               message
             }
           }

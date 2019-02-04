@@ -15,10 +15,10 @@ describe('link', () => {
     public static paginate() {
       return {};
     }
-    public static findByIdAndUpdate() {
+    public static findOneAndUpdate() {
       return {};
     }
-    public static findByIdAndRemove() {
+    public static findOneAndRemove() {
       return {};
     }
 
@@ -58,12 +58,12 @@ describe('link', () => {
   it('updateLink', async () => {
     const obj = {} as LinksMongo;
     const res = await linksService.updateLink(obj);
-    expect(res).toMatchObject(mockRepository.findByIdAndUpdate());
+    expect(res).toMatchObject({});
   });
 
   it('deleteLink', async () => {
     const res = await linksService.deleteLink('12345');
-    expect(res).toMatchObject(mockRepository.findByIdAndRemove());
+    expect(res).toMatchObject({});
   });
 
   afterAll(async () => {
