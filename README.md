@@ -20,10 +20,10 @@ NestJS + MongoDB + Redis + Docker + GraphQL
 docker-compose -f docker-compose.dev.yml up
 
 # stop
-docker-compose -f docker-compose.dev.yml down
+# docker-compose -f docker-compose.dev.yml down
 
 # remove volume/cache
-docker-compose -f docker-compose.dev.yml down -v
+# docker-compose -f docker-compose.dev.yml down -v
 
 # install
 $ npm install
