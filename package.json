@@ -19,11 +19,6 @@
     "precommit": "lint-staged",
     "codecov": "codecov"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,json,ts,css,md}": [
       "prettier --write",
@@ -72,6 +67,8 @@
     "rxjs-compat": "^6.3.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-angular": "^7.5.0",
     "@nestjs/testing": "^5.3.1",
     "@types/compression": "0.0.36",
     "@types/dotenv": "^4.0.3",
