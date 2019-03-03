@@ -17,13 +17,13 @@ NestJS + MongoDB + Redis + Docker + GraphQL
 # Setup mongodb and redis
 
 # start
-docker-compose -f docker-compose.dev.yml up
+docker-compose -f docker-compose.dev.yml up -d
 
 # stop
-docker-compose -f docker-compose.dev.yml down
+# docker-compose -f docker-compose.dev.yml down
 
 # remove volume/cache
-docker-compose -f docker-compose.dev.yml down -v
+# docker-compose -f docker-compose.dev.yml down -v
 
 # install
 $ npm install
