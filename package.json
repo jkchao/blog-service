@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=production node --harmony index.js",
     "dev": "nodemon --exec \"NODE_ENV=development node --harmony index.js\"",
-    "updatedb": "node ./node_modules/geoip-lite/scripts/updatedb.js"
+    "updatedb": "node ./node_modules/geoip-lite/scripts/updatedb.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -44,5 +45,8 @@
     "request": "^2.83.0",
     "simple-netease-cloud-music": "^0.1.8",
     "yargs": "^8.0.2"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }
