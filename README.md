@@ -1,5 +1,7 @@
 # NODE-KOA
 
+[![Build Status](https://travis-ci.org/jkchao/blog-service.svg?branch=v2.0)](https://travis-ci.org/jkchao/blog-service)
+
 *使用 TypeScript 升级中*
 
 *可查看分支：https://github.com/jkchao/node-koa/tree/TS*
