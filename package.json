@@ -31,7 +31,7 @@
     "@nestjs/graphql": "^5.4.0",
     "@nestjs/mongoose": "^5.2.2",
     "apollo-server-express": "^2.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.18.3",
     "cache-manager": "^2.9.0",
     "cache-manager-redis-store": "^1.5.0",
