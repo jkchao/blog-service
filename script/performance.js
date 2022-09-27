@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-
+const a = 10;
 program.version(appInfo.version).usage(`进行性能检查的工具，利用 ${chalk.cyan.bold.underline('clinic')}`);
 
 program
