@@ -91,20 +91,20 @@
     "cross-env": "^5.2.0",
     "husky": "^1.0.0-rc.13",
     "istanbul": "^0.4.5",
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "lint-staged": "^7.2.2",
     "mockgoose-fix": "^7.3.6",
     "nodemon": "^1.14.1",
     "prettier": "^1.14.2",
     "supertest": "^3.3.0",
-    "ts-jest": "^21.2.4",
+    "ts-jest": "^29.0.3",
     "ts-loader": "^4.1.0",
     "ts-node": "^4.1.0",
     "tsconfig-paths": "^3.6.0",
     "tslint": "5.3.2",
     "typescript": "^2.9.2",
     "webpack": "^4.2.0",
-    "webpack-cli": "^2.0.13",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^1.6.0"
   }
 }
